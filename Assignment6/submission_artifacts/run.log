@@ -1,0 +1,30 @@
+[  0.001s] shards created
+[  0.057s]   documents=73 shards=24 admitted=24
+[  0.057s]   tokenizer_hash=2f67b39556641089 vocab=171
+[  0.057s] [PASS] tokenizer_hash_verified 2f67b39556641089
+[  0.057s] manifests validated
+[  0.057s] evaluation data blocked
+[  0.057s] [PASS] eval_shard_blocked plants=['canary', 'eval_item', 'exact_dup', 'language', 'license', 'near_dup', 'ngram_containment', 'pii', 'repeat_ngram', 'validation']
+[  0.058s] mixture compiled
+[  0.077s] batches packed
+[  0.135s] [PASS] packing_masks_correct
+[  0.135s] anneal vault sealed against non-anneal stages: True
+[  0.542s] [PASS] checkpoint_saved step_0016_run-a.json
+[  0.545s] OPUS decisions recorded
+[  0.545s]   steps_before_crash=16 preview_hash=eb5413109fc5bb14
+[  0.545s] crash simulated
+[  0.550s] run resumed
+[  0.577s] [PASS] resume_next_batch_matched hash=eb5413109fc5bb14 world 2->4
+[  1.109s] shadow never-crashed batch at step 16: match=True
+[  1.111s] historical stream replayed
+[  1.204s] [PASS] replay_hash_matched steps 8-11
+[  1.204s] branch forked
+[  1.301s]   fork diverged=True (expected: opus_disabled changes selection)
+[  1.301s] audit completed
+[  1.304s]   OPUS statuses=['accepted', 'deferred', 'protected_override', 'rejected'] n=272
+[  1.320s] performance measured
+[  1.320s]   useful=4689 pad=0 util=1.000 useful/s=8199.9
+[  1.391s] checkpoint corruption controls refused=9/9
+[  1.519s] automated tests
+[  1.577s] [PASS] invariants ran=21
+[  1.577s] demo PASSED in 1.58s

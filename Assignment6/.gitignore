@@ -6,6 +6,7 @@ venv/
 .pytest_cache/
 .mypy_cache/
 .DS_Store
-submission_artifacts/
+submission_artifacts/*
+!submission_artifacts/run.log
 *.npz
 *.pyc
