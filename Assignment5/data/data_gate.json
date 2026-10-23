@@ -1,0 +1,92 @@
+[
+  {
+    "lane": "indic A escrow (verified)",
+    "required": 15.0,
+    "raw": 66.5462,
+    "documented": 66.5462,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 15.0
+  },
+  {
+    "lane": "indic A main (verified)",
+    "required": 36.5462,
+    "raw": 51.5462,
+    "documented": 51.5462,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 36.5462
+  },
+  {
+    "lane": "indic B unverified",
+    "required": 45.2077,
+    "raw": 45.2077,
+    "documented": 45.2077,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 45.2077
+  },
+  {
+    "lane": "indic C parallel",
+    "required": 6.8,
+    "raw": 6.8,
+    "documented": 6.8,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 6.8
+  },
+  {
+    "lane": "indic D synthetic native",
+    "required": 81.35395,
+    "raw": 81.35395,
+    "documented": 81.35395,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 81.35395
+  },
+  {
+    "lane": "agentic real trajectories",
+    "required": 0.36,
+    "raw": 0.36,
+    "documented": 0.36,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 0.36
+  },
+  {
+    "lane": "agentic short FC",
+    "required": 0.267,
+    "raw": 0.267,
+    "documented": 0.267,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 0.267
+  },
+  {
+    "lane": "reason PT main",
+    "required": 69.1,
+    "raw": 69.1,
+    "documented": 69.1,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 69.1
+  },
+  {
+    "lane": "reason anneal escrow",
+    "required": 8.0,
+    "raw": 8.0,
+    "documented": 8.0,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 8.0
+  },
+  {
+    "lane": "reason SFT holdout",
+    "required": 8.0,
+    "raw": 8.0,
+    "documented": 8.0,
+    "cleaned": 0.0,
+    "eligible": 0.0,
+    "shortfall": 8.0
+  }
+]

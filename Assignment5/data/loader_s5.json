@@ -1,0 +1,24 @@
+{
+  "stages": [
+    "S5 anneal"
+  ],
+  "allowed_shard_ids": [
+    "escrow.indic.tier-a.v1",
+    "escrow.reason.aon-long.v1",
+    "escrow.agentic.swe-gym.v1",
+    "escrow.agentic.swe-smith.v1",
+    "escrow.agentic.openhands.v1"
+  ],
+  "allowed_shard_prefixes": [
+    "escrow/",
+    "web/",
+    "code/",
+    "stem/",
+    "indic/",
+    "reason/",
+    "longctx/"
+  ],
+  "forbidden_shard_prefixes": [
+    "holdout/sft/"
+  ]
+}

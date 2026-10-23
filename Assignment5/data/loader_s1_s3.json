@@ -1,0 +1,36 @@
+{
+  "stages": [
+    "S1 seed",
+    "S2 general",
+    "S3 reason/code",
+    "S4 long-ctx"
+  ],
+  "allowed_shard_prefixes": [
+    "web/",
+    "code/",
+    "stem/",
+    "indic/sangraha/unverified",
+    "indic/sangraha/verified/",
+    "indic/sangraha/synthetic",
+    "indic/indiccorpv2/",
+    "indic/bpcc/",
+    "reason/aon-pt/",
+    "reason/openthoughts",
+    "reason/openmath",
+    "reason/openr1",
+    "reason/numina",
+    "agentic/fc/",
+    "longctx/"
+  ],
+  "forbidden_shard_prefixes": [
+    "escrow/",
+    "holdout/sft/"
+  ],
+  "forbidden_shard_ids": [
+    "escrow.indic.tier-a.v1",
+    "escrow.reason.aon-long.v1",
+    "escrow.agentic.swe-gym.v1",
+    "escrow.agentic.swe-smith.v1",
+    "escrow.agentic.openhands.v1"
+  ]
+}

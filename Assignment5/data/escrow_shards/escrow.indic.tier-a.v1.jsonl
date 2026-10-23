@@ -1,0 +1,1 @@
+{"fixture": true, "lane": "indic", "note": "verified Indic quality partition, disjoint from main-run remainder", "shard_id": "escrow.indic.tier-a.v1", "unique_tokens_b": 15.0, "warning": "Audit fixture. Not production tokens."}

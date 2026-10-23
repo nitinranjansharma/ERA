@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "epoch_cap": 4.0,
+  "shards": [
+    {
+      "shard_id": "escrow.indic.tier-a.v1",
+      "path": "data/escrow_shards/escrow.indic.tier-a.v1.jsonl",
+      "sha256": "5c568771f6c166ea2ef962468eb13a3f182bb4892de068dfbcd93b995a42f80e",
+      "unique_tokens_b": 15.0,
+      "lane": "indic",
+      "allowed_stages": [
+        "S5 anneal"
+      ],
+      "forbidden_stages": [
+        "S1 seed",
+        "S2 general",
+        "S3 reason/code",
+        "S4 long-ctx"
+      ]
+    },
+    {
+      "shard_id": "escrow.reason.aon-long.v1",
+      "path": "data/escrow_shards/escrow.reason.aon-long.v1.jsonl",
+      "sha256": "48d1c4043a933ae097e14bf616ac2353e910e3a20be73d9131a766934554fe42",
+      "unique_tokens_b": 8.0,
+      "lane": "reason",
+      "allowed_stages": [
+        "S5 anneal"
+      ],
+      "forbidden_stages": [
+        "S1 seed",
+        "S2 general",
+        "S3 reason/code",
+        "S4 long-ctx"
+      ]
+    },
+    {
+      "shard_id": "escrow.agentic.swe-gym.v1",
+      "path": "data/escrow_shards/escrow.agentic.swe-gym.v1.jsonl",
+      "sha256": "9cd0c8a561f6687cec252146c320b74f83cb08892eb246c42c8ce4b71581adb6",
+      "unique_tokens_b": 0.15,
+      "lane": "agentic",
+      "allowed_stages": [
+        "S5 anneal"
+      ],
+      "forbidden_stages": [
+        "S1 seed",
+        "S2 general",
+        "S3 reason/code",
+        "S4 long-ctx"
+      ]
+    },
+    {
+      "shard_id": "escrow.agentic.swe-smith.v1",
+      "path": "data/escrow_shards/escrow.agentic.swe-smith.v1.jsonl",
+      "sha256": "08d3e4f39f34d368ae5cd986461daa6323ae53b8d87613f945583cbad4682a0f",
+      "unique_tokens_b": 0.12,
+      "lane": "agentic",
+      "allowed_stages": [
+        "S5 anneal"
+      ],
+      "forbidden_stages": [
+        "S1 seed",
+        "S2 general",
+        "S3 reason/code",
+        "S4 long-ctx"
+      ]
+    },
+    {
+      "shard_id": "escrow.agentic.openhands.v1",
+      "path": "data/escrow_shards/escrow.agentic.openhands.v1.jsonl",
+      "sha256": "f73049d63059c5bbea8e46411700ff2b4ea92a4c329f23e4f0d00b47ff9193ce",
+      "unique_tokens_b": 0.09,
+      "lane": "agentic",
+      "allowed_stages": [
+        "S5 anneal"
+      ],
+      "forbidden_stages": [
+        "S1 seed",
+        "S2 general",
+        "S3 reason/code",
+        "S4 long-ctx"
+      ]
+    }
+  ],
+  "scheduled_s4_b": {
+    "indic": 12.600000000000001,
+    "reason": 16.2,
+    "agentic": 7.2
+  },
+  "unique_b": {
+    "indic": 15.0,
+    "reason": 8.0,
+    "agentic": 0.36
+  },
+  "note": "S1\u2013S3 physically cannot name these shard IDs; the loader config is the lock."
+}

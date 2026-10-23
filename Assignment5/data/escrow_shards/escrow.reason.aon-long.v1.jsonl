@@ -1,0 +1,1 @@
+{"fixture": true, "lane": "reason", "note": "long verified traces, disjoint from PT-main and SFT holdout", "shard_id": "escrow.reason.aon-long.v1", "unique_tokens_b": 8.0, "warning": "Audit fixture. Not production tokens."}

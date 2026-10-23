@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharat-40B: Data & Sourcing Architecture Blueprint</title>
+  <style>
+    :root { --primary: #1e3a8a; --accent: #2563eb; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --subtext: #475569; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); margin: 0; padding: 2rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { color: var(--primary); border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; font-size: 2.25rem; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--subtext); font-size: 1.1rem; margin-bottom: 2rem; font-weight: 500; }
+    h2 { color: var(--accent); font-size: 1.5rem; margin-top: 0; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .card { background: var(--card); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); margin-bottom: 2rem; border: 1px solid #e2e8f0; }
+    ul { padding-left: 1.5rem; margin-top: 0.5rem; }
+    li { margin-bottom: 0.75rem; }
+    .highlight { font-weight: 600; color: #047857; background: #d1fae5; padding: 0.1rem 0.4rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Project Bharat-40B Blueprint</h1>
+    <div class="subtitle">Architecture, Data, and Evaluation Protocol for a 40B India-First Frontier Model</div>
+
+    <div class="card">
+      <h2>1. Defensible Training-Token Budget</h2>
+      <p>A target of 1.5T tokens provides a base-case assumption of 37.5 training tokens per parameter. However, a strict token budget cannot be set by parameter count alone. Our final budget is derived dynamically:</p>
+      <ul>
+        <li><strong>Proxy Ablations:</strong> We run proxy experiments at 2B and 7B scale, testing 1T, 1.5T, and 2T+ equivalent token budgets to map the efficiency curve against our target compute budget.</li>
+        <li><strong>Unique vs. Consumed Tokens:</strong> We strictly distinguish between unique tokens in the dataset and tokens actually consumed. While general web data receives a single pass, high-quality subsets (mathematics, dense Indic corpora) utilize up to 4 repeated passes to extract maximum marginal value without crossing into wasted compute.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>2. The "India-First" Capability Strategy</h2>
+      <p>An India-first model requires epistemic grounding, not just linguistic translation. We design the corpus to reflect multiple, appropriately licensed regional viewpoints rather than encoding a single perspective as objective truth.</p>
+      <ul>
+        <li><strong>Core Domains:</strong> Deep ingestion of Indian history, geography, law (BNS, Constitution), public services (Aadhaar, UPI), education (NCERT, NPTEL), agriculture, healthcare, and localized economic/social contexts.</li>
+        <li><strong>Language Tiers:</strong>
+          <ul>
+            <li><em>Primary Focus:</em> Hindi, Bengali, Telugu, Marathi, Tamil, and Urdu (ensuring deep syntactic mastery).</li>
+            <li><em>Evaluation & Expansion:</em> Gujarati, Kannada, Malayalam, Punjabi, Odia, and Assamese—scaled based on the availability of high-quality, non-machine-translated data.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>3. Precision Extraction & Deduplication</h2>
+      <p>Standard web-scraping destroys Indic morphology, code indentation, and logical structure.</p>
+      <ul>
+        <li><strong>Extraction:</strong> We utilize structured main-content parsing, deploying headless browser rendering specifically for JavaScript-dependent pages. We enforce careful Unicode normalization (NFC) to preserve Indic text and formatting, deliberately stripping boilerplate, cookie banners, and spam.</li>
+        <li><strong>Staged Deduplication:</strong> We reject naive global deduplication, which often deletes superior recent text. Instead, we use: 
+          1) Exact hashing, 2) Normalized hashes, 3) Near-duplicate MinHash matching, and 4) Quality-aware selection across snapshots to retain the <span class="highlight">best representative copy</span>, rather than defaulting to the oldest.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>4. Post-Training & Alignment Pipeline</h2>
+      <p>We replace generic synthetic generation with a strict, multi-stage supervised and reinforcement learning pipeline:</p>
+      <ul>
+        <li><strong>Supervised Fine-Tuning (SFT):</strong> Focused on instruction-following, multilingual conversations, tool-use traces, and multi-step agent trajectories.</li>
+        <li><strong>Preference Optimization (DPO):</strong> Chosen/rejected response pairs rigorously ranked on correctness, groundedness in Indian context, instruction compliance, and tool-use quality.</li>
+        <li><strong>Reinforcement Learning (RLVR / GRPO):</strong> Driven by verifiable rewards. We use executable code tests (pass@k), mathematical verifiers, structured JSON tool-call checks, and multi-step task success.</li>
+        <li><strong>Safeguards:</strong> Implementation of strict length penalties (to prevent reward hacking), invalid trace filtering, and aggressive decontamination of synthetic solutions.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>5. Empirical Tokenizer Design</h2>
+      <p>Token fertility numbers (e.g., 1.10 for code) are not universal properties; they are dependent on the tokenizer array and corpus. We do not assume a "sweet spot".</p>
+      <ul>
+        <li><strong>Candidate Training:</strong> We train candidate tokenizers across vocabulary sizes of 64k, 96k, 128k, and 160k.</li>
+        <li><strong>Evaluation Metrics:</strong> Candidates are benchmarked against representative held-out corpora measuring:
+          <ul>
+            <li>Tokens per word (for Indic and English natural language).</li>
+            <li>Tokens per byte/character (for Code and Mathematics).</li>
+            <li>Resulting bytes or semantic content represented per token.</li>
+          </ul>
+        </li>
+        <li><strong>Cost/Benefit Analysis:</strong> The final vocabulary size is selected by balancing compression ratio and downstream proxy task performance against the parameter cost of the embedding and output layers, as well as byte-fallback behavior for unknown characters.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>6. Evaluation & Selection Integrity</h2>
+      <p>A held-out set that continuously influences data selection becomes silently overfit. We enforce strict boundary definitions:</p>
+      <ul>
+        <li><strong>Three-Tier Segregation:</strong>
+          1) Training data and permitted benchmark familiarization splits. 
+          2) A distinct Development/Proxy set used strictly for tuning recipes and thresholds. 
+          3) An <span class="highlight">immutable final test set</span> used only once for final model evaluation.
+        </li>
+        <li><strong>Contamination Defense:</strong> Implementation of exact, fuzzy (n-gram), and semantic embedding contamination checks, alongside rigorous temporal (date-cutoff) and source-based splits to guarantee evaluation integrity.</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

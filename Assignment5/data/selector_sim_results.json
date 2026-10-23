@@ -1,0 +1,519 @@
+{
+  "summary": {
+    "english": {
+      "S1 seed": {
+        "ok": true,
+        "share": {
+          "web": 55.6,
+          "code": 14.425,
+          "reason": 1.925,
+          "longctx": 0.175,
+          "indic": 16.975,
+          "stem": 8.9,
+          "agentic": 2.0
+        },
+        "target": {
+          "web": 55.60165273903261,
+          "code": 14.42633509333347,
+          "reason": 1.924187587522547,
+          "longctx": 0.17752469273746613,
+          "indic": 16.974466939082255,
+          "stem": 8.898836837811395,
+          "agentic": 1.9969961104802607
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 810,
+          "web": 3384,
+          "longctx": 3,
+          "indic": 1025,
+          "agentic": 120,
+          "reason": 122,
+          "stem": 536
+        }
+      },
+      "S2 general": {
+        "ok": true,
+        "share": {
+          "web": 45.1,
+          "code": 19.125,
+          "reason": 4.775,
+          "longctx": 0.425,
+          "indic": 16.825,
+          "stem": 11.775,
+          "agentic": 1.975
+        },
+        "target": {
+          "web": 45.12304905666551,
+          "code": 19.07900251062126,
+          "reason": 4.771427511180628,
+          "longctx": 0.44020978429241336,
+          "indic": 16.836703254082078,
+          "stem": 11.768819265030801,
+          "agentic": 1.980788618127313
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1096,
+          "web": 2753,
+          "longctx": 36,
+          "indic": 1009,
+          "agentic": 119,
+          "reason": 272,
+          "stem": 715
+        }
+      },
+      "S3 reason/code": {
+        "ok": true,
+        "share": {
+          "web": 25.35,
+          "code": 31.325,
+          "reason": 14.2,
+          "longctx": 0.0,
+          "indic": 14.05,
+          "stem": 13.575,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 28.17790723768478,
+          "code": 26.807016411448842,
+          "reason": 12.450490396831865,
+          "longctx": 0.8835974750954264,
+          "indic": 16.897475947917485,
+          "stem": 12.795574184207773,
+          "agentic": 1.9879383468138176
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1412,
+          "stem": 715,
+          "web": 1859,
+          "longctx": 91,
+          "indic": 1163,
+          "agentic": 139,
+          "reason": 621
+        }
+      },
+      "S4 long-ctx": {
+        "ok": true,
+        "share": {
+          "web": 18.05,
+          "code": 35.25,
+          "reason": 13.85,
+          "longctx": 3.725,
+          "indic": 14.75,
+          "stem": 12.875,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 20.70185615490794,
+          "code": 29.54202700422056,
+          "reason": 11.82096519400385,
+          "longctx": 6.361815844054487,
+          "indic": 17.38002609298692,
+          "stem": 12.148600757710145,
+          "agentic": 2.0447089521161033
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1557,
+          "stem": 699,
+          "web": 1369,
+          "longctx": 477,
+          "indic": 1166,
+          "agentic": 142,
+          "reason": 590
+        }
+      },
+      "S5 anneal": {
+        "ok": true,
+        "share": {
+          "web": 8.0,
+          "code": 22.875,
+          "reason": 20.1,
+          "longctx": 6.0,
+          "indic": 25.975,
+          "stem": 9.05,
+          "agentic": 8.0
+        },
+        "target": {
+          "web": 8.0,
+          "code": 20.0,
+          "reason": 18.0,
+          "longctx": 8.0,
+          "indic": 28.0,
+          "stem": 10.0,
+          "agentic": 8.0
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1156,
+          "stem": 626,
+          "web": 466,
+          "longctx": 574,
+          "indic": 1708,
+          "agentic": 496,
+          "reason": 974
+        }
+      }
+    },
+    "balanced": {
+      "S1 seed": {
+        "ok": true,
+        "share": {
+          "web": 55.6,
+          "code": 14.425,
+          "reason": 1.925,
+          "longctx": 0.175,
+          "indic": 16.975,
+          "stem": 8.9,
+          "agentic": 2.0
+        },
+        "target": {
+          "web": 55.60165273903261,
+          "code": 14.42633509333347,
+          "reason": 1.924187587522547,
+          "longctx": 0.17752469273746613,
+          "indic": 16.974466939082255,
+          "stem": 8.898836837811395,
+          "agentic": 1.9969961104802607
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 810,
+          "web": 3384,
+          "longctx": 3,
+          "agentic": 120,
+          "indic": 1025,
+          "reason": 122,
+          "stem": 536
+        }
+      },
+      "S2 general": {
+        "ok": true,
+        "share": {
+          "web": 43.725,
+          "code": 20.525,
+          "reason": 4.925,
+          "longctx": 0.0,
+          "indic": 17.325,
+          "stem": 12.0,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 45.12304905666551,
+          "code": 19.07900251062126,
+          "reason": 4.771427511180628,
+          "longctx": 0.44020978429241336,
+          "indic": 16.836703254082078,
+          "stem": 11.768819265030801,
+          "agentic": 1.980788618127313
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "indic": 989,
+          "code": 1040,
+          "longctx": 53,
+          "web": 2808,
+          "agentic": 138,
+          "reason": 266,
+          "stem": 706
+        }
+      },
+      "S3 reason/code": {
+        "ok": true,
+        "share": {
+          "web": 19.725,
+          "code": 33.075,
+          "reason": 15.3,
+          "longctx": 0.0,
+          "indic": 15.0,
+          "stem": 15.4,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 28.17790723768478,
+          "code": 26.807016411448842,
+          "reason": 12.450490396831865,
+          "longctx": 0.8835974750954264,
+          "indic": 16.897475947917485,
+          "stem": 12.795574184207773,
+          "agentic": 1.9879383468138176
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1342,
+          "indic": 1125,
+          "longctx": 91,
+          "web": 2084,
+          "agentic": 139,
+          "reason": 577,
+          "stem": 642
+        }
+      },
+      "S4 long-ctx": {
+        "ok": true,
+        "share": {
+          "web": 16.575,
+          "code": 36.575,
+          "reason": 14.775,
+          "longctx": 0.025,
+          "indic": 15.65,
+          "stem": 14.9,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 20.70185615490794,
+          "code": 29.54202700422056,
+          "reason": 11.82096519400385,
+          "longctx": 6.361815844054487,
+          "indic": 17.38002609298692,
+          "stem": 12.148600757710145,
+          "agentic": 2.0447089521161033
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1504,
+          "indic": 1130,
+          "stem": 618,
+          "longctx": 625,
+          "web": 1428,
+          "agentic": 142,
+          "reason": 553
+        }
+      },
+      "S5 anneal": {
+        "ok": true,
+        "share": {
+          "web": 8.0,
+          "code": 21.8,
+          "reason": 21.5,
+          "longctx": 4.575,
+          "indic": 24.55,
+          "stem": 11.575,
+          "agentic": 8.0
+        },
+        "target": {
+          "web": 8.0,
+          "code": 20.0,
+          "reason": 18.0,
+          "longctx": 8.0,
+          "indic": 28.0,
+          "stem": 10.0,
+          "agentic": 8.0
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1199,
+          "stem": 525,
+          "indic": 1765,
+          "web": 466,
+          "longctx": 631,
+          "agentic": 496,
+          "reason": 918
+        }
+      }
+    },
+    "v5": {
+      "S1 seed": {
+        "ok": true,
+        "share": {
+          "web": 55.225,
+          "code": 15.35,
+          "reason": 1.975,
+          "longctx": 0.05,
+          "indic": 16.625,
+          "stem": 9.125,
+          "agentic": 1.65
+        },
+        "target": {
+          "web": 55.60165273903261,
+          "code": 14.42633509333347,
+          "reason": 1.924187587522547,
+          "longctx": 0.17752469273746613,
+          "indic": 16.974466939082255,
+          "stem": 8.898836837811395,
+          "agentic": 1.9969961104802607
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 773,
+          "stem": 527,
+          "web": 3399,
+          "longctx": 8,
+          "indic": 1039,
+          "agentic": 134,
+          "reason": 120
+        }
+      },
+      "S2 general": {
+        "ok": true,
+        "share": {
+          "web": 44.775,
+          "code": 20.3,
+          "reason": 4.875,
+          "longctx": 0.1,
+          "indic": 16.475,
+          "stem": 11.85,
+          "agentic": 1.625
+        },
+        "target": {
+          "web": 45.12304905666551,
+          "code": 19.07900251062126,
+          "reason": 4.771427511180628,
+          "longctx": 0.44020978429241336,
+          "indic": 16.836703254082078,
+          "stem": 11.768819265030801,
+          "agentic": 1.980788618127313
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1049,
+          "stem": 712,
+          "web": 2766,
+          "longctx": 49,
+          "indic": 1023,
+          "agentic": 133,
+          "reason": 268
+        }
+      },
+      "S3 reason/code": {
+        "ok": true,
+        "share": {
+          "web": 24.25,
+          "code": 31.675,
+          "reason": 14.65,
+          "longctx": 0.025,
+          "indic": 12.975,
+          "stem": 14.925,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 28.17790723768478,
+          "code": 26.807016411448842,
+          "reason": 12.450490396831865,
+          "longctx": 0.8835974750954264,
+          "indic": 16.897475947917485,
+          "stem": 12.795574184207773,
+          "agentic": 1.9879383468138176
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1398,
+          "stem": 661,
+          "longctx": 90,
+          "web": 1903,
+          "indic": 1206,
+          "agentic": 139,
+          "reason": 603
+        }
+      },
+      "S4 long-ctx": {
+        "ok": true,
+        "share": {
+          "web": 18.0,
+          "code": 36.125,
+          "reason": 14.375,
+          "longctx": 2.175,
+          "indic": 13.2,
+          "stem": 14.625,
+          "agentic": 1.5
+        },
+        "target": {
+          "web": 20.70185615490794,
+          "code": 29.54202700422056,
+          "reason": 11.82096519400385,
+          "longctx": 6.361815844054487,
+          "indic": 17.38002609298692,
+          "stem": 12.148600757710145,
+          "agentic": 2.0447089521161033
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1522,
+          "stem": 629,
+          "web": 1371,
+          "longctx": 539,
+          "indic": 1228,
+          "agentic": 142,
+          "reason": 569
+        }
+      },
+      "S5 anneal": {
+        "ok": true,
+        "share": {
+          "web": 8.0,
+          "code": 23.625,
+          "reason": 20.95,
+          "longctx": 4.225,
+          "indic": 24.2,
+          "stem": 11.0,
+          "agentic": 8.0
+        },
+        "target": {
+          "web": 8.0,
+          "code": 20.0,
+          "reason": 18.0,
+          "longctx": 8.0,
+          "indic": 28.0,
+          "stem": 10.0,
+          "agentic": 8.0
+        },
+        "n_sel": 4000,
+        "n_rej": 6000,
+        "rej_by_lane": {
+          "code": 1126,
+          "stem": 548,
+          "web": 466,
+          "longctx": 645,
+          "indic": 1779,
+          "reason": 940,
+          "agentic": 496
+        }
+      }
+    }
+  },
+  "starvation": {
+    "web": 26.1,
+    "code": 36.925,
+    "reason": 7.35,
+    "longctx": 0.0,
+    "indic": 0.0,
+    "stem": 29.625,
+    "agentic": 0.0
+  },
+  "n": 4000,
+  "seed": 7,
+  "keep": 0.4,
+  "proxy": {
+    "english": [
+      0.7,
+      0.53,
+      0.33
+    ],
+    "balanced": [
+      0.577,
+      0.577,
+      0.577
+    ],
+    "v5": [
+      0.4,
+      0.3,
+      0.3
+    ]
+  }
+}
