@@ -1,0 +1,101 @@
+[
+  {
+    "doc_id": "plant-pii-email",
+    "lane": "general_web",
+    "reasons": [
+      "pii"
+    ],
+    "plant": "pii",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-pii-phone",
+    "lane": "general_web",
+    "reasons": [
+      "pii"
+    ],
+    "plant": "pii",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-license-nc",
+    "lane": "general_web",
+    "reasons": [
+      "license:CC-BY-NC-4.0"
+    ],
+    "plant": "license",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-ngram-repeat",
+    "lane": "general_web",
+    "reasons": [
+      "repeat_ngram"
+    ],
+    "plant": "repeat_ngram",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-eval-gsm",
+    "lane": "math_science",
+    "reasons": [
+      "firewall:never_train"
+    ],
+    "plant": "eval_item",
+    "never_train": true
+  },
+  {
+    "doc_id": "plant-canary",
+    "lane": "general_web",
+    "reasons": [
+      "firewall:never_train"
+    ],
+    "plant": "canary",
+    "never_train": true
+  },
+  {
+    "doc_id": "plant-containment-host",
+    "lane": "general_web",
+    "reasons": [
+      "firewall:ngram_containment"
+    ],
+    "plant": "ngram_containment",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-indic-wrong-script",
+    "lane": "indic",
+    "reasons": [
+      "language_script"
+    ],
+    "plant": "language",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-val-holdout",
+    "lane": "code",
+    "reasons": [
+      "firewall:never_train"
+    ],
+    "plant": "validation",
+    "never_train": true
+  },
+  {
+    "doc_id": "plant-exact-dup",
+    "lane": "general_web",
+    "reasons": [
+      "exact_dup"
+    ],
+    "plant": "exact_dup",
+    "never_train": false
+  },
+  {
+    "doc_id": "plant-near-dup",
+    "lane": "general_web",
+    "reasons": [
+      "near_dup"
+    ],
+    "plant": "near_dup",
+    "never_train": false
+  }
+]

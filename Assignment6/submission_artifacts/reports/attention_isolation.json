@@ -1,0 +1,8 @@
+{
+  "isolated_delta": 0.0,
+  "merged_delta": 0.04902013085611401,
+  "isolated_bit_identical": true,
+  "merged_moved": true,
+  "blocked_cross_segment_pairs": 81,
+  "attention_crossings": 0
+}

@@ -1,0 +1,31 @@
+{
+  "shard_id": "math_train_017",
+  "source_ids": [
+    "src-stem"
+  ],
+  "document_ids": [
+    "math-0003",
+    "math-0004",
+    "math-0005"
+  ],
+  "tokenizer_hash": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d",
+  "token_count": 460,
+  "document_count": 3,
+  "language": "en",
+  "script": "Latn",
+  "capability_lane": "math_science",
+  "license": "Apache-2.0",
+  "provenance_tier": "A",
+  "cleaning_pipeline_hash": "c155c913329c3f00e841ba58960ca1aab3bc3ee86dc0a3f6b77824982ba75b8f",
+  "dedup_status": "unique",
+  "pii_status": "clean",
+  "language_status": "ok",
+  "contamination_status": "clean",
+  "eval_overlap_status": "none",
+  "content_hash": "80f2dc379fa0fb2dcc4ebc745c0dfaa1fc1b3030cdcf069ab5b8b06ff8e5bc2d",
+  "parent_shard_ids": [],
+  "never_train": false,
+  "reserved_for_anneal": false,
+  "admitted": true,
+  "admission_reasons": []
+}

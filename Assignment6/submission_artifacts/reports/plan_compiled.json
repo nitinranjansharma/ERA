@@ -1,0 +1,64 @@
+{
+  "plan_id": "v5-helix-curriculum",
+  "plan_hash": "9dc6353da07d3013a8e203dddc69bb65b278f53f42b434641d58a2f62785548a",
+  "run_tokens": 6144,
+  "stages": [
+    {
+      "name": "seed",
+      "token_start": 0,
+      "token_end": 1228,
+      "mixture": {
+        "general_web": 0.42,
+        "code": 0.22,
+        "math_science": 0.14,
+        "indic": 0.12,
+        "agentic": 0.04,
+        "reasoning": 0.06
+      }
+    },
+    {
+      "name": "midtrain",
+      "token_start": 1228,
+      "token_end": 3072,
+      "mixture": {
+        "general_web": 0.32000000000000006,
+        "code": 0.22000000000000003,
+        "math_science": 0.18000000000000002,
+        "indic": 0.12000000000000001,
+        "agentic": 0.060000000000000005,
+        "reasoning": 0.10000000000000002
+      }
+    },
+    {
+      "name": "reasoning-heavy",
+      "token_start": 3072,
+      "token_end": 4915,
+      "mixture": {
+        "general_web": 0.18000000000000002,
+        "code": 0.18000000000000002,
+        "math_science": 0.22000000000000003,
+        "indic": 0.12000000000000001,
+        "agentic": 0.08000000000000002,
+        "reasoning": 0.22000000000000003
+      }
+    },
+    {
+      "name": "anneal",
+      "token_start": 4915,
+      "token_end": 6144,
+      "mixture": {
+        "general_web": 0.2,
+        "code": 0.16,
+        "math_science": 0.16,
+        "indic": 0.16,
+        "agentic": 0.12,
+        "reasoning": 0.2
+      }
+    }
+  ],
+  "floors": {
+    "indic": 0.08,
+    "agentic": 0.03,
+    "reasoning": 0.05
+  }
+}

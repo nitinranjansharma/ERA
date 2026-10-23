@@ -1,0 +1,387 @@
+{
+  "schema": "helix-evidence-v1",
+  "all_passed": true,
+  "requirements": [
+    {
+      "requirement": "tokenizer_integrity",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "manifests/*.json tokenizer_hash",
+      "values": {
+        "unique_hashes": [
+          "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d"
+        ],
+        "expected": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d"
+      }
+    },
+    {
+      "requirement": "evaluation_firewall",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "reports/rejections.json and firewall events",
+      "values": {
+        "blocked_plants": [
+          "canary",
+          "eval_item",
+          "exact_dup",
+          "language",
+          "license",
+          "near_dup",
+          "ngram_containment",
+          "pii",
+          "repeat_ngram",
+          "validation"
+        ],
+        "missing_plants": [],
+        "leaked_doc_ids": [],
+        "n_firewall_events": 4,
+        "canary": "__EVAL_CANARY_9f3a__"
+      }
+    },
+    {
+      "requirement": "packing_correctness",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "reports/packing.json, reports/attention_isolation.json",
+      "values": {
+        "pad_only_util": 1.0,
+        "concat_chop_util": 0.98046875,
+        "short_pad_only_util": 0.25,
+        "short_concat_chop_util": 0.796875,
+        "best_fit_util": 1.0,
+        "greedy_equals_best_fit": false,
+        "structure_crossings": 0,
+        "isolation": {
+          "isolated_delta": 0.0,
+          "merged_delta": 0.04902013085611401,
+          "isolated_bit_identical": true,
+          "merged_moved": true,
+          "blocked_cross_segment_pairs": 81,
+          "attention_crossings": 0
+        }
+      }
+    },
+    {
+      "requirement": "mixture_compliance",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "reports/mixture_actual.json",
+      "values": {
+        "actual": {
+          "indic": 0.16122840690978887,
+          "reasoning": 0.21497120921305182,
+          "agentic": 0.08637236084452975,
+          "general_web": 0.21497120921305182,
+          "code": 0.16122840690978887,
+          "math_science": 0.16122840690978887
+        },
+        "floors": {
+          "indic": 0.08,
+          "agentic": 0.03,
+          "reasoning": 0.05
+        },
+        "stages": [
+          "anneal",
+          "midtrain",
+          "reasoning-heavy",
+          "seed"
+        ],
+        "vault_ok": true
+      }
+    },
+    {
+      "requirement": "opus_audit_trail",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "ledgers/opus.jsonl",
+      "values": {
+        "n": 272,
+        "statuses": [
+          "accepted",
+          "deferred",
+          "protected_override",
+          "rejected"
+        ]
+      }
+    },
+    {
+      "requirement": "crash_recovery",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "checkpoints/ + ledgers/consumption_run-a.jsonl",
+      "values": {
+        "preview_hash": "eb5413109fc5bb1493ee02acddaea936af46da0f957d3df9a80f018cdd519454",
+        "resumed_hash": "eb5413109fc5bb1493ee02acddaea936af46da0f957d3df9a80f018cdd519454",
+        "shadow_hash": "eb5413109fc5bb1493ee02acddaea936af46da0f957d3df9a80f018cdd519454",
+        "world_size_train": 2,
+        "world_size_resume": 4,
+        "ranks_after_resume": [
+          0,
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "requirement": "replay",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "reports/replay.json",
+      "values": {
+        "comparisons": [
+          {
+            "step": 8,
+            "original_ids": [
+              "d90fb50b31585fb2",
+              "8132244bab3d1b1d",
+              "d6286c58f8cad36b",
+              "e97cbccd248e7686"
+            ],
+            "replay_ids": [
+              "d90fb50b31585fb2",
+              "8132244bab3d1b1d",
+              "d6286c58f8cad36b",
+              "e97cbccd248e7686"
+            ],
+            "match": true
+          },
+          {
+            "step": 9,
+            "original_ids": [
+              "e4f105f31554a11c",
+              "df0fe4293d652d18",
+              "5dd3f67fbafc7cca",
+              "0dba215aa461071a"
+            ],
+            "replay_ids": [
+              "e4f105f31554a11c",
+              "df0fe4293d652d18",
+              "5dd3f67fbafc7cca",
+              "0dba215aa461071a"
+            ],
+            "match": true
+          },
+          {
+            "step": 10,
+            "original_ids": [
+              "e7397cbbd84792c5",
+              "654cf13745fc5993",
+              "44f73859673dbfd4",
+              "35beeb67f04d7aa6"
+            ],
+            "replay_ids": [
+              "e7397cbbd84792c5",
+              "654cf13745fc5993",
+              "44f73859673dbfd4",
+              "35beeb67f04d7aa6"
+            ],
+            "match": true
+          },
+          {
+            "step": 11,
+            "original_ids": [
+              "c34afc25c89c9c7d",
+              "6a71c4bffb1a464b",
+              "cee4ab3441850ab3",
+              "cf3da87f7d6636a5"
+            ],
+            "replay_ids": [
+              "c34afc25c89c9c7d",
+              "6a71c4bffb1a464b",
+              "cee4ab3441850ab3",
+              "cf3da87f7d6636a5"
+            ],
+            "match": true
+          }
+        ],
+        "fork_diverged": true
+      }
+    },
+    {
+      "requirement": "learning_trace",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "ledgers/learning_run-a.jsonl, ledgers/tokens_run-a.jsonl",
+      "values": {
+        "n_sample_records": 96,
+        "n_token_records": 4689,
+        "roles": {
+          "text": {
+            "n": 4281,
+            "geo_ppl": 136.5583841248188
+          },
+          "plan": {
+            "n": 405,
+            "geo_ppl": 114.35216032014229
+          },
+          "boundary": {
+            "n": 3,
+            "geo_ppl": 180.43598920322376
+          }
+        }
+      }
+    },
+    {
+      "requirement": "throughput",
+      "result": "PASS",
+      "passed": true,
+      "evidence": "performance.json",
+      "values": {
+        "wall_seconds": 0.5718371868133545,
+        "steps": 24,
+        "raw_tokens": 4689,
+        "useful_tokens": 4689,
+        "pad_tokens": 0,
+        "packing_utilization": 1.0,
+        "useful_fraction": 1.0,
+        "raw_tokens_per_sec": 8199.886450425043,
+        "useful_tokens_per_sec": 8199.886450425043,
+        "global_batch": 4,
+        "seq_len": 64,
+        "world_size_train": 2,
+        "world_size_resume": 4
+      }
+    }
+  ],
+  "extra": {
+    "vault_sealed": true,
+    "corruption_controls": {
+      "weight_bit_flip": {
+        "refused": true,
+        "reason": "CheckpointCorruption: weight_hash_mismatch"
+      },
+      "torn_write_truncated_weights": {
+        "refused": true,
+        "reason": "CheckpointCorruption: weight_hash_mismatch"
+      },
+      "loader_cursor_moved": {
+        "refused": true,
+        "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+      },
+      "ledger_offset_moved": {
+        "refused": true,
+        "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+      },
+      "step_counter_moved": {
+        "refused": true,
+        "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+      },
+      "tokenizer_identity_swapped": {
+        "refused": true,
+        "reason": "CheckpointCorruption: tokenizer_identity_swapped"
+      },
+      "optimizer_moment_bit_flip": {
+        "refused": true,
+        "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+      },
+      "optimizer_step_counter_moved": {
+        "refused": true,
+        "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+      },
+      "optimizer_moments_dropped": {
+        "refused": true,
+        "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+      }
+    },
+    "optimizer_moments_load_bearing": true,
+    "fork": {
+      "parent_branch": "run-a",
+      "new_branch": "run-b",
+      "divergence_step": 8,
+      "declared_change": "opus_disabled",
+      "parent_sample_ids": [
+        [
+          "d90fb50b31585fb2",
+          "8132244bab3d1b1d",
+          "d6286c58f8cad36b",
+          "e97cbccd248e7686"
+        ],
+        [
+          "e4f105f31554a11c",
+          "df0fe4293d652d18",
+          "5dd3f67fbafc7cca",
+          "0dba215aa461071a"
+        ],
+        [
+          "e7397cbbd84792c5",
+          "654cf13745fc5993",
+          "44f73859673dbfd4",
+          "35beeb67f04d7aa6"
+        ],
+        [
+          "c34afc25c89c9c7d",
+          "6a71c4bffb1a464b",
+          "cee4ab3441850ab3",
+          "cf3da87f7d6636a5"
+        ]
+      ],
+      "fork_sample_ids": [
+        [
+          "d6286c58f8cad36b",
+          "249f409072137062",
+          "d90fb50b31585fb2",
+          "1dcfabf4b7c3bbce"
+        ],
+        [
+          "25b61c4ac29ea811",
+          "5dd3f67fbafc7cca",
+          "0dba215aa461071a",
+          "4196cd25c03ad446"
+        ],
+        [
+          "e7397cbbd84792c5",
+          "6c824a85a9f2c617",
+          "b56f2548ced9fd51",
+          "35beeb67f04d7aa6"
+        ],
+        [
+          "cf3da87f7d6636a5",
+          "580c0aaa818501a9",
+          "0516c2e7236a81f6",
+          "cb547c0744d27736"
+        ]
+      ],
+      "diverged": true
+    },
+    "audit": {
+      "question": "which shards influenced steps 8..11?",
+      "shards": [
+        "agen_train_000",
+        "agen_train_001",
+        "gene_train_007",
+        "gene_train_009",
+        "gene_train_010",
+        "indi_train_011",
+        "indi_train_013",
+        "math_train_016",
+        "math_train_017",
+        "math_train_018"
+      ],
+      "n_delivery_events": 96,
+      "chain_ok": true,
+      "stages_seen": [
+        "anneal",
+        "midtrain",
+        "reasoning-heavy",
+        "seed"
+      ],
+      "world_size_before": 2,
+      "world_size_after": 4,
+      "ranks_after_resume": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "attention_isolation": {
+      "isolated_delta": 0.0,
+      "merged_delta": 0.04902013085611401,
+      "isolated_bit_identical": true,
+      "merged_moved": true,
+      "blocked_cross_segment_pairs": 81,
+      "attention_crossings": 0
+    }
+  }
+}

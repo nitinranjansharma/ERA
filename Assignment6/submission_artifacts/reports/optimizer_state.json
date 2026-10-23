@@ -1,0 +1,4 @@
+{
+  "identical_weights_at_restore": true,
+  "diverged_after_three_steps_with_dropped_moments": true
+}

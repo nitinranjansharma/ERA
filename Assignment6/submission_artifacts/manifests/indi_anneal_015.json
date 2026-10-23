@@ -1,0 +1,30 @@
+{
+  "shard_id": "indi_anneal_015",
+  "source_ids": [
+    "src-indic"
+  ],
+  "document_ids": [
+    "indic-0010",
+    "indic-0011"
+  ],
+  "tokenizer_hash": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d",
+  "token_count": 191,
+  "document_count": 2,
+  "language": "hi",
+  "script": "Deva",
+  "capability_lane": "indic",
+  "license": "Apache-2.0",
+  "provenance_tier": "A",
+  "cleaning_pipeline_hash": "c155c913329c3f00e841ba58960ca1aab3bc3ee86dc0a3f6b77824982ba75b8f",
+  "dedup_status": "unique",
+  "pii_status": "clean",
+  "language_status": "ok",
+  "contamination_status": "clean",
+  "eval_overlap_status": "none",
+  "content_hash": "3b459a716b8a2b122bc674ab6e2362b5bde80df66b4d2826df1ce96113b35b75",
+  "parent_shard_ids": [],
+  "never_train": false,
+  "reserved_for_anneal": true,
+  "admitted": true,
+  "admission_reasons": []
+}

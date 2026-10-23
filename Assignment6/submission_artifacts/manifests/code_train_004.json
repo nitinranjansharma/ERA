@@ -1,0 +1,31 @@
+{
+  "shard_id": "code_train_004",
+  "source_ids": [
+    "src-code"
+  ],
+  "document_ids": [
+    "code-0003",
+    "code-0004",
+    "code-0005"
+  ],
+  "tokenizer_hash": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d",
+  "token_count": 953,
+  "document_count": 3,
+  "language": "en",
+  "script": "Latn",
+  "capability_lane": "code",
+  "license": "Apache-2.0",
+  "provenance_tier": "A",
+  "cleaning_pipeline_hash": "c155c913329c3f00e841ba58960ca1aab3bc3ee86dc0a3f6b77824982ba75b8f",
+  "dedup_status": "unique",
+  "pii_status": "clean",
+  "language_status": "ok",
+  "contamination_status": "clean",
+  "eval_overlap_status": "none",
+  "content_hash": "46a4aa0d47c9e97042d1bf157261c5cc6201f6ce909189604fe5910bf8fdafa1",
+  "parent_shard_ids": [],
+  "never_train": false,
+  "reserved_for_anneal": false,
+  "admitted": true,
+  "admission_reasons": []
+}

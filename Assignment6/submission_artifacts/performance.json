@@ -1,0 +1,15 @@
+{
+  "wall_seconds": 0.5718371868133545,
+  "steps": 24,
+  "raw_tokens": 4689,
+  "useful_tokens": 4689,
+  "pad_tokens": 0,
+  "packing_utilization": 1.0,
+  "useful_fraction": 1.0,
+  "raw_tokens_per_sec": 8199.886450425043,
+  "useful_tokens_per_sec": 8199.886450425043,
+  "global_batch": 4,
+  "seq_len": 64,
+  "world_size_train": 2,
+  "world_size_resume": 4
+}

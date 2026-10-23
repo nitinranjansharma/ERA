@@ -8,5 +8,16 @@ venv/
 .DS_Store
 submission_artifacts/*
 !submission_artifacts/run.log
+!submission_artifacts/evidence.json
+!submission_artifacts/evidence.md
+!submission_artifacts/performance.json
+!submission_artifacts/manifests/
+!submission_artifacts/manifests/**
+!submission_artifacts/ledgers/
+!submission_artifacts/ledgers/**
+!submission_artifacts/checkpoints/
+!submission_artifacts/checkpoints/**
+!submission_artifacts/reports/
+!submission_artifacts/reports/**
 *.npz
 *.pyc

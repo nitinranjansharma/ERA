@@ -1,0 +1,31 @@
+{
+  "shard_id": "reas_train_021",
+  "source_ids": [
+    "src-reason"
+  ],
+  "document_ids": [
+    "reason-0003",
+    "reason-0004",
+    "reason-0005"
+  ],
+  "tokenizer_hash": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d",
+  "token_count": 295,
+  "document_count": 3,
+  "language": "en",
+  "script": "Latn",
+  "capability_lane": "reasoning",
+  "license": "Apache-2.0",
+  "provenance_tier": "A",
+  "cleaning_pipeline_hash": "c155c913329c3f00e841ba58960ca1aab3bc3ee86dc0a3f6b77824982ba75b8f",
+  "dedup_status": "unique",
+  "pii_status": "clean",
+  "language_status": "ok",
+  "contamination_status": "clean",
+  "eval_overlap_status": "none",
+  "content_hash": "e7a936971ada90ca7750915f11ec01750c5484c8e3ceeb5c59edecdadba36d23",
+  "parent_shard_ids": [],
+  "never_train": false,
+  "reserved_for_anneal": false,
+  "admitted": true,
+  "admission_reasons": []
+}

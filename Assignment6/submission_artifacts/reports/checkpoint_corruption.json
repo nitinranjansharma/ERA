@@ -1,0 +1,38 @@
+{
+  "weight_bit_flip": {
+    "refused": true,
+    "reason": "CheckpointCorruption: weight_hash_mismatch"
+  },
+  "torn_write_truncated_weights": {
+    "refused": true,
+    "reason": "CheckpointCorruption: weight_hash_mismatch"
+  },
+  "loader_cursor_moved": {
+    "refused": true,
+    "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+  },
+  "ledger_offset_moved": {
+    "refused": true,
+    "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+  },
+  "step_counter_moved": {
+    "refused": true,
+    "reason": "CheckpointCorruption: checkpoint_hash_mismatch"
+  },
+  "tokenizer_identity_swapped": {
+    "refused": true,
+    "reason": "CheckpointCorruption: tokenizer_identity_swapped"
+  },
+  "optimizer_moment_bit_flip": {
+    "refused": true,
+    "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+  },
+  "optimizer_step_counter_moved": {
+    "refused": true,
+    "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+  },
+  "optimizer_moments_dropped": {
+    "refused": true,
+    "reason": "CheckpointCorruption: optimizer_hash_mismatch"
+  }
+}

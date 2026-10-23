@@ -1,0 +1,165 @@
+{
+  "pad_only": {
+    "sequences": 8,
+    "positions": 512,
+    "useful": 504,
+    "pad": 0,
+    "nonpad": 512,
+    "utilization": 1.0,
+    "useful_fraction": 0.984375,
+    "truncated_docs": 8,
+    "split_docs": 0,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d6286c58f8cad36b",
+      "249f409072137062",
+      "d90fb50b31585fb2",
+      "1dcfabf4b7c3bbce"
+    ]
+  },
+  "concat_chop": {
+    "sequences": 20,
+    "positions": 1280,
+    "useful": 1235,
+    "pad": 25,
+    "nonpad": 1255,
+    "utilization": 0.98046875,
+    "useful_fraction": 0.96484375,
+    "truncated_docs": 19,
+    "split_docs": 90,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d6286c58f8cad36b",
+      "6f9663bfb8dcc2d9",
+      "57b7897a24fa4a42",
+      "da8658078b5cf8a8"
+    ]
+  },
+  "greedy": {
+    "sequences": 8,
+    "positions": 512,
+    "useful": 504,
+    "pad": 0,
+    "nonpad": 512,
+    "utilization": 1.0,
+    "useful_fraction": 0.984375,
+    "truncated_docs": 8,
+    "split_docs": 0,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d6286c58f8cad36b",
+      "249f409072137062",
+      "d90fb50b31585fb2",
+      "1dcfabf4b7c3bbce"
+    ]
+  },
+  "best_fit": {
+    "sequences": 8,
+    "positions": 512,
+    "useful": 504,
+    "pad": 0,
+    "nonpad": 512,
+    "utilization": 1.0,
+    "useful_fraction": 0.984375,
+    "truncated_docs": 8,
+    "split_docs": 0,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d90fb50b31585fb2",
+      "249f409072137062",
+      "d6286c58f8cad36b",
+      "1dcfabf4b7c3bbce"
+    ]
+  },
+  "structure_preserving": {
+    "sequences": 8,
+    "positions": 512,
+    "useful": 504,
+    "pad": 0,
+    "nonpad": 512,
+    "utilization": 1.0,
+    "useful_fraction": 0.984375,
+    "truncated_docs": 8,
+    "split_docs": 0,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d6286c58f8cad36b",
+      "249f409072137062",
+      "d90fb50b31585fb2",
+      "1dcfabf4b7c3bbce"
+    ]
+  },
+  "long_context": {
+    "sequences": 8,
+    "positions": 512,
+    "useful": 504,
+    "pad": 0,
+    "nonpad": 512,
+    "utilization": 1.0,
+    "useful_fraction": 0.984375,
+    "truncated_docs": 8,
+    "split_docs": 0,
+    "attention_crossings": 0,
+    "blocked_cross_segment_pairs": 0,
+    "sample_ids": [
+      "d6286c58f8cad36b",
+      "249f409072137062",
+      "d90fb50b31585fb2",
+      "1dcfabf4b7c3bbce"
+    ]
+  },
+  "greedy_doc_bins": [
+    [
+      "craft-0"
+    ],
+    [
+      "craft-1",
+      "craft-3"
+    ],
+    [
+      "craft-2"
+    ]
+  ],
+  "best_fit_doc_bins": [
+    [
+      "craft-0"
+    ],
+    [
+      "craft-2"
+    ],
+    [
+      "craft-1",
+      "craft-3"
+    ]
+  ],
+  "greedy_equals_best_fit": false,
+  "concat_chop_truncated": true,
+  "short_pad_only": {
+    "sequences": 6,
+    "positions": 384,
+    "useful": 90,
+    "pad": 288,
+    "nonpad": 96,
+    "utilization": 0.25,
+    "useful_fraction": 0.234375,
+    "truncated_docs": 0,
+    "split_docs": 0
+  },
+  "short_concat_chop": {
+    "sequences": 2,
+    "positions": 128,
+    "useful": 100,
+    "pad": 26,
+    "nonpad": 102,
+    "utilization": 0.796875,
+    "useful_fraction": 0.78125,
+    "truncated_docs": 1,
+    "split_docs": 2
+  },
+  "concat_saves_pad": true
+}

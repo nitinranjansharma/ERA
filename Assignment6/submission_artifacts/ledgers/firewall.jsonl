@@ -1,0 +1,4 @@
+{"doc_id": "plant-eval-gsm", "action": "blocked", "gate": "never_train", "detail": "test"}
+{"doc_id": "plant-canary", "action": "blocked", "gate": "never_train", "detail": "test"}
+{"doc_id": "plant-containment-host", "action": "blocked", "gate": "ngram_containment", "detail": "overlap_with:plant-eval-gsm:in April, and then..."}
+{"doc_id": "plant-val-holdout", "action": "blocked", "gate": "never_train", "detail": "validate"}

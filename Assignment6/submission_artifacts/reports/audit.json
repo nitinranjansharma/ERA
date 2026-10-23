@@ -1,0 +1,31 @@
+{
+  "question": "which shards influenced steps 8..11?",
+  "shards": [
+    "agen_train_000",
+    "agen_train_001",
+    "gene_train_007",
+    "gene_train_009",
+    "gene_train_010",
+    "indi_train_011",
+    "indi_train_013",
+    "math_train_016",
+    "math_train_017",
+    "math_train_018"
+  ],
+  "n_delivery_events": 96,
+  "chain_ok": true,
+  "stages_seen": [
+    "anneal",
+    "midtrain",
+    "reasoning-heavy",
+    "seed"
+  ],
+  "world_size_before": 2,
+  "world_size_after": 4,
+  "ranks_after_resume": [
+    0,
+    1,
+    2,
+    3
+  ]
+}

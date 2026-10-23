@@ -1,0 +1,29 @@
+{
+  "actual": {
+    "indic": 0.16122840690978887,
+    "reasoning": 0.21497120921305182,
+    "agentic": 0.08637236084452975,
+    "general_web": 0.21497120921305182,
+    "code": 0.16122840690978887,
+    "math_science": 0.16122840690978887
+  },
+  "floors": {
+    "indic": 0.08,
+    "agentic": 0.03,
+    "reasoning": 0.05
+  },
+  "tokens": {
+    "indic": 756,
+    "reasoning": 1008,
+    "agentic": 405,
+    "general_web": 1008,
+    "code": 756,
+    "math_science": 756
+  },
+  "stages": [
+    "anneal",
+    "midtrain",
+    "reasoning-heavy",
+    "seed"
+  ]
+}

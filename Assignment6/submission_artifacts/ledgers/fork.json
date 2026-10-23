@@ -1,0 +1,59 @@
+{
+  "parent_branch": "run-a",
+  "new_branch": "run-b",
+  "divergence_step": 8,
+  "declared_change": "opus_disabled",
+  "parent_sample_ids": [
+    [
+      "d90fb50b31585fb2",
+      "8132244bab3d1b1d",
+      "d6286c58f8cad36b",
+      "e97cbccd248e7686"
+    ],
+    [
+      "e4f105f31554a11c",
+      "df0fe4293d652d18",
+      "5dd3f67fbafc7cca",
+      "0dba215aa461071a"
+    ],
+    [
+      "e7397cbbd84792c5",
+      "654cf13745fc5993",
+      "44f73859673dbfd4",
+      "35beeb67f04d7aa6"
+    ],
+    [
+      "c34afc25c89c9c7d",
+      "6a71c4bffb1a464b",
+      "cee4ab3441850ab3",
+      "cf3da87f7d6636a5"
+    ]
+  ],
+  "fork_sample_ids": [
+    [
+      "d6286c58f8cad36b",
+      "249f409072137062",
+      "d90fb50b31585fb2",
+      "1dcfabf4b7c3bbce"
+    ],
+    [
+      "25b61c4ac29ea811",
+      "5dd3f67fbafc7cca",
+      "0dba215aa461071a",
+      "4196cd25c03ad446"
+    ],
+    [
+      "e7397cbbd84792c5",
+      "6c824a85a9f2c617",
+      "b56f2548ced9fd51",
+      "35beeb67f04d7aa6"
+    ],
+    [
+      "cf3da87f7d6636a5",
+      "580c0aaa818501a9",
+      "0516c2e7236a81f6",
+      "cb547c0744d27736"
+    ]
+  ],
+  "diverged": true
+}

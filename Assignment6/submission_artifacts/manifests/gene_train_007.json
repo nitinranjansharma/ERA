@@ -1,0 +1,31 @@
+{
+  "shard_id": "gene_train_007",
+  "source_ids": [
+    "src-general_web"
+  ],
+  "document_ids": [
+    "web-0000",
+    "web-0001",
+    "web-0002"
+  ],
+  "tokenizer_hash": "2f67b39556641089e6c6835097505e43e6b91eb89e721fa4d575bcf52671e10d",
+  "token_count": 521,
+  "document_count": 3,
+  "language": "en",
+  "script": "Latn",
+  "capability_lane": "general_web",
+  "license": "Apache-2.0",
+  "provenance_tier": "B",
+  "cleaning_pipeline_hash": "c155c913329c3f00e841ba58960ca1aab3bc3ee86dc0a3f6b77824982ba75b8f",
+  "dedup_status": "unique",
+  "pii_status": "clean",
+  "language_status": "ok",
+  "contamination_status": "clean",
+  "eval_overlap_status": "none",
+  "content_hash": "a3abc0b9259e914dceaf7e9d8de46f2eb27d46fd1d1c156e88c3e67d807561ed",
+  "parent_shard_ids": [],
+  "never_train": false,
+  "reserved_for_anneal": false,
+  "admitted": true,
+  "admission_reasons": []
+}
