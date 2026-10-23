@@ -1,10 +1,4 @@
-"""Training loop with checkpoints bound to ledger offsets.
-
-Resume continues the same run from the latest checkpoint and ledger offset.
-Replay restores an older checkpoint and feeds the same historical stream.
-Fork restores a checkpoint and starts a new data branch with a declared change.
-Audit reconstructs which shards trained a range of checkpoints.
-"""
+"""Train loop, checkpoints, restore, replay, fork. Ledger offset is part of the ckpt."""
 
 from __future__ import annotations
 

@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Invariant tests for the Helix training-data execution system.
-
-These tests exercise the contracts from Sessions 1–6: tokenizer identity,
-admission, packing/masks, mixture floors, the eval firewall, hash-chained
-ledgers, and checkpoint refusal. They do not hardcode demo evidence.
-"""
+"""Unit tests for tokenizer, admission, packing, vault, masks, and mixture floors."""
 
 from __future__ import annotations
 

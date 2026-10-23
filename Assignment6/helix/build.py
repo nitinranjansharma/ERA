@@ -1,4 +1,4 @@
-"""Assemble the sealed training objects from the raw corpus."""
+"""Build tokenizer, clean docs, seal shards, compile the mixture plan."""
 
 from __future__ import annotations
 

@@ -1,7 +1,6 @@
-"""Canonical hashing, hash-chained events, and derived RNGs.
+"""SHA-256 helpers, hash-chain links, and seed-derived RNGs.
 
-Every stochastic choice in Helix is a pure function of (seed, purpose, *parts).
-Worker count, world size and process restart cannot change the planned stream.
+All random draws use (seed, purpose, *parts) so the stream is reproducible.
 """
 
 from __future__ import annotations

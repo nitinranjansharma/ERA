@@ -1,0 +1,21 @@
+{
+  "shard_id": "shard-opus47-distill-gold-0001-sha256-9f86d081",
+  "status": "APPROVED_FOR_TRAINING",
+  "upstream_source": "https://huggingface.co/datasets/lordx64/reasoning-distill-claude-opus-4-7-max",
+  "sft_source": "https://huggingface.co/datasets/lordx64/reasoning-distill-opus-4-7-max-sft",
+  "teichai_cleaned_source": "https://huggingface.co/datasets/TeichAI/lordx64-claude-opus-4.7-max-cleaned",
+  "target_model": "https://huggingface.co/lordx64/Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled",
+  "target_local_path": "/Users/nitinranjansharma/Documents/codes/ERA/Assignment3/",
+  "license": "apache-2.0",
+  "metrics": {
+    "raw_rows": 8124,
+    "sft_baseline_rows": 7823,
+    "teichai_cleaned_rows": 4807,
+    "final_gold_rows": 4002,
+    "retention_rate_pct": 49.26,
+    "raw_tokens_qwen3": 32496000,
+    "final_clean_tokens_qwen3": 16408200,
+    "sample_80_raw_rows": 80,
+    "sample_80_cleaned_gold_rows": 22
+  }
+}

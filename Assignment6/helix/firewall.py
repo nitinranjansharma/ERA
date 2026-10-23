@@ -1,9 +1,4 @@
-"""Evaluation and validation firewall.
-
-Training shards are admitted into the data stream. Test shards are registered
-and blocked. Validation shards may be read during training but must never become
-gradient-bearing. Session 3 introduced the firewall; Session 6 makes it executable.
-"""
+"""Eval/val firewall. Test shards are registered and blocked from training loss."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Shared vocabulary for the training-data execution system."""
+"""Lane names, special tokens, roles, and planted-failure markers."""
 
 from __future__ import annotations
 

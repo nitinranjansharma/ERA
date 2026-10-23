@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Read-only auditor over submission_artifacts/.
+"""Look up shards/batches from submission_artifacts/.
 
-    python audit.py --step 7
-    python audit.py --interval 8 12
-    python audit.py --shard web__train_000
-    python audit.py --branches
+  python audit.py --step 7
+  python audit.py --interval 8 12
+  python audit.py --shard gene_train_007
+  python audit.py --branches
 """
 
 from __future__ import annotations

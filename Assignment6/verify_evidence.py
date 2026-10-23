@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Recompute every evidence claim from submission_artifacts/ alone.
-
-Does not import the trainer. A grader running this file should reach the same
-PASS/FAIL as run_demo.py.
-"""
+"""Re-check evidence.json against the generated artifacts. No trainer import."""
 
 from __future__ import annotations
 

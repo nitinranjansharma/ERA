@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-"""One command that runs the complete Helix demonstration.
+"""Run the full Helix demo: python run_demo.py
 
-    python run_demo.py
-
-Writes submission_artifacts/ and exits non-zero if any invariant fails.
+Writes submission_artifacts/. Exits 1 if any check fails.
 """
 
 from __future__ import annotations

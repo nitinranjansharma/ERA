@@ -1,9 +1,4 @@
-"""Immutable tokenized shards and manifests.
-
-A shard is a sealed object. Modify it and it becomes a new shard with a new
-hash and a new parent. The training loop consumes shards whose contents are
-tied to one exact tokenizer version.
-"""
+"""Sealed tokenized shards + manifests. Change the tokens -> new content hash."""
 
 from __future__ import annotations
 

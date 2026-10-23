@@ -1,10 +1,4 @@
-"""Admission cleaning: PII, license, language, repeated n-grams, dedup.
-
-Session 4 contract: only data that has been cleaned, deduplicated, PII-screened,
-language-validated and contamination-scanned may enter training. Helix screens
-*documents* first. Gating at shard level would let one near-duplicate destroy
-an entire shard and silently delete a lane.
-"""
+"""Document admission: PII, license, script, repeated n-grams, exact + Jaccard dedup."""
 
 from __future__ import annotations
 

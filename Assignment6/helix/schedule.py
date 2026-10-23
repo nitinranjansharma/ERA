@@ -1,13 +1,4 @@
-"""Mixture timeline compiler, deficit-based floors, and the anneal vault.
-
-Session 5 described the mixture in human terms. Session 6 converts it into
-per-step quotas. Floors are enforced over the run via a deficit tracker, not
-per-batch (a 3% floor cannot be expressed in a batch of 4). Floors are never
-renormalised back under themselves.
-
-Reserved documents live in a vault sealed to the anneal stage name. Other
-stages cannot list vault contents.
-"""
+"""Compile the mixture plan, track floor deficits, lock anneal data in a vault."""
 
 from __future__ import annotations
 

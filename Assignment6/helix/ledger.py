@@ -1,12 +1,4 @@
-"""Hash-chained consumption ledger and two-way learning ledger.
-
-experiment = model checkpoint + optimizer state + data stream + code/config
-
-The consumption ledger is the run's memory: every optimizer step records the
-packed sample ids, shard ids, token spans, loss-mask hash, mixture lane,
-curriculum stage and OPUS decision. Resume binds to a ledger offset. Replay
-re-feeds the historical stream. Fork records the exact point of divergence.
-"""
+"""Append-only hash-chained consumption ledger and per-token learning ledger."""
 
 from __future__ import annotations
 

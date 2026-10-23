@@ -1,9 +1,4 @@
-"""Synthetic six-lane corpus with planted admission and firewall failures.
-
-Documents are the human unit. Training never sees them raw: they are cleaned,
-tokenized, sealed into shards, then packed. Plants exist so a gate that is not
-load-bearing will fail a negative control rather than look green.
-"""
+"""Small 6-lane corpus plus planted docs that the cleaner/firewall must reject."""
 
 from __future__ import annotations
 

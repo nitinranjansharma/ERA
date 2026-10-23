@@ -1,9 +1,4 @@
-"""Frozen grapheme tokenizer with Indic-safe NFC normalization.
-
-Session 2 contract: the same raw text always produces the same token IDs.
-Combining marks stay attached to their base character so Devanagari conjuncts
-are not split into meaningless fragments.
-"""
+"""NFC grapheme tokenizer. Same text -> same ids. Combining marks stay on the base char."""
 
 from __future__ import annotations
 

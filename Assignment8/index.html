@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Attention Works Now — A Chronology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <aside class="rail" aria-label="Timeline">
+      <p class="brand">ERA · Session 8</p>
+      <h1>How attention works now</h1>
+      <div class="legend">
+        <span class="chip exact">exact</span>
+        <span class="chip memory">memory</span>
+        <span class="chip position">position</span>
+        <span class="chip recurrent">recurrent</span>
+        <span class="chip sparse">sparse</span>
+      </div>
+      <ol>
+        <li><a href="#attention"><small>2017-06</small><strong>Scaled attention</strong></a></li>
+        <li><a href="#sinusoidal"><small>2017-06</small><strong>Sinusoidal PE</strong></a></li>
+        <li><a href="#learned"><small>2018-06</small><strong>Learned absolute</strong></a></li>
+        <li><a href="#sparse"><small>2019-04</small><strong>Sparse / top-k</strong></a></li>
+        <li><a href="#mqa"><small>2019-11</small><strong>MQA</strong></a></li>
+        <li><a href="#window"><small>2020-04</small><strong>Sliding window</strong></a></li>
+        <li><a href="#linear"><small>2020-06</small><strong>Linear attention</strong></a></li>
+        <li><a href="#rope"><small>2021-04</small><strong>RoPE</strong></a></li>
+        <li><a href="#alibi"><small>2021-08</small><strong>ALiBi</strong></a></li>
+        <li><a href="#gqa"><small>2023-05</small><strong>GQA</strong></a></li>
+        <li><a href="#ntk"><small>2023-06</small><strong>NTK-aware</strong></a></li>
+        <li><a href="#yarn"><small>2023-08</small><strong>YaRN</strong></a></li>
+        <li><a href="#sinks"><small>2023-09</small><strong>Attention sinks</strong></a></li>
+        <li><a href="#mla"><small>2024-05</small><strong>MLA</strong></a></li>
+        <li><a href="#delta"><small>2024-06</small><strong>Delta rule</strong></a></li>
+        <li><a href="#gated"><small>2024-12</small><strong>Gated DeltaNet</strong></a></li>
+        <li><a href="#nsa"><small>2025-02</small><strong>NSA</strong></a></li>
+        <li><a href="#dsa"><small>2025-09</small><strong>DeepSeek DSA</strong></a></li>
+        <li><a href="#drope"><small>2025-12</small><strong>DroPE</strong></a></li>
+        <li><a href="#csa"><small>2026-04</small><strong>DeepSeek CSA</strong></a></li>
+        <li><a href="#sources"><small>refs</small><strong>Sources</strong></a></li>
+      </ol>
+    </aside>
+
+    <main>
+      <header class="hero">
+        <p class="kicker">2017 → now</p>
+        <h2>Standard attention solved one problem. Everything after attacked the bills it created.</h2>
+        <p class="lede measure">
+          Until attention, a token could be a beautiful vector and still know nothing about its neighbors.
+          Attention is where tokens start interacting. Later mechanisms appear here in the order they launched, each responding to a cost that came before.
+        </p>
+      </header>
+
+      <section class="measure">
+        <p>
+          We start with the ordinary mechanism, then follow what got expensive once context grew: pairwise compute, KV-cache memory, and the need for position.
+        </p>
+        <div class="flow" aria-hidden="true">
+          <span>Q × K<em>scores</em></span>
+          <span>÷ √dₖ<em>scale</em></span>
+          <span>+ M<em>mask</em></span>
+          <span>softmax<em>weights</em></span>
+          <span>× V<em>mix</em></span>
+          <span>output<em>vector</em></span>
+        </div>
+      </section>
+
+      <!-- 1 -->
+      <article class="chapter" id="attention">
+        <header>
+          <div class="meta">
+            <time datetime="2017-06">2017-06</time>
+            <span class="priority exact">exact global</span>
+          </div>
+          <h3>Scaled dot-product attention</h3>
+          <p class="cite">Vaswani et al., <em>Attention Is All You Need</em> · arXiv:1706.03762 · submitted 12 Jun 2017</p>
+        </header>
+        <p>
+          One token <code>x</code> becomes three projections: query (what am I looking for?),
+          key (what do I contain?), value (what should I give you if you choose me?).
+          When the model processes <em>sat</em>, its query may match the key for <em>cat</em>,
+          so more of cat's value flows into sat.
+        </p>
+        <pre class="formula">Attention(Q, K, V) = softmax(QKᵀ / √dₖ) V
+Causal:             softmax(QKᵀ / √dₖ + M) V
+                    M = 0 allowed, −∞ future</pre>
+        <p>
+          Read inside-out: scores, scale so logits stay in a useful range for softmax,
+          mask futures during causal training, turn each row into weights that sum to one,
+          then take a weighted sum of values.
+        </p>
+
+        <div class="lab" id="attention-lab">
+          <h4>Lab · five steps on four tokens</h4>
+          <p class="hint">Walk the pipeline. Toggle the causal mask to see weight leak into the future.</p>
+          <div class="steps"></div>
+          <div class="controls">
+            <button id="mask-toggle" type="button">Causal mask on</button>
+            <button type="button" data-focus="0">focus: The</button>
+            <button type="button" data-focus="1">focus: cat</button>
+            <button type="button" data-focus="2">focus: sat</button>
+            <button type="button" data-focus="3">focus: down</button>
+          </div>
+          <div class="matrices">
+            <div class="panel">
+              <p id="scale-note"></p>
+              <div id="score-table"></div>
+            </div>
+            <div class="readout" id="readout"></div>
+          </div>
+        </div>
+
+        <div class="lab" id="scale-lab">
+          <h4>Lab · why √dₖ exists</h4>
+          <p class="hint">Raise the head width. Unscaled dots start collapsing the softmax.</p>
+          <label class="sl">dₖ <input class="slider" type="range" min="4" max="256" value="16" /></label>
+          <div class="readout" id="scale-read"></div>
+        </div>
+
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Exact, query-specific selection over the whole allowed context. Positive weights that sum to one. Parallel training with a causal mask.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Compute grows ≈ T². Decode must keep a growing KV list. And content alone carries no order—two identical words at different positions look the same.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Default when context is short enough that exact all-pairs is affordable and quality matters more than serving memory. Still the reference every later method is measured against.</p></article>
+        </div>
+        <p class="bridge">The field now faces two bills: pairwise compute that grows with T², and a per-conversation KV cache that grows with T. Position is still unsolved.</p>
+      </article>
+
+      <!-- 2 -->
+      <article class="chapter" id="sinusoidal">
+        <header>
+          <div class="meta">
+            <time datetime="2017-06">2017-06</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>Sinusoidal positional encodings</h3>
+          <p class="cite">Same Transformer paper · absolute geometric frequencies · no learned position table</p>
+        </header>
+        <p>
+          Attention compares content. The causal mask blocks the future, but among allowed tokens the score still needs a distance clue.
+          The Transformer adds a fixed sinusoid of wavelength that grows geometrically across dimensions, then adds it to the token embedding.
+        </p>
+        <pre class="formula">PE(pos, 2i)   = sin(pos / 10000^(2i/d))
+PE(pos, 2i+1) = cos(pos / 10000^(2i/d))</pre>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Order without a learned table. Deterministic for any integer position. The paper hoped this would help extrapolation.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Absolute coordinates, not relative distances inside the score. Extrapolation beyond the training length was weaker than hoped. Many later models quietly dropped it.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Historical baseline, or a fixed PE when you refuse a learned table and do not yet want rotary relative geometry.</p></article>
+        </div>
+        <p class="bridge">Practitioners wanted positions the model could adapt. That pressure produced learned absolute embeddings.</p>
+      </article>
+
+      <!-- 3 -->
+      <article class="chapter" id="learned">
+        <header>
+          <div class="meta">
+            <time datetime="2018-06">2018-06</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>Absolute learned positions</h3>
+          <p class="cite">Radford et al., GPT-1 · OpenAI, 11 Jun 2018 · also BERT (Oct 2018)</p>
+        </header>
+        <p>
+          GPT-1 follows the Transformer but replaces the sinusoid with a trainable table <code>Wₚ</code> indexed by position and added to the token embedding.
+          Inside a fixed max length this often trains cleaner than a frozen geometric pattern.
+        </p>
+        <pre class="formula">h₀ = token_embed(x) + Wₚ[0…T−1]</pre>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Flexible absolute position features learned from data. Strong inside the training length.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>A hard wall: there is no embedding for position max_len+1. Relative “six behind me” is not built into the score. Long-context extension is blocked until you change the PE.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Short, fixed windows (classic BERT/GPT lengths). Not a candidate for stretch-to-million serving.</p></article>
+        </div>
+        <p class="bridge">Position was patched for short windows. The T² compute bill was still open. Sparse patterns attacked that next.</p>
+      </article>
+
+      <!-- 4 -->
+      <article class="chapter" id="sparse">
+        <header>
+          <div class="meta">
+            <time datetime="2019-04">2019-04</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>Sparse and top-k attention</h3>
+          <p class="cite">Child et al., <em>Generating Long Sequences with Sparse Transformers</em> · arXiv:1904.10509 · 23 Apr 2019</p>
+        </header>
+        <p>
+          Keep softmax. Stop reading every key. Factorized sparse patterns (or later top-k selection) let each query use a small subset of positions.
+          Full attention uses T values; top-k uses k ≪ T after selection.
+        </p>
+        <pre class="formula">score all candidates → keep best k → softmax only on those k → mix those k values</pre>
+        <p>
+          The catch the session emphasizes: naïve top-k still scores every key first.
+          If scoring was the expensive part, you have not solved it. Practical systems need a cheap proposal step—local window, router, or compressed index—then exact attention only on candidates.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Sub-quadratic patterns while keeping exact softmax on the survivors. Long sequences become trainable again when most mass is concentrated.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Dropped keys never contribute. Proposal errors are silent. Kernel and routing complexity rise. Sparse is not “full attention with zeros deleted”—it is a candidate search problem.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Long documents where local/strided patterns or a trained indexer are good enough, and you still want softmax fidelity on the chosen set.</p></article>
+        </div>
+        <p class="bridge">Sparse attacks compute. Serving still stores a key and value per earlier token. Multi-query attention attacked that decode bill.</p>
+      </article>
+
+      <!-- 5 -->
+      <article class="chapter" id="mqa">
+        <header>
+          <div class="meta">
+            <time datetime="2019-11">2019-11</time>
+            <span class="priority memory">memory</span>
+          </div>
+          <h3>Multi-query attention (MQA)</h3>
+          <p class="cite">Shazeer, <em>Fast Transformer Decoding: One Write-Head is All You Need</em> · arXiv:1911.02150 · 6 Nov 2019</p>
+        </header>
+        <p>
+          Prefill is expensive because of QKᵀ. Decode is often memory-bound because every new token reloads the entire KV history.
+          MQA keeps many query heads but stores a single shared K/V head. Cache bytes drop by roughly the old head count.
+        </p>
+        <pre class="formula">cache ∝ 2 × layers × kv_heads × head_dim × T × bytes
+MQA: kv_heads = 1</pre>
+        <div class="lab" id="cache-lab">
+          <h4>Lab · head sharing and the cache slope</h4>
+          <p class="hint">Same eight query heads. Change how many K/V heads they share.</p>
+          <div class="controls">
+            <button type="button" data-mode="mha">MHA · 8 KV</button>
+            <button type="button" data-mode="gqa">GQA · 2 KV</button>
+            <button type="button" data-mode="mqa">MQA · 1 KV</button>
+          </div>
+          <div class="heads" id="head-diagram"></div>
+          <p class="cache-stat" id="cache-stat"></p>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Much smaller KV traffic at decode. Higher tokens/sec on memory-bound hardware.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Quality can drop when every query head is forced through one key/value view. Prefill QKᵀ is still quadratic. Cache still grows linearly with T.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Latency-critical decode where quality loss is acceptable, or as the extreme of a GQA search. Not a full long-context solution by itself.</p></article>
+        </div>
+        <p class="bridge">MQA lowers the slope of the cache line. The line still rises with every token. Sliding windows tried to cut which positions stay live.</p>
+      </article>
+
+      <!-- 6 -->
+      <article class="chapter" id="window">
+        <header>
+          <div class="meta">
+            <time datetime="2020-04">2020-04</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>Sliding-window attention</h3>
+          <p class="cite">Beltagy et al., <em>Longformer</em> · arXiv:2004.05150 · 10 Apr 2020 · later Mistral 7B (Oct 2023)</p>
+        </header>
+        <p>
+          Each token attends only inside a local window of width w (plus optional global tokens).
+          Cost falls from O(T²) toward O(T·w). Stacked layers expand the receptive field without one global dense layer.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Linear-ish attention compute and a bounded cache if you truly drop tokens outside the window.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Direct long-range edges. Information must hop across layers. Streaming with a hard window later revealed the sink failure (2023).</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Local-structure documents, or hybrid stacks where most layers are windowed and a few remain global/sparse.</p></article>
+        </div>
+        <p class="bridge">Windows still use softmax over a subset. Another 2020 idea asked: what if we remove softmax entirely and fold history into a fixed matrix?</p>
+      </article>
+
+      <!-- 7 -->
+      <article class="chapter" id="linear">
+        <header>
+          <div class="meta">
+            <time datetime="2020-06">2020-06</time>
+            <span class="priority recurrent">recurrent</span>
+          </div>
+          <h3>Linear attention</h3>
+          <p class="cite">Katharopoulos et al., <em>Transformers are RNNs</em> · arXiv:2006.16236 · 29 Jun 2020</p>
+        </header>
+        <p>
+          Softmax ties scores through a shared denominator, so each new query needs the individual old keys.
+          Drop softmax and the distributive law lets you pre-combine history:
+        </p>
+        <pre class="formula">direct:    y = Σⱼ (q · kⱼ) vⱼ
+regrouped: S = Σⱼ vⱼ kⱼᵀ     (fixed-size state)
+           y = S q
+
+after 10 tokens     → one d×d matrix
+after 1,000,000     → still one d×d matrix</pre>
+        <p>
+          Softmax was doing real work: positive weights, unit sum, competition, query-specific distributions.
+          Removing it buys a fixed state and linear sequence work. It also creates interference: add-only writes accumulate old contributions forever.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>O(T) sequence work and O(1) state size instead of a growing KV list. Cheap long training and serving when the state is enough.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Exact token-by-token lookup. Unnormalised scores. Memory interference under naïve additive writes. Often weaker associative recall than softmax.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When you can afford lossy memory and need extreme length or throughput—especially later, hybridized with occasional softmax/sparse layers.</p></article>
+        </div>
+        <p class="bridge">Linear attention reopened recurrent state. The next years mostly chased position and cache; the write-rule repair (delta) returned in 2024. First, relative position got a clean geometric fix.</p>
+      </article>
+
+      <!-- 8 -->
+      <article class="chapter" id="rope">
+        <header>
+          <div class="meta">
+            <time datetime="2021-04">2021-04</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>RoPE — rotary position embedding</h3>
+          <p class="cite">Su et al., <em>RoFormer</em> · arXiv:2104.09864 · 20 Apr 2021</p>
+        </header>
+        <p>
+          Treat pairs of dimensions as 2D arrows. Rotate the query at position i by iθ and the key at j by jθ.
+          Absolute rotations cancel in the dot product; only the relative angle i−j remains.
+        </p>
+        <pre class="formula">R(iθ)q · R(jθ)k = q · R((j−i)θ)k</pre>
+        <div class="lab" id="rope-lab">
+          <h4>Lab · relative angle survives absolute shift</h4>
+          <p class="hint">Change the gap. The positional contribution depends on distance, not absolute index.</p>
+          <div class="rope-wrap">
+            <div>
+              <label class="sl">relative offset m−n <input id="rope-offset" class="slider" type="range" min="0" max="8" value="3" /></label>
+              <p id="rope-note" class="hint"></p>
+            </div>
+            <canvas id="rope-canvas" width="420" height="280"></canvas>
+          </div>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Relative distance inside the score. No finite lookup table. Became the default in modern decoder LMs.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Defined beyond training length ≠ competent beyond training length. Far positions can repeat phase patterns the model never learned. Stretching RoPE later needed NTK/YaRN/DroPE.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Almost always as the base PE for decoder LMs today—then decide separately how to extend past the trained length.</p></article>
+        </div>
+        <p class="bridge">RoPE still embeds position into vectors. ALiBi asked whether the bias could sit directly on the scores instead.</p>
+      </article>
+
+      <!-- 9 -->
+      <article class="chapter" id="alibi">
+        <header>
+          <div class="meta">
+            <time datetime="2021-08">2021-08</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>ALiBi</h3>
+          <p class="cite">Press et al., <em>Train Short, Test Long</em> · arXiv:2108.12409 · 27 Aug 2021</p>
+        </header>
+        <p>
+          No position embeddings in the residual stream. Before softmax, subtract a head-specific slope times the distance:
+          nearer tokens keep higher scores, farther tokens are linearly penalized. Different heads get different slopes.
+        </p>
+        <pre class="formula">scoreᵢⱼ += −mₕ · (i − j)   for j ≤ i</pre>
+        <div class="lab" id="alibi-lab">
+          <h4>Lab · steeper slopes forget faster</h4>
+          <label class="sl">slope m <input class="slider" type="range" min="0" max="2" step="0.05" value="0.5" /></label>
+          <div id="alibi-table"></div>
+          <p id="alibi-note" class="hint"></p>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Strong length extrapolation after short training. Simple. No PE table to exhaust.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Less expressive than learned rotary geometry for some tasks. Static linear distance bias; not content-adaptive. Later industry mostly standardized on RoPE + scaling instead.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When you want short-train / long-test with minimal PE machinery, or as a strong ablation against RoPE scaling.</p></article>
+        </div>
+        <p class="bridge">By 2023, MQA’s quality hit and MHA’s cache cost forced a compromise: share KVs in groups, not all-or-one.</p>
+      </article>
+
+      <!-- 10 -->
+      <article class="chapter" id="gqa">
+        <header>
+          <div class="meta">
+            <time datetime="2023-05">2023-05</time>
+            <span class="priority memory">memory</span>
+          </div>
+          <h3>Grouped-query attention (GQA)</h3>
+          <p class="cite">Ainslie et al., <em>GQA</em> · arXiv:2305.13245 · 22 May 2023</p>
+        </header>
+        <p>
+          Several query heads share one K/V head. Cache shrinks versus MHA; quality usually holds better than pure MQA.
+          The session’s point: GQA is a baseline, not the answer. It changes how much you store per token. It still stores something for every token.
+        </p>
+        <pre class="formula">MHA cache ∝ 8T
+GQA cache ∝ 2T
+MQA cache ∝ 1T
+Double T → every line still doubles.</pre>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Large decode-memory win with a milder quality trade than MQA. Easy retrofit from MHA checkpoints via continued training.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Linear growth with context remains. Prefill compute remains quadratic. At 1M tokens you still hold 1M positions.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Default head layout for almost every production decoder today. Necessary, not sufficient, for million-token serving.</p></article>
+        </div>
+        <p class="bridge">Models standardized on RoPE+GQA. Then people tried to serve contexts longer than they trained—and RoPE phases broke. Community patches arrived within weeks.</p>
+      </article>
+
+      <!-- 11 -->
+      <article class="chapter" id="ntk">
+        <header>
+          <div class="meta">
+            <time datetime="2023-06">2023-06</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>NTK-aware RoPE scaling</h3>
+          <p class="cite">bloc97 · r/LocalLLaMA · 29 Jun 2023 · formalized in YaRN appendix</p>
+        </header>
+        <p>
+          Linear position interpolation stretches every RoPE frequency equally and smears the high-frequency detail needed to tell nearby tokens apart.
+          NTK-aware scaling changes the RoPE base so low frequencies stretch more and high frequencies stay closer to trained:
+        </p>
+        <pre class="formula">b′ = b · s^{|D| / (|D| − 2)}
+s  = L′ / L</pre>
+        <div class="lab" id="freq-lab">
+          <h4>Lab · who gets stretched</h4>
+          <label class="sl">context scale s <input class="slider" type="range" min="2" max="16" value="4" /></label>
+          <div class="freq" id="freq-lanes"></div>
+          <p id="freq-note" class="hint"></p>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Often usable longer context with little or no fine-tuning. Protects local (high-frequency) resolution better than naïve PI.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Some dimensions slightly extrapolate “out of bound.” Theoretical scale s understates the true extension; you often set s higher than the ratio you want. Fine-tuning can lag pure PI.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Zero-shot or light-touch extension of a RoPE model by a modest factor (roughly 2–8×) when you cannot retrain long.</p></article>
+        </div>
+        <p class="bridge">NTK fixed the high-frequency damage of PI. YaRN mixed both ideas and added a temperature fix for attention entropy.</p>
+      </article>
+
+      <!-- 12 -->
+      <article class="chapter" id="yarn">
+        <header>
+          <div class="meta">
+            <time datetime="2023-08">2023-08</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>YaRN</h3>
+          <p class="cite">Peng et al., <em>YaRN</em> · arXiv:2309.00071 · submitted 31 Aug 2023</p>
+        </header>
+        <p>
+          “NTK-by-parts”: leave the highest frequencies untouched, fully interpolate the slowest, ramp the middle.
+          Then rescale attention logits by a temperature fitted to the scale factor so perplexity does not drift uniformly across the long window.
+        </p>
+        <pre class="formula">√(1/t) ≈ 0.1 ln(s) + 1
+attention → softmax(scores / t)</pre>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Stronger extensions after fine-tuning on tiny data fractions. Dynamic YaRN can more than 2× extend at inference with no fine-tune.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Still a stretch of a short-trained model—there is a practical ceiling. Hyperparameters and ramp bands are empirical. Does not reduce KV cache or QK compute.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Road 1 from the session: train affordable lengths, then positional extension. Good when 8K→32K/64K-class jumps are the target.</p></article>
+        </div>
+        <p class="bridge">Windows returned for streaming. Dropping early tokens without care broke models—even when the recent window still fit.</p>
+      </article>
+
+      <!-- 13 -->
+      <article class="chapter" id="sinks">
+        <header>
+          <div class="meta">
+            <time datetime="2023-09">2023-09</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>Attention sinks</h3>
+          <p class="cite">Xiao et al., <em>StreamingLLM</em> · arXiv:2309.17453 · 29 Sep 2023</p>
+        </header>
+        <p>
+          Softmax must put mass somewhere. Models dump a surprising share onto the first few tokens—attention sinks—even when those tokens are semantically dull.
+          Evict them in a sliding cache and the distribution renormalizes badly. Keep a few sink tokens plus the recent window and streaming stabilizes.
+        </p>
+        <div class="lab" id="window-lab">
+          <h4>Lab · window with and without sinks</h4>
+          <label class="sl">window width <input id="win" class="slider" type="range" min="2" max="12" value="6" /></label>
+          <label class="sl"><input id="sinks" type="checkbox" checked /> keep first two sink tokens</label>
+          <div class="grid-viz" id="window-cells"></div>
+          <p id="window-note" class="hint"></p>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Infinite-stream generation with a finite cache, without retraining, if sinks + window are retained.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Middle history is gone. You cannot quote a dropped paragraph. Sinks are a crutch for stability, not understanding of the evicted span.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Chat/stream workloads that must run endlessly on a bounded cache and mostly need recent context plus stable softmax mass.</p></article>
+        </div>
+        <p class="bridge">Cache pressure kept rising. DeepSeek-V2 compressed the latent KV itself—different axis from GQA’s head sharing.</p>
+      </article>
+
+      <!-- 14 -->
+      <article class="chapter" id="mla">
+        <header>
+          <div class="meta">
+            <time datetime="2024-05">2024-05</time>
+            <span class="priority memory">memory</span>
+          </div>
+          <h3>Multi-head latent attention (MLA)</h3>
+          <p class="cite">DeepSeek-AI, <em>DeepSeek-V2</em> · arXiv:2405.04434 · 7 May 2024</p>
+        </header>
+        <p>
+          Instead of storing full per-head K and V, MLA stores a low-rank latent joint compression and up-projects when attention needs them.
+          RoPE dimensions are handled carefully so rotary and compressed paths coexist.
+          Cache shrinks along the feature axis, not by deleting sequence positions.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Large KV reductions versus ordinary MHA/GQA at similar quality. Lets huge MoE models keep longer contexts under a memory budget.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Implementation complexity. Low-rank bottlenecks can lose detail. Still one latent record per token—sequence length still multiplies memory.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When head-sharing alone is not enough cache relief but you still want dense softmax attention over positions.</p></article>
+        </div>
+        <p class="bridge">Meanwhile the linear-attention line returned with a better write rule: stop adding the whole new answer; write only the correction.</p>
+      </article>
+
+      <!-- 15 -->
+      <article class="chapter" id="delta">
+        <header>
+          <div class="meta">
+            <time datetime="2024-06">2024-06</time>
+            <span class="priority recurrent">recurrent</span>
+          </div>
+          <h3>Delta rule / DeltaNet</h3>
+          <p class="cite">Yang et al., <em>Parallelizing Linear Transformers with the Delta Rule</em> · arXiv:2406.06484 · 10 Jun 2024 · (rule lineage: Schlag et al. 2021)</p>
+        </header>
+        <p>
+          Additive linear state: <code>new = old + write</code>. If key A held 40 and should become 55, adding 55 yields 95.
+          The delta rule reads first, then writes the residual:
+        </p>
+        <pre class="formula">current 40, wanted 55 → delta +15 → 40+15 = 55
+Sₜ = Sₜ₋₁ (I − βₜ kₜ kₜᵀ) + βₜ vₜ kₜᵀ</pre>
+        <div class="lab" id="delta-lab">
+          <h4>Lab · overwrite versus pile-on</h4>
+          <p class="hint">Write A, then overwrite A. Additive state mixes; delta corrects.</p>
+          <div class="controls">
+            <button type="button" data-write="a1">write A ← (1,0)</button>
+            <button type="button" data-write="a2">overwrite A ← (0,1)</button>
+            <button type="button" data-write="b">write B ← (0,1)</button>
+            <button type="button" data-write="reset">reset</button>
+          </div>
+          <div class="readout" id="delta-read"></div>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Updateable fixed-size memory. Better associative recall than add-only linear attention. Parallel chunkwise training made it scalable.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Still compressed—no exact token replay. Forgetting/clearing is limited without an explicit gate. Pure DeltaNet can lag gated SSMs on some real retrieval.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>As the D layers in a hybrid schedule: cheap depth with occasional exact/sparse layers for direct reads.</p></article>
+        </div>
+        <p class="bridge">Delta could rewrite associations. It still lacked fast, selective erasure. Gating returned for that.</p>
+      </article>
+
+      <!-- 16 -->
+      <article class="chapter" id="gated">
+        <header>
+          <div class="meta">
+            <time datetime="2024-12">2024-12</time>
+            <span class="priority recurrent">recurrent</span>
+          </div>
+          <h3>Gated DeltaNet</h3>
+          <p class="cite">Yang, Kautz, Hatamizadeh · arXiv:2412.06464 · 9 Dec 2024 · ICLR 2025</p>
+        </header>
+        <p>
+          Combine Mamba2-style decay with the delta write. αₜ → 0 clears memory quickly; αₜ → 1 recovers pure delta updates.
+        </p>
+        <pre class="formula">Sₜ = Sₜ₋₁ ( αₜ (I − βₜ kₜ kₜᵀ) ) + βₜ vₜ kₜᵀ</pre>
+        <p>
+          Hybrids in the paper interleave Gated DeltaNet with sliding-window or Mamba2 layers—the same “not every layer needs the same memory system” lesson as the session’s depth schedules.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Targeted writes plus adaptive forgetting. Stronger language-modeling and recall than DeltaNet or Mamba2 alone in the reported suite.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>More complex transition than plain SSMs. Still not exact attention. Hybrid KV from window layers reintroduces some cache.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Primary recurrent mixer when you want linear-time depth and can spend a minority of layers on window/sparse exact access.</p></article>
+        </div>
+        <p class="bridge">Sparsity returned with training-aware, hardware-aligned designs—not post-hoc pruning.</p>
+      </article>
+
+      <!-- 17 -->
+      <article class="chapter" id="nsa">
+        <header>
+          <div class="meta">
+            <time datetime="2025-02">2025-02</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>Native Sparse Attention (NSA)</h3>
+          <p class="cite">Yuan et al. / DeepSeek-AI · arXiv:2502.11089 · 16 Feb 2025 · <em>added beyond the minimum list</em></p>
+        </header>
+        <p>
+          Hierarchical sparse attention trained end-to-end: compressed coarse tokens, selected fine blocks, and a sliding window,
+          gated together. Designed so the sparsity pattern maps onto Tensor Cores instead of scattering memory access.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Trainable sparsity with speedups in forward, backward, and decode at long lengths. Global sketch + local precision.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Engineering-heavy kernels. Selection can still miss. Compression loses token identity inside a block.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When you need long-context pretraining efficiency and can invest in native sparse kernels—not as a decode-only retrofit.</p></article>
+        </div>
+        <p class="bridge">DeepSeek then pushed compression further: shrink the sequence, then sparsify the summaries.</p>
+      </article>
+
+      <!-- 18 -->
+      <article class="chapter" id="dsa">
+        <header>
+          <div class="meta">
+            <time datetime="2025-09">2025-09</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>DeepSeek Sparse Attention (DSA)</h3>
+          <p class="cite">DeepSeek-V3.2-Exp release · Sep 2025 · technical report arXiv:2512.02556 · 2 Dec 2025</p>
+        </header>
+        <p>
+          Keep MLA’s latent KV path. Add a lightweight lightning indexer that scores context entries, then run fine-grained sparse attention only on the selected subset.
+          Continues V3.1 with the same MoE backbone so the quality comparison is almost an architecture A/B on sparsity alone.
+        </p>
+        <pre class="formula">indexer scores candidates → top-k sparse attention on survivors
+(still token/latent entries — not yet block-compressed)</pre>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Long-context FLOPs and serving cost drop while keeping near-parity on the V3.1 benchmark suite in the reported Exp release.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Indexer errors skip tokens. You still store history at token/latent granularity—memory shrinks less than sequence compression will. Training the indexer adds complexity.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When MLA+GQA cache is under control but dense attention compute at long T is not—and you want a sparse retrofit on an existing DeepSeek-style stack.</p></article>
+        </div>
+        <p class="bridge">Sparse selection helped compute. Position generalization was still a separate road. DroPE attacked the PE scaffold next.</p>
+      </article>
+
+      <!-- 19 -->
+      <article class="chapter" id="drope">
+        <header>
+          <div class="meta">
+            <time datetime="2025-12">2025-12</time>
+            <span class="priority position">position</span>
+          </div>
+          <h3>DroPE</h3>
+          <p class="cite">Gelberg et al. / Sakana AI · arXiv:2512.12167 · 13 Dec 2025</p>
+        </header>
+        <p>
+          Observation: positional embeddings help optimization during pretraining, yet over-reliance blocks length generalization.
+          DroPE pretrains with PE (typically RoPE), then <strong>drops</strong> positional embeddings and runs a short recalibration at the original context length.
+          After that, zero-shot long context improves without long-context fine-tuning.
+        </p>
+        <p>
+          Align this with the session’s evidence boundary. A reported training story (e.g. 8K → 256K with positional recalibration before annealing)
+          is evidence for that run. “Defined at 256K” is not “proven competent at 256K.” DroPE is one concrete algorithm in that family—not a magic inference switch.
+        </p>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Road 1 made sharper: keep PE as a training scaffold, remove it so test-time length is less trapped by trained phases. Cheap relative to native long pretraining.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Needs a recalibration phase. Removes an inductive bias that helped training—done badly, short-context quality dips. Does not shrink KV or QK cost; it addresses position/generalization.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>When you already have a strong short-context RoPE model and want large extension without paying full native long training—after measuring the ceiling for your target.</p></article>
+        </div>
+        <p class="bridge">Stretching position is one road. The other is making million-token training cheap enough to do natively—by compressing the sequence, then sparsifying.</p>
+      </article>
+
+      <!-- 20 -->
+      <article class="chapter" id="csa">
+        <header>
+          <div class="meta">
+            <time datetime="2026-04">2026-04</time>
+            <span class="priority sparse">sparse</span>
+          </div>
+          <h3>Compressed Sparse Attention (CSA)</h3>
+          <p class="cite">DeepSeek-V4 · arXiv:2606.19348 · 26 Apr 2026 · hybrid with Heavily Compressed Attention (HCA)</p>
+        </header>
+        <p>
+          Two different savings stacked on top of DSA. Compress every m tokens into one KV summary (storage ↓).
+          Then run the lightning indexer and keep only top-k summaries for expensive attention (reads ↓).
+          V4 interleaves CSA with HCA (larger m′, dense on the compressed lane) plus a small recent window so a token is not blind inside its own block.
+        </p>
+        <pre class="formula">T tokens → ~T/m compressed entries → top-k reads
+indexer ranks; core attention mixes only survivors</pre>
+        <div class="lab" id="csa-lab">
+          <h4>Lab · compress, then select</h4>
+          <div class="controls">
+            <button type="button" data-k="1">top-1</button>
+            <button type="button" data-k="2" class="active">top-2</button>
+            <button type="button" data-k="3">top-3</button>
+          </div>
+          <div class="grid-viz" id="csa-cells"></div>
+          <p id="csa-note" class="hint"></p>
+        </div>
+        <div class="trade">
+          <article class="buy"><h4>What it buys</h4><p>Road 2: architecture cheap enough to train and serve at extreme length. Reported V4 path makes ~1M-token context practical via hybrid CSA/HCA.</p></article>
+          <article class="give"><h4>What it gives up</h4><p>Token detail inside a block. Indexer mistakes skip whole regions. System complexity (cache layout, CP, mixed precision) explodes.</p></article>
+          <article class="when"><h4>When I'd choose it</h4><p>Native million-token agents/documents when stretch methods have hit their ceiling and you can pay the training/systems cost.</p></article>
+        </div>
+      </article>
+
+      <article class="chapter" id="sources">
+        <header>
+          <h3>Sources for the chronology</h3>
+          <p class="cite">Dates used for ordering: arXiv submitted date, or original post/release when that is the primary source.</p>
+        </header>
+        <ol class="sources">
+          <li><a href="https://arxiv.org/abs/1706.03762">Vaswani et al. 2017</a> — scaled dot-product attention; sinusoidal PE (submitted 2017-06-12).</li>
+          <li><a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf">Radford et al. 2018 (GPT-1)</a> — learned absolute positions (2018-06-11).</li>
+          <li><a href="https://arxiv.org/abs/1904.10509">Child et al. 2019</a> — Sparse Transformers (2019-04-23).</li>
+          <li><a href="https://arxiv.org/abs/1911.02150">Shazeer 2019</a> — MQA (2019-11-06).</li>
+          <li><a href="https://arxiv.org/abs/2004.05150">Beltagy et al. 2020</a> — Longformer sliding window (2020-04-10).</li>
+          <li><a href="https://arxiv.org/abs/2006.16236">Katharopoulos et al. 2020</a> — linear attention / Transformers are RNNs (2020-06-29).</li>
+          <li><a href="https://arxiv.org/abs/2104.09864">Su et al. 2021</a> — RoPE (2021-04-20).</li>
+          <li><a href="https://arxiv.org/abs/2108.12409">Press et al. 2021</a> — ALiBi (2021-08-27).</li>
+          <li><a href="https://arxiv.org/abs/2305.13245">Ainslie et al. 2023</a> — GQA (2023-05-22).</li>
+          <li><a href="https://www.reddit.com/r/LocalLLaMA/comments/14lz7j5/ntkaware_scaled_rope_allows_llama_models_to_have/">bloc97 2023</a> — NTK-aware RoPE (2023-06-29); formula as recorded in YaRN appendix.</li>
+          <li><a href="https://arxiv.org/abs/2309.00071">Peng et al. 2023</a> — YaRN (submitted 2023-08-31).</li>
+          <li><a href="https://arxiv.org/abs/2309.17453">Xiao et al. 2023</a> — attention sinks / StreamingLLM (2023-09-29).</li>
+          <li><a href="https://arxiv.org/abs/2405.04434">DeepSeek-AI 2024</a> — MLA in DeepSeek-V2 (2024-05-07).</li>
+          <li><a href="https://arxiv.org/abs/2406.06484">Yang et al. 2024</a> — DeltaNet parallel delta rule (2024-06-10).</li>
+          <li><a href="https://arxiv.org/abs/2412.06464">Yang et al. 2024</a> — Gated DeltaNet (2024-12-09).</li>
+          <li><a href="https://arxiv.org/abs/2502.11089">Yuan et al. 2025</a> — Native Sparse Attention (2025-02-16).</li>
+          <li><a href="https://arxiv.org/abs/2512.02556">DeepSeek-AI 2025</a> — DeepSeek Sparse Attention in V3.2 (V3.2-Exp Sep 2025; arXiv 2025-12-02).</li>
+          <li><a href="https://arxiv.org/abs/2512.12167">Gelberg et al. 2025</a> — DroPE (2025-12-13).</li>
+          <li><a href="https://arxiv.org/abs/2606.19348">DeepSeek-AI 2026</a> — Compressed Sparse Attention / HCA in V4 (2026-04-26).</li>
+        </ol>
+        <footer>
+          Interactive labs are included only where changing a control changes the idea.
+        </footer>
+      </article>
+    </main>
+  </div>
+  <script src="js/labs.js"></script>
+</body>
+</html>

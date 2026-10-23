@@ -1,14 +1,4 @@
-"""Tiny masked-attention language model with a real optimizer.
-
-The attention mask is applied in the arithmetic: disallowed (query, key) pairs
-are set to -inf before softmax, so a document physically cannot read outside
-its segment. A perturbation test (rewrite document 1, measure document 2)
-is therefore a property of the forward pass, not of an unused array.
-
-Optimizer is SGD with Nesterov momentum. The velocity buffer is load-bearing
-state: dropping it at resume changes the subsequent trajectory even when the
-weights themselves restore bit-identically.
-"""
+"""Small masked-attention LM + Nesterov SGD. Mask is applied before softmax."""
 
 from __future__ import annotations
 

@@ -1,8 +1,4 @@
-"""Evidence bundle generated from artifacts — never from hardcoded pass flags.
-
-Every requirement stores the values that were compared and the path to the
-supporting artifact. `passed` is computed from those values.
-"""
+"""Write evidence.json / evidence.md from measured values, not hardcoded PASS."""
 
 from __future__ import annotations
 

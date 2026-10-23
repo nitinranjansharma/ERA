@@ -1,19 +1,4 @@
-"""OPUS: tournament selection over candidate packed sequences.
-
-Session 5's selector estimated which updates would be most useful against a
-proxy direction. Helix implements that as a token-surprise tournament:
-
-    score = mean( -log unigram_prob(token) ) over loss-bearing tokens
-            + scarcity bonus for protected lanes
-            - repetition penalty
-
-A fixed cosine threshold in high dimension rejects everything (the session's
-proxy is ~N(0, 0.004)). Top-k over an overprovisioned pool is the policy the
-session actually describes.
-
-Decisions: accept | reject | defer | protected_override.
-Rejected clean data is kept; it may be valuable for a later model.
-"""
+"""OPUS top-k selector. Decisions: accept, reject, defer, protected_override."""
 
 from __future__ import annotations
 

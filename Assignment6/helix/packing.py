@@ -1,9 +1,4 @@
-"""Packing policies, loss masks, attention masks, position ids.
-
-Packing is where the context window becomes a budget. The six policies are
-distinct algorithms (not aliases). Structure-preserving packing isolates
-unrelated examples in attention so SFT and agentic traces cannot leak.
-"""
+"""Six packing policies plus loss / attention / position masks."""
 
 from __future__ import annotations
 
