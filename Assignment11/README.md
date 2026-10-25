@@ -2,7 +2,7 @@
 
 CPU-first, original implementation of the five required experiments: manual Adam, bias-correction analysis, update-to-weight ratios under warmup, cosine vs WSD, and a standard-parameterization learning-rate sweep across width.
 
-Numbers in the report come from `artifacts/results.json`. They are not copied from any reference notebook.
+Numbers in the report come from `artifacts/results.json`.
 
 ## Quick start
 
@@ -29,7 +29,7 @@ Without the editable install, the same CLI is `PYTHONPATH=src python -m run_expe
 | Subset | `python -m run_experiments --tasks A,B` |
 | Custom config | `python -m run_experiments --config configs/fast.yaml --output-dir /tmp/s11` |
 
-Default hyperparameters live in `configs/default.yaml`. Do not edit source files to change seeds, widths, or step counts.
+Default hyperparameters live in `configs/default.yaml`.
 
 ## Layout
 
@@ -65,4 +65,3 @@ notebooks/        walkthrough
 9. Non-finite loss/grad is raised, never marked successful
 10. Lightweight pipeline writes the required JSON, CSVs, and four plots
 
-Extra module tests live beside that file.
