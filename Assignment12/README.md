@@ -6,6 +6,8 @@ This is a simulator, not a production distributed-training stack. It does **not*
 
 Primary deliverable: [`zero_simulation.ipynb`](zero_simulation.ipynb)
 
+Repository: [https://github.com/nitinranjansharma/ERA](https://github.com/nitinranjansharma/ERA) (`Assignment12/`)
+
 ---
 
 ## Assignment objective
@@ -29,7 +31,7 @@ The assignment baseline is:
 ## Architecture
 
 ```
-zero-training-simulator/
+ERA/Assignment12/
 ├── zero_simulation.ipynb   # main Colab entry point
 ├── README.md
 ├── requirements.txt
@@ -45,7 +47,7 @@ zero-training-simulator/
 └── tests/                  # pytest suite used by the notebook
 ```
 
-The notebook is the main entry point. Helper modules live under `src/zero_sim/` so the same code runs in Colab, in `pytest`, and in a local Jupyter kernel. Nothing in the notebook depends on files that exist only on one developer's machine.
+The notebook is the main entry point. Helper modules live under `src/zero_sim/` so the same code runs in Colab, in `pytest`, and in a local Jupyter kernel. The bootstrap cell does not assume that the current working directory is the repository root.
 
 | Module | Role |
 | --- | --- |
@@ -82,17 +84,6 @@ Let \(N\) be the world size and 16 the unreplicated bytes per parameter.
 
 Memory capacity is reported in **binary GiB** (\(2^{30}\) bytes). Communication volumes use **decimal GB** (\(10^9\) bytes). An 80 GB GPU therefore holds \(80 \times 10^9 / 2^{30} \approx 74.5\) GiB.
 
-Representative training-state results for 30B parameters (rounded to 0.1 GiB):
-
-| Strategy | 8 GPUs | 32 GPUs |
-| --- | --- | --- |
-| Data parallelism | 447.0 GiB | 447.0 GiB |
-| ZeRO-1 | 153.7 GiB | 122.2 GiB |
-| ZeRO-2 | 104.8 GiB | 68.1 GiB |
-| ZeRO-3 | 55.9 GiB | 14.0 GiB |
-
-At 32 GPUs, **ZeRO-2 and ZeRO-3** sit under the 74.5 GiB training-state budget. Data parallelism and ZeRO-1 do not. That statement is only about optimizer / gradient / parameter storage. Activations, workspace buffers, the CUDA allocator, and framework state still have to fit.
-
 ---
 
 ## Collective operations
@@ -103,7 +94,7 @@ The simulator implements three collectives on **small PyTorch tensors**:
 - **Reduce-scatter** — ranks reduce, then each keeps one shard.
 - **All-gather** — shards are concatenated and replicated.
 
-Ring all-reduce of a parameter-sized gradient is modeled as **2P**. ZeRO-1 still all-reduces gradients (**2P**). ZeRO-2 replace the all-reduce with reduce-scatter of gradients plus all-gather of updated parameters (**2P**). ZeRO-3 adds a parameter all-gather for the forward and backward passes plus a gradient reduce-scatter (**3P**).
+Ring all-reduce of a parameter-sized gradient is modeled as **2P**. ZeRO-1 still all-reduces gradients (**2P**). ZeRO-2 replaces the all-reduce with reduce-scatter of gradients plus all-gather of updated parameters (**2P**). ZeRO-3 adds a parameter all-gather for the forward and backward passes plus a gradient reduce-scatter (**3P**).
 
 With \(P = 60\) GB:
 
@@ -112,7 +103,7 @@ With \(P = 60\) GB:
 | Intra-node | 450 GB/s | 0.27 s | 0.40 s |
 | Inter-node | 50 GB/s | 2.40 s | 3.60 s |
 
-These numbers are **simplified estimates**, not measurements of the Colab VM, NVLink, or InfiniBand.
+These numbers are **simplified estimates**, not measurements of the Colab VM, NVLink, or InfiniBand. The Colab T4 run reproduced them exactly from the closed-form model.
 
 ---
 
@@ -127,62 +118,163 @@ These numbers are **simplified estimates**, not measurements of the Colab VM, NV
 
 \*Theoretical training-state fit only.
 
-Ownership is contiguous: rank \(r\) owns slice \([r \cdot \lceil P/N \rceil, \ldots)\). The union of shards is the full state; shards do not overlap. A tiny tensor demo reconstructs the original parameter vector with `all_gather`.
+Ownership is contiguous. The union of shards is the full state; shards do not overlap. On the Colab run, a 128-element toy parameter vector reconstructed exactly from 32 ZeRO-3 shards (rank 0 owned 4 values).
 
 ---
 
 ## Colab execution
 
-The notebook is designed for a **fresh Google Colab runtime**. CPU is the guaranteed baseline. A single Colab GPU is used automatically for the tiny training demo when CUDA is available, and ignored when it is not.
+The notebook is designed for a **fresh Google Colab runtime**. CPU is the guaranteed baseline. A single Colab GPU is used for diagnostics when CUDA is available. The 30B memory analysis never needs that GPU.
 
-Do not install DeepSpeed, flash-attn, or other CUDA-only distributed packages. Do not upgrade PyTorch unless you know you need to: Colab's preinstalled `torch` is the build you want.
+Do not install DeepSpeed, flash-attn, or other CUDA-only distributed packages. Do not upgrade PyTorch: Colab's preinstalled `torch` is the build you want.
 
-### Workflow A — GitHub clone (after you publish)
+### Workflow A — clone this repository (recommended)
 
-Replace the placeholder with **your** repository URL. This README does not invent one.
+`Assignment12` lives inside the ERA monorepo. A GitHub `/tree/...` URL is **not** a valid `git clone` target (that form failed in Colab). Sparse-checkout the subdirectory:
 
-```python
-# In Colab
-!git clone https://github.com/YOUR_USERNAME/zero-training-simulator.git /content/zero-training-simulator
+```bash
+mkdir -p /content/zero-training-simulator
+cd /content/zero-training-simulator
+git init
+git remote add origin https://github.com/nitinranjansharma/ERA.git
+git config core.sparseCheckout true
+echo "Assignment12/*" >> .git/info/sparse-checkout
+git fetch --depth 1 origin main
+git checkout FETCH_HEAD
 ```
 
-Then open `/content/zero-training-simulator/zero_simulation.ipynb`, or upload the notebook and let the bootstrap cell find `/content/zero-training-simulator`.
+The helper package is then at `/content/zero-training-simulator/Assignment12`. The bootstrap cell searches `cwd`, `/content/zero-training-simulator`, `/content`, and parent directories for `src/zero_sim/__init__.py`.
 
-### Workflow B — ZIP upload (use this if the repo is not public yet)
+A full clone also works if you do not mind downloading the rest of ERA:
 
-1. Zip the project so that `src/zero_sim/` and `tests/` are inside the archive.
+```bash
+git clone https://github.com/nitinranjansharma/ERA.git /content/ERA
+# helpers are at /content/ERA/Assignment12
+```
+
+### Workflow B — ZIP upload
+
+1. Zip `Assignment12` so that `src/zero_sim/` and `tests/` are inside the archive.
 2. In Colab: **Runtime → Run all**, or run the bootstrap cell.
 3. If the helper package is not found, run the **ZIP upload** cell, choose the archive, and re-run the locator cell.
-
-The notebook does **not** assume that the current working directory is the repository root. The bootstrap cell walks `cwd`, `/content/zero-training-simulator`, `/content`, and parent directories looking for `src/zero_sim/__init__.py`.
 
 ---
 
 ## Local tests
 
-From the project root (a local Jupyter/Python environment, not required for Colab):
+From `Assignment12/` (a local Jupyter/Python environment, not required for Colab):
 
 ```bash
 python -m pip install -r requirements.txt
 python -m pytest tests -q
 ```
 
-The notebook's section 15 runs the same suite with `pytest.main(...)` and raises if any test fails.
+The notebook's section 15 runs the same suite with `pytest.main(...)`.
 
 ---
 
-## Representative results (32 virtual GPUs, training state only)
+## Observed Colab run
 
-| Strategy | Memory / GPU | Capacity | Headroom | Fit | Volume | Inter-node time |
-| --- | --- | --- | --- | --- | --- | --- |
-| Data parallelism | 447.0 GiB | 74.5 GiB | −372.5 GiB | No | 120 GB | 2.40 s |
-| ZeRO-1 | 122.2 GiB | 74.5 GiB | −47.7 GiB | No | 120 GB | 2.40 s |
-| ZeRO-2 | 68.1 GiB | 74.5 GiB | +6.4 GiB | Yes* | 120 GB | 2.40 s |
-| ZeRO-3 | 14.0 GiB | 74.5 GiB | +60.5 GiB | Yes* | 180 GB | 3.60 s |
+The notebook in this tree includes outputs from a **Google Colab T4** session. That run is not a substitute for re-running on your own runtime, but it is the source of the numbers below.
 
-ZeRO-2 and ZeRO-3 satisfy the assignment's **theoretical 74.5 GiB training-state limit** at 32 GPUs because they stop replicating the expensive optimizer state (and, for ZeRO-3, the parameters). Data parallelism never shards anything. ZeRO-1 still keeps a full FP16 parameter copy **and** a full FP16 gradient copy on every GPU (4 bytes × 30e9 ≈ 111.8 GiB) plus a 1/32 optimizer shard, which remains above 74.5 GiB.
+| Item | Observed value |
+| --- | --- |
+| Runtime | Google Colab, GPU accelerator, Tesla T4 |
+| Python | 3.13.16 |
+| PyTorch | 2.11.0+cu130 |
+| NumPy | 2.1.3 |
+| pandas | 2.2.3 |
+| Matplotlib | 3.10.0 |
+| CUDA | available |
+| GPU memory | 15.64 GB (decimal) |
+| Selected device | `cuda` |
+| Project root | `/content/zero-training-simulator/Assignment12` |
+| Seed | 42 |
 
-The trade-off is communication. ZeRO-3 is the only strategy whose simplified model pays **3P** instead of **2P**: parameters must be gathered for forward and backward, then gradients reduced and scattered. Lower memory does not mean a free lunch.
+Dependencies already present: numpy, pandas, matplotlib, pytest. PyTorch was **not** upgraded. Smoke test of the 8-GPU memory ladder passed on scalar arithmetic (no 30B tensors).
+
+### Memory ladder (30B training state, rounded to 0.1 GiB)
+
+| World size | Data parallel | ZeRO-1 | ZeRO-2 | ZeRO-3 |
+| --- | --- | --- | --- | --- |
+| 8 | 447.0, no | 153.7, no | 104.8, no | **55.9, yes** (+18.6) |
+| 16 | 447.0, no | 132.7, no | 80.3, no | **27.9, yes** (+46.6) |
+| 32 | 447.0, no | 122.2, no | **68.1, yes** (+6.4) | **14.0, yes** (+60.5) |
+| 64 | 447.0, no | 117.0, no | **62.0, yes** (+12.5) | **7.0, yes** (+67.5) |
+
+ZeRO-3 is the only strategy that fits at 8 and 16 GPUs. ZeRO-2 first fits at **32** GPUs, with only **6.4 GiB** of training-state headroom. Data parallelism never moves. ZeRO-1 is still 117.0 GiB even at 64 GPUs because the replicated FP16 weights + gradients alone are ~111.8 GiB.
+
+### 32-GPU training-state breakdown (GiB / GPU)
+
+| Strategy | Weights | Grads | Master | Moments | Total | Headroom | Fit |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Data parallelism | 55.9 | 55.9 | 111.8 | 223.5 | 447.0 | −372.5 | No |
+| ZeRO-1 | 55.9 | 55.9 | 3.5 | 7.0 | 122.2 | −47.7 | No |
+| ZeRO-2 | 55.9 | 1.7 | 3.5 | 7.0 | 68.1 | +6.4 | Yes* |
+| ZeRO-3 | 1.7 | 1.7 | 3.5 | 7.0 | 14.0 | +60.5 | Yes* |
+
+\*Training-state only. Capacity = 74.5 GiB.
+
+### Communication (analytical, \(P = 60\) GB)
+
+| Strategy | Volume | Intra-node 450 GB/s | Inter-node 50 GB/s | Comm / compute (assumed) |
+| --- | --- | --- | --- | --- |
+| Data parallelism | 120 GB (2P) | 0.27 s | 2.40 s | 0.71 |
+| ZeRO-1 | 120 GB (2P) | 0.27 s | 2.40 s | 0.71 |
+| ZeRO-2 | 120 GB (2P) | 0.27 s | 2.40 s | 0.71 |
+| ZeRO-3 | 180 GB (3P) | 0.40 s | 3.60 s | 1.07 |
+
+The communication-to-compute column uses an assumed transformer FLOP sketch, not a T4 profiler reading. ZeRO-3 is cheaper in memory and more expensive in communication.
+
+### Activations and overhead (why a paper fit is not enough)
+
+At 32 GPUs, training-state-only ZeRO-2 has 6.4 GiB of slack. Adding a 5.0 GiB activation sketch plus 4.0 GiB of runtime/allocator overhead **flips ZeRO-2 to a miss** (−2.6 GiB) while ZeRO-3 still fits (+51.5 GiB). A 20 GiB activation tensor plus 4 GiB overhead leaves ZeRO-2 at −17.6 GiB and ZeRO-3 at +36.5 GiB.
+
+### Toy-model training (CPU)
+
+The T4 runtime selected `cuda` for diagnostics, but the tiny training demo was pinned to **CPU** so cloned worker models and data stayed on one device. Results:
+
+| Metric | Value |
+| --- | --- |
+| Parameters | 1,732 |
+| Initial loss | 1.3655 |
+| Final loss | 1.2729 |
+| Last-step grad L1 | 1.4534 |
+| Equal-batch grad error | 1.49e-08 |
+| Weighted unequal-batch grad error | 2.98e-08 |
+| Naive mean (unequal batches) | 8.88e-02 |
+| Param error after one synced step | 1.49e-08 |
+| Global batch | 2 × 4 × 3 = **24** |
+| Accumulation micro-batches | 12 |
+| Accumulated vs global-batch grad error | 3.73e-09 |
+| Reference / accumulated loss | 1.3644 / 1.3644 |
+
+Weighted averaging matched the global-batch backward pass. A naive mean of worker gradients did **not**, once local batch sizes were (5, 7, 10, 14). This MLP is not a 30B model, and the virtual workers are not `torch.distributed` ranks.
+
+### Automated tests on that Colab GPU runtime
+
+Section 15 ran `pytest` against `/content/zero-training-simulator/Assignment12/tests`:
+
+- **37 passed**
+- **2 failed** (`pytest` exit code 1, notebook cell raised)
+
+Both failures are the same CUDA device mismatch in `TinyClassifier.clone()`: the clone is constructed on CPU while features already live on `cuda:0` when `get_device()` returns CUDA.
+
+| Test | Result |
+| --- | --- |
+| `test_global_batch_size_and_accumulation` | Failed on CUDA (`mat1` on `cuda:0`, weights on CPU) |
+| `test_gradient_equivalence_and_parameter_updates` | Failed on CUDA (same mismatch) |
+| Remaining memory, collective, shard, fit, and training tests | Passed |
+
+On a CPU-only runtime those two tests pass. The notebook training cells avoid the failure by passing `device="cpu"` explicitly. The 30B tables, plots, and smoke test are independent of this issue.
+
+---
+
+## Interpretation
+
+At **32 virtual GPUs**, only **ZeRO-2** (~68.1 GiB) and **ZeRO-3** (~14.0 GiB) put 30B training state under the **74.5 GiB** line. Data parallelism stays at 447.0 GiB because it replicates everything. ZeRO-1 still replicates FP16 weights and gradients, so 32-way optimizer sharding is not enough.
+
+The cost of going further is communication. ZeRO-3 is the only strategy whose simplified model pays **3P** instead of **2P**. Lower memory is not a free lunch, and a theoretical training-state fit still ignores activations, CUDA context, allocator fragmentation, and framework scratch.
 
 ---
 
@@ -190,10 +282,10 @@ The trade-off is communication. ZeRO-3 is the only strategy whose simplified mod
 
 - The 30B analysis is **arithmetic**, not a model load.
 - Collectives on tiny tensors prove algebra, not network performance.
-- Bandwidth numbers (450 GB/s intra-node, 50 GB/s inter-node) are assignment assumptions.
+- Bandwidth numbers (450 GB/s intra-node, 50 GB/s inter-node) are assignment assumptions. The T4 did not measure NVLink or InfiniBand.
 - Activation memory is an optional estimate with a crude formula.
 - The toy MLP is a few thousand parameters. Virtual workers are Python objects, not `torch.distributed` ranks.
-- Theoretical fit does not include CUDA context, allocator fragmentation, fused kernels, or checkpointed activations.
+- `TinyClassifier.clone()` currently stays on CPU, so default CUDA test paths fail until the clone is moved onto the source module's device.
 - This is **not** DeepSpeed ZeRO, **not** PyTorch FSDP2, and **not** a cluster job.
 
 ---
@@ -211,31 +303,14 @@ Use the notebook to reason about **why** the stages look the way they do. Use De
 
 ---
 
-## Create and push a GitHub repository
-
-This project does not come with a remote URL. After you create an empty GitHub repository named `zero-training-simulator`:
-
-```bash
-cd zero-training-simulator
-git init
-git add .
-git commit -m "Add ZeRO training simulator for ERA Session 12."
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/zero-training-simulator.git
-git push -u origin main
-```
-
-Replace `YOUR_USERNAME` with your GitHub account. Do not commit `.env` files or API keys; this project does not need any.
-
----
-
 ## Submit the assignment
 
-1. Run `zero_simulation.ipynb` **top to bottom in Google Colab**.
-2. Confirm the pytest cell reports a passing suite.
-3. In Colab: **File → Download → Download .ipynb**.
-4. Push this repository to GitHub using the commands above.
-5. Submit the downloaded `.ipynb` **and** the GitHub repository link.
+1. Open `Assignment12/zero_simulation.ipynb` in Google Colab.
+2. Clone helpers with the sparse-checkout commands above (or upload a ZIP).
+3. **Runtime → Run all**.
+4. Confirm the pytest cell. On a GPU runtime, expect the two clone-device failures noted above unless that helper is patched; on CPU the suite is green.
+5. In Colab: **File → Download → Download .ipynb**.
+6. Submit the downloaded `.ipynb` **and** the GitHub link [https://github.com/nitinranjansharma/ERA](https://github.com/nitinranjansharma/ERA) (folder `Assignment12`).
 
 ---
 
@@ -243,7 +318,7 @@ Replace `YOUR_USERNAME` with your GitHub account. Do not commit `.env` files or 
 
 1. Why does ZeRO-1 still miss a 74.5 GiB budget at 32 GPUs even though the optimizer is sharded?
 2. If activation memory were 20 GiB per GPU, would ZeRO-2 still fit? What about ZeRO-3?
-3. Why must mean-reduced local gradients be weighted by local batch size when those sizes differ?
+3. Why is a naive mean of worker gradients wrong when local batch sizes differ?
 4. When would you accept ZeRO-3's extra all-gather instead of stopping at ZeRO-2?
 5. Which parts of this notebook would break first if you tried to drop in a real 30B checkpoint?
 6. How would NVLink versus Ethernet change the communication-to-compute plot without changing the memory table?
