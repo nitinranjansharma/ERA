@@ -1,0 +1,72 @@
+# Traceability matrix: assignment requirement → implementation, tests, artifacts.
+# Status is filled by experiments/run_all.py after execution.
+
+requirements:
+  R1_tensor_shapes:
+    description: Print every tensor shape in a complete training step and explain every dimension.
+    implementation: src/training_loop.py, src/models.py, src/instrumentation.py
+    tests: tests/test_shapes.py, tests/test_training_loop.py
+    experiment: experiments/run_all.py::run_shape_experiment
+    artifacts:
+      - outputs/metrics/shapes.json
+      - outputs/logs/training_step_shapes.txt
+    report_section: "4. Tensor shapes and their meaning"
+    acceptance: Every tensor in one full step is logged with shape and a batch/sequence/feature/vocab/class/parameter explanation.
+
+  R2_gradient_verification:
+    description: Verify one gradient manually with finite differences vs autograd.
+    implementation: src/gradient_verification.py
+    tests: tests/test_gradients.py
+    experiment: experiments/run_all.py::run_gradient_verification
+    artifacts:
+      - outputs/metrics/gradient_verification.json
+      - outputs/figures/finite_difference_error.png
+    report_section: "5. Manual, autograd, and finite-difference gradient verification"
+    acceptance: Analytical and autograd dL/dw1 agree; finite-difference agrees within documented tolerance at an appropriate epsilon.
+
+  R3_gradient_accumulation:
+    description: Demonstrate averaging-averages bug with unequal token counts; plot incorrect vs correct.
+    implementation: src/accumulation_experiment.py
+    tests: tests/test_accumulation.py
+    experiment: experiments/run_all.py::run_accumulation_experiment
+    artifacts:
+      - outputs/metrics/accumulation.json
+      - outputs/figures/accumulation_loss.png
+      - outputs/figures/accumulation_gradients.png
+      - outputs/figures/accumulation_equal_tokens.png
+    report_section: "6. Incorrect versus correct gradient accumulation"
+    acceptance: Correct token-weighted mean is 2.6, incorrect mean of means is 3.0, relative discrepancy ~15.38%; gradients match the global token-mean objective; equal-token control discrepancy is ~0.
+
+  R4_gradient_norm_monitor:
+    description: Log gradient norms every step and identify a case where the norm changes before the loss.
+    implementation: src/gradient_monitor.py
+    tests: tests/test_monitoring.py
+    experiment: experiments/run_all.py::run_monitoring_experiment
+    artifacts:
+      - outputs/metrics/monitoring.json
+      - outputs/logs/grad_norm_steps.csv
+      - outputs/figures/loss_and_grad_norm.png
+    report_section: "7. Gradient-norm and loss experiment"
+    acceptance: Pre/post clip logs exist; a qualifying step is identified from recorded data, not assumed.
+
+  R5_mfu:
+    description: Independently calculate MFU with assumptions, hardware measurements, and gap analysis.
+    implementation: src/mfu.py
+    tests: tests/test_mfu.py
+    experiment: experiments/run_all.py::run_mfu_experiment
+    artifacts:
+      - outputs/metrics/mfu.json
+      - outputs/figures/mfu_configs.png
+    report_section: "8. MFU formula, benchmark methodology, results, and limitations"
+    acceptance: Assignment example reproduces 8.2%; local MFU uses measured tokens/s and a documented peak; GPU MFU is not invented if hardware is absent.
+
+  R6_precision:
+    description: Bit representation of decimal 0.1 in FP32, BF16, and FP8 E4M3, plus training-precision recommendation.
+    implementation: src/precision.py
+    tests: tests/test_precision.py
+    experiment: experiments/run_all.py::run_precision_experiment
+    artifacts:
+      - outputs/metrics/precision.json
+      - outputs/logs/precision_0p1.txt
+    report_section: "9–10. Bit-level analysis and precision recommendation"
+    acceptance: Encodings independently verified; recommendation distinguishes BF16, FP8, and block-scaled FP4 and matches the actual environment.

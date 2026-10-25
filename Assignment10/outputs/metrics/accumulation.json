@@ -1,0 +1,424 @@
+{
+  "arithmetic": {
+    "token_counts": [
+      4,
+      4,
+      2
+    ],
+    "mb_means": [
+      2.0,
+      2.0,
+      5.0
+    ],
+    "total_tokens": 10,
+    "correct_loss": 2.6,
+    "incorrect_loss": 3.0,
+    "relative_discrepancy": 0.1538461538461538,
+    "relative_discrepancy_percent": 15.38461538461538
+  },
+  "incorrect": {
+    "loss": 3.0,
+    "grad": 3.0,
+    "mb_means": [
+      2.0,
+      2.0,
+      5.0
+    ]
+  },
+  "correct": {
+    "loss": 2.6,
+    "grad": 2.6,
+    "total_tokens": 10
+  },
+  "reference_concatenated": {
+    "loss": 2.6,
+    "grad": 2.5999999999999996,
+    "n_tokens": 10
+  },
+  "equal_token": {
+    "counts": [
+      4,
+      4,
+      4
+    ],
+    "arithmetic": {
+      "token_counts": [
+        4,
+        4,
+        4
+      ],
+      "mb_means": [
+        2.0,
+        2.0,
+        5.0
+      ],
+      "total_tokens": 12,
+      "correct_loss": 3.0,
+      "incorrect_loss": 3.0,
+      "relative_discrepancy": 0.0,
+      "relative_discrepancy_percent": 0.0
+    },
+    "incorrect": {
+      "loss": 3.0,
+      "grad": 3.0,
+      "mb_means": [
+        2.0,
+        2.0,
+        5.0
+      ]
+    },
+    "correct": {
+      "loss": 3.0,
+      "grad": 3.0,
+      "total_tokens": 12
+    },
+    "relative_discrepancy": 0.0
+  },
+  "running_curves": [
+    {
+      "microbatches_included": 1,
+      "tokens_so_far": 4,
+      "token_counts": [
+        4
+      ],
+      "incorrect_loss": 2.0,
+      "correct_loss": 2.0,
+      "gap": 0.0
+    },
+    {
+      "microbatches_included": 2,
+      "tokens_so_far": 8,
+      "token_counts": [
+        4,
+        4
+      ],
+      "incorrect_loss": 2.0,
+      "correct_loss": 2.0,
+      "gap": 0.0
+    },
+    {
+      "microbatches_included": 3,
+      "tokens_so_far": 10,
+      "token_counts": [
+        4,
+        4,
+        2
+      ],
+      "incorrect_loss": 3.0,
+      "correct_loss": 2.6,
+      "gap": 0.3999999999999999
+    }
+  ],
+  "training_trajectories": {
+    "incorrect": [
+      {
+        "step": 1,
+        "loss": 3.0,
+        "grad": 3.0,
+        "theta": 0.85
+      },
+      {
+        "step": 2,
+        "loss": 2.5500000000000003,
+        "grad": 3.0,
+        "theta": 0.7
+      },
+      {
+        "step": 3,
+        "loss": 2.1,
+        "grad": 3.0,
+        "theta": 0.5499999999999999
+      },
+      {
+        "step": 4,
+        "loss": 1.6499999999999997,
+        "grad": 3.0,
+        "theta": 0.3999999999999999
+      },
+      {
+        "step": 5,
+        "loss": 1.1999999999999997,
+        "grad": 3.0,
+        "theta": 0.2499999999999999
+      },
+      {
+        "step": 6,
+        "loss": 0.7499999999999997,
+        "grad": 3.0,
+        "theta": 0.09999999999999988
+      },
+      {
+        "step": 7,
+        "loss": 0.29999999999999966,
+        "grad": 3.0,
+        "theta": -0.05000000000000013
+      },
+      {
+        "step": 8,
+        "loss": -0.15000000000000038,
+        "grad": 3.0,
+        "theta": -0.20000000000000012
+      },
+      {
+        "step": 9,
+        "loss": -0.6000000000000004,
+        "grad": 3.0,
+        "theta": -0.35000000000000014
+      },
+      {
+        "step": 10,
+        "loss": -1.0500000000000005,
+        "grad": 3.0,
+        "theta": -0.5000000000000001
+      },
+      {
+        "step": 11,
+        "loss": -1.5000000000000002,
+        "grad": 3.0,
+        "theta": -0.6500000000000001
+      },
+      {
+        "step": 12,
+        "loss": -1.9500000000000004,
+        "grad": 3.0,
+        "theta": -0.8000000000000002
+      },
+      {
+        "step": 13,
+        "loss": -2.4000000000000004,
+        "grad": 3.0,
+        "theta": -0.9500000000000002
+      },
+      {
+        "step": 14,
+        "loss": -2.85,
+        "grad": 3.0,
+        "theta": -1.1
+      },
+      {
+        "step": 15,
+        "loss": -3.3000000000000003,
+        "grad": 3.0,
+        "theta": -1.25
+      },
+      {
+        "step": 16,
+        "loss": -3.75,
+        "grad": 3.0,
+        "theta": -1.4
+      },
+      {
+        "step": 17,
+        "loss": -4.2,
+        "grad": 3.0,
+        "theta": -1.5499999999999998
+      },
+      {
+        "step": 18,
+        "loss": -4.6499999999999995,
+        "grad": 3.0,
+        "theta": -1.6999999999999997
+      },
+      {
+        "step": 19,
+        "loss": -5.099999999999999,
+        "grad": 3.0,
+        "theta": -1.8499999999999996
+      },
+      {
+        "step": 20,
+        "loss": -5.55,
+        "grad": 3.0,
+        "theta": -1.9999999999999996
+      },
+      {
+        "step": 21,
+        "loss": -5.999999999999999,
+        "grad": 3.0,
+        "theta": -2.1499999999999995
+      },
+      {
+        "step": 22,
+        "loss": -6.449999999999998,
+        "grad": 3.0,
+        "theta": -2.2999999999999994
+      },
+      {
+        "step": 23,
+        "loss": -6.899999999999999,
+        "grad": 3.0,
+        "theta": -2.4499999999999993
+      },
+      {
+        "step": 24,
+        "loss": -7.349999999999998,
+        "grad": 3.0,
+        "theta": -2.599999999999999
+      },
+      {
+        "step": 25,
+        "loss": -7.799999999999997,
+        "grad": 3.0,
+        "theta": -2.749999999999999
+      }
+    ],
+    "correct": [
+      {
+        "step": 1,
+        "loss": 2.6,
+        "grad": 2.6,
+        "theta": 0.87
+      },
+      {
+        "step": 2,
+        "loss": 2.2619999999999996,
+        "grad": 2.6,
+        "theta": 0.74
+      },
+      {
+        "step": 3,
+        "loss": 1.9240000000000002,
+        "grad": 2.6,
+        "theta": 0.61
+      },
+      {
+        "step": 4,
+        "loss": 1.5859999999999999,
+        "grad": 2.6,
+        "theta": 0.48
+      },
+      {
+        "step": 5,
+        "loss": 1.248,
+        "grad": 2.6,
+        "theta": 0.35
+      },
+      {
+        "step": 6,
+        "loss": 0.9099999999999999,
+        "grad": 2.6,
+        "theta": 0.21999999999999997
+      },
+      {
+        "step": 7,
+        "loss": 0.5719999999999998,
+        "grad": 2.6,
+        "theta": 0.08999999999999996
+      },
+      {
+        "step": 8,
+        "loss": 0.2339999999999999,
+        "grad": 2.6,
+        "theta": -0.040000000000000056
+      },
+      {
+        "step": 9,
+        "loss": -0.10400000000000013,
+        "grad": 2.6,
+        "theta": -0.17000000000000007
+      },
+      {
+        "step": 10,
+        "loss": -0.44200000000000017,
+        "grad": 2.6,
+        "theta": -0.3000000000000001
+      },
+      {
+        "step": 11,
+        "loss": -0.7800000000000002,
+        "grad": 2.6,
+        "theta": -0.4300000000000001
+      },
+      {
+        "step": 12,
+        "loss": -1.1180000000000003,
+        "grad": 2.6,
+        "theta": -0.5600000000000002
+      },
+      {
+        "step": 13,
+        "loss": -1.4560000000000004,
+        "grad": 2.6,
+        "theta": -0.6900000000000002
+      },
+      {
+        "step": 14,
+        "loss": -1.7940000000000005,
+        "grad": 2.6,
+        "theta": -0.8200000000000002
+      },
+      {
+        "step": 15,
+        "loss": -2.1320000000000006,
+        "grad": 2.6,
+        "theta": -0.9500000000000002
+      },
+      {
+        "step": 16,
+        "loss": -2.47,
+        "grad": 2.6,
+        "theta": -1.0800000000000003
+      },
+      {
+        "step": 17,
+        "loss": -2.8080000000000007,
+        "grad": 2.6,
+        "theta": -1.2100000000000004
+      },
+      {
+        "step": 18,
+        "loss": -3.1460000000000012,
+        "grad": 2.6,
+        "theta": -1.3400000000000005
+      },
+      {
+        "step": 19,
+        "loss": -3.4840000000000018,
+        "grad": 2.6,
+        "theta": -1.4700000000000006
+      },
+      {
+        "step": 20,
+        "loss": -3.8220000000000014,
+        "grad": 2.6,
+        "theta": -1.6000000000000008
+      },
+      {
+        "step": 21,
+        "loss": -4.160000000000002,
+        "grad": 2.6,
+        "theta": -1.7300000000000009
+      },
+      {
+        "step": 22,
+        "loss": -4.498000000000002,
+        "grad": 2.6,
+        "theta": -1.860000000000001
+      },
+      {
+        "step": 23,
+        "loss": -4.836000000000003,
+        "grad": 2.6,
+        "theta": -1.990000000000001
+      },
+      {
+        "step": 24,
+        "loss": -5.174000000000003,
+        "grad": 2.6,
+        "theta": -2.120000000000001
+      },
+      {
+        "step": 25,
+        "loss": -5.512000000000002,
+        "grad": 2.6,
+        "theta": -2.250000000000001
+      }
+    ],
+    "lr": 0.05
+  },
+  "pad_included_loss": 168.66666666666666,
+  "loss_relative_discrepancy": 0.1538461538461538,
+  "grad_relative_discrepancy": 0.1538461538461538,
+  "explanation": "Averaging micro-batch averages weights batches, not tokens. With counts (4, 4, 2) the last batch's mean of 5.0 is over-weighted, producing 3.0 instead of the token mean 2.6. When every micro-batch has the same valid-token count the two reductions coincide.",
+  "passed": true
+}

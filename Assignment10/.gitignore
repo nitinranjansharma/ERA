@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+outputs/runs/
+!outputs/figures/.gitkeep
+!outputs/logs/.gitkeep
+!outputs/metrics/.gitkeep

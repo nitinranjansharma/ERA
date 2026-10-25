@@ -1,0 +1,84 @@
+seed: 42
+device: cpu
+deterministic: true
+dtype: float32
+adam_verify_dtype: float64
+
+paths:
+  artifacts: artifacts
+  plots: artifacts/plots
+  logs: artifacts/logs
+  results: artifacts/results.json
+
+adam:
+  w0: 1.0
+  lr: 0.001
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8
+  gradients: [0.50, 0.40, 0.60, 0.45, 0.55]
+  match_tolerance: 1.0e-12
+
+bias_correction:
+  n_plot_steps: 20
+  search_limit: 20000
+  relative_eps: 1.0e-12
+  tolerance: 0.01
+  consecutive: 5
+  constant_gradient: 0.5
+  varying_amplitude: 0.45
+  lr: 0.001
+  beta1: 0.9
+  beta2: 0.999
+  eps: 1.0e-8
+  w0: 1.0
+
+warmup_ratio:
+  steps: 80
+  warmup_steps: 30
+  peak_lr: 0.003
+  min_lr: 0.0
+  batch_size: 16
+  input_dim: 12
+  hidden_dim: 48
+  n_classes: 6
+  n_train: 192
+  ratio_eps: 1.0e-12
+  near_zero_weight_eps: 1.0e-8
+  stabilize_tolerance: 0.05
+  stabilize_consecutive: 5
+
+schedules:
+  total_steps: 300
+  early_stop_step: 200
+  warmup_fraction: 0.10
+  wsd_decay_fraction: 0.20
+  peak_lr: 0.003
+  min_lr_fraction: 0.10
+  eval_every: 10
+  batch_size: 8
+  seq_len: 12
+  vocab_size: 32
+  n_embd: 32
+  n_head: 4
+  n_layer: 2
+  dropout: 0.0
+  n_val_batches: 8
+  weight_decay: 0.0
+
+width_sweep:
+  widths: [256, 512, 1024]
+  extrapolate_width: 4096
+  input_dim: 16
+  n_classes: 8
+  hidden_layers: 2
+  steps: 60
+  batch_size: 32
+  n_train: 256
+  n_val: 128
+  weight_decay: 0.0
+  lr_grid: [1.0e-5, 3.0e-5, 1.0e-4, 3.0e-4, 1.0e-3, 3.0e-3, 1.0e-2, 3.0e-2, 1.0e-1]
+  expand_factor: 3.0
+  max_expansions: 1
+  boundary_margin: 1
+  refine: true

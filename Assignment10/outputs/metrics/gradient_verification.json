@@ -1,0 +1,156 @@
+{
+  "analytical": {
+    "h": 6.0,
+    "y": 24.0,
+    "loss": 16.0,
+    "dL_dy": 8.0,
+    "dL_dw2": 48.0,
+    "dL_dh": 32.0,
+    "dL_w1": 64.0,
+    "dL_dw1": 64.0
+  },
+  "autograd": {
+    "h": 6.0,
+    "y": 24.0,
+    "loss": 16.0,
+    "dL_dw1": 64.0,
+    "dL_dw2": 48.0
+  },
+  "autograd_absolute_error": {
+    "dL_dw1": 0.0,
+    "dL_dw2": 0.0,
+    "loss": 0.0
+  },
+  "autograd_relative_error": {
+    "dL_dw1": 0.0,
+    "dL_dw2": 0.0,
+    "loss": 0.0
+  },
+  "finite_differences": [
+    {
+      "epsilon": 0.01,
+      "numerical_dL_dw1": 63.999999999998636,
+      "absolute_error": 1.3642420526593924e-12,
+      "relative_error": 2.1316282072803006e-14
+    },
+    {
+      "epsilon": 0.0001,
+      "numerical_dL_dw1": 64.00000000013506,
+      "absolute_error": 1.3505996321327984e-10,
+      "relative_error": 2.1103119252074976e-12
+    },
+    {
+      "epsilon": 1e-06,
+      "numerical_dL_dw1": 64.00000000805761,
+      "absolute_error": 8.057611466938397e-09,
+      "relative_error": 1.2590017917091245e-10
+    },
+    {
+      "epsilon": 1e-08,
+      "numerical_dL_dw1": 63.99999961104186,
+      "absolute_error": 3.889581421390176e-07,
+      "relative_error": 6.07747097092215e-09
+    },
+    {
+      "epsilon": 1e-10,
+      "numerical_dL_dw1": 64.00000529538374,
+      "absolute_error": 5.295383743941784e-06,
+      "relative_error": 8.274037099909037e-08
+    },
+    {
+      "epsilon": 1e-12,
+      "numerical_dL_dw1": 64.00568963726982,
+      "absolute_error": 0.005689637269824743,
+      "relative_error": 8.890058234101161e-05
+    }
+  ],
+  "preferred_epsilon": 1e-06,
+  "preferred_row": {
+    "epsilon": 1e-06,
+    "numerical_dL_dw1": 64.00000000805761,
+    "absolute_error": 8.057611466938397e-09,
+    "relative_error": 1.2590017917091245e-10
+  },
+  "best_epsilon_row": {
+    "epsilon": 0.01,
+    "numerical_dL_dw1": 63.999999999998636,
+    "absolute_error": 1.3642420526593924e-12,
+    "relative_error": 2.1316282072803006e-14
+  },
+  "tolerances": {
+    "abs_tol_autograd": 1e-12,
+    "rel_tol_numerical": 1e-06,
+    "dtype": "torch.float64"
+  },
+  "tradeoff": "In general a central difference has O(\u03b5\u00b2) truncation error and roughly O(\u03b5_machine/\u03b5) cancellation error. This particular L(w1) = (8 w1 - 20)^2 is a quadratic, so the O(\u03b5\u00b2) term is identically zero and moderate \u03b5 (1e-2 \u2026 1e-6) recover 64 to nearly machine precision in float64. At \u03b5 \u2264 1e-12 the two nearby losses collide and cancellation dominates. float64 (\u03b5_machine \u2248 2e-16) is still required: the same sweep in float32 would start losing digits much earlier.",
+  "passed": true,
+  "autograd_pass": true,
+  "numerical_pass": true,
+  "intermediates_pass": true,
+  "cubic_truncation_demo": {
+    "function": "L(w) = w^3 at w=3, dL/dw = 27",
+    "purpose": "show O(\u03b5\u00b2) truncation vs cancellation; not the assignment graph",
+    "rows": [
+      {
+        "epsilon": 0.01,
+        "numerical": 27.000099999999527,
+        "analytical": 27.0,
+        "absolute_error": 9.999999952725602e-05,
+        "relative_error": 3.7037036861946675e-06,
+        "infinite_precision_truncation": 0.0001
+      },
+      {
+        "epsilon": 0.0001,
+        "numerical": 27.00000001006231,
+        "analytical": 27.0,
+        "absolute_error": 1.0062308319902513e-08,
+        "relative_error": 3.726780859223153e-10,
+        "infinite_precision_truncation": 1e-08
+      },
+      {
+        "epsilon": 1e-06,
+        "numerical": 27.000000004662184,
+        "analytical": 27.0,
+        "absolute_error": 4.662183528125752e-09,
+        "relative_error": 1.7267346400465749e-10,
+        "infinite_precision_truncation": 1e-12
+      },
+      {
+        "epsilon": 1e-08,
+        "numerical": 26.999999747090442,
+        "analytical": 27.0,
+        "absolute_error": 2.5290955818491057e-07,
+        "relative_error": 9.367020673515206e-09,
+        "infinite_precision_truncation": 1.0000000000000001e-16
+      },
+      {
+        "epsilon": 1e-10,
+        "numerical": 27.000002233990017,
+        "analytical": 27.0,
+        "absolute_error": 2.23399001697544e-06,
+        "relative_error": 8.274037099909037e-08,
+        "infinite_precision_truncation": 1.0000000000000001e-20
+      },
+      {
+        "epsilon": 1e-12,
+        "numerical": 27.002400315723207,
+        "analytical": 27.0,
+        "absolute_error": 0.0024003157232073136,
+        "relative_error": 8.890058234101161e-05,
+        "infinite_precision_truncation": 1e-24
+      }
+    ]
+  },
+  "real_loop_nudge": {
+    "parameter": "fc1.weight[0, 0]",
+    "epsilon": 0.0001,
+    "dtype": "torch.float64",
+    "autograd": -0.005532010851536745,
+    "loss_plus": 1.2791936279726646,
+    "loss_minus": 1.279194734374852,
+    "numerical": -0.005532010937114862,
+    "absolute_error": 8.557811664172688e-11,
+    "relative_error": 1.5469621976239258e-08,
+    "agrees_to_several_decimals": true
+  }
+}

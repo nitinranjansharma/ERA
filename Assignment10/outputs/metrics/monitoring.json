@@ -1,0 +1,420 @@
+{
+  "rows": [
+    {
+      "step": 1,
+      "loss": 0.640523374080658,
+      "pre_clip_norm": 1.3384562730789185,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.3384562730789185,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 2,
+      "loss": 0.40013402700424194,
+      "pre_clip_norm": 0.5478925704956055,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.5478925704956055,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 3,
+      "loss": 0.46611258387565613,
+      "pre_clip_norm": 0.9298357367515564,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9298357367515564,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 4,
+      "loss": 0.47550562024116516,
+      "pre_clip_norm": 0.9897987246513367,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9897987246513367,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 5,
+      "loss": 0.4047301709651947,
+      "pre_clip_norm": 1.0897308588027954,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.0897308588027954,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 6,
+      "loss": 0.39140021800994873,
+      "pre_clip_norm": 0.6031369566917419,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6031369566917419,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 7,
+      "loss": 0.5966113209724426,
+      "pre_clip_norm": 0.8843055367469788,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.8843055367469788,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 8,
+      "loss": 0.5692098140716553,
+      "pre_clip_norm": 0.9617058038711548,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9617058038711548,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 9,
+      "loss": 0.5195779800415039,
+      "pre_clip_norm": 0.8874765634536743,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.8874765634536743,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 10,
+      "loss": 0.4636305570602417,
+      "pre_clip_norm": 0.9723517298698425,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9723517298698425,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 11,
+      "loss": 0.4487592279911041,
+      "pre_clip_norm": 0.7973659634590149,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.7973659634590149,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 12,
+      "loss": 0.40166032314300537,
+      "pre_clip_norm": 0.4039685130119324,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.4039685130119324,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 13,
+      "loss": 0.6164968013763428,
+      "pre_clip_norm": 1.3165063858032227,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.3165063858032227,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 14,
+      "loss": 0.31244251132011414,
+      "pre_clip_norm": 0.6944729089736938,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6944729089736938,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 15,
+      "loss": 0.5339292287826538,
+      "pre_clip_norm": 0.6277275681495667,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6277275681495667,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 16,
+      "loss": 0.677950382232666,
+      "pre_clip_norm": 1.0630793571472168,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.0630793571472168,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 17,
+      "loss": 0.4536323547363281,
+      "pre_clip_norm": 0.5484453439712524,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.5484453439712524,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 18,
+      "loss": 0.3977470099925995,
+      "pre_clip_norm": 0.9261898398399353,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9261898398399353,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 19,
+      "loss": 0.5456967353820801,
+      "pre_clip_norm": 0.7606369853019714,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.7606369853019714,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 20,
+      "loss": 0.5637150406837463,
+      "pre_clip_norm": 0.888045608997345,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.888045608997345,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 21,
+      "loss": 0.4042004942893982,
+      "pre_clip_norm": 1.1063616275787354,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.1063616275787354,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 22,
+      "loss": 0.4318574368953705,
+      "pre_clip_norm": 1.054713249206543,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.054713249206543,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 23,
+      "loss": 0.45492976903915405,
+      "pre_clip_norm": 0.6944750547409058,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6944750547409058,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 24,
+      "loss": 0.45854535698890686,
+      "pre_clip_norm": 0.6654198169708252,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6654198169708252,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 25,
+      "loss": 0.44633567333221436,
+      "pre_clip_norm": 33.49600601196289,
+      "clip_threshold": 5.0,
+      "scale": 0.14927152802081184,
+      "post_clip_norm": 5.0,
+      "lr": 0.05,
+      "injected_spike": true
+    },
+    {
+      "step": 26,
+      "loss": 0.5289014577865601,
+      "pre_clip_norm": 0.7329279780387878,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.7329279780387878,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 27,
+      "loss": 0.4853120446205139,
+      "pre_clip_norm": 0.54849773645401,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.54849773645401,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 28,
+      "loss": 0.6545436382293701,
+      "pre_clip_norm": 0.7654919028282166,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.7654919028282166,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 29,
+      "loss": 0.661019504070282,
+      "pre_clip_norm": 1.1002689599990845,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.1002689599990845,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 30,
+      "loss": 0.5209929943084717,
+      "pre_clip_norm": 1.34346342086792,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.34346342086792,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 31,
+      "loss": 0.3868778347969055,
+      "pre_clip_norm": 0.633224606513977,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.633224606513977,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 32,
+      "loss": 0.6012222766876221,
+      "pre_clip_norm": 1.1287232637405396,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.1287232637405396,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 33,
+      "loss": 0.6309612393379211,
+      "pre_clip_norm": 1.2221217155456543,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.2221217155456543,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 34,
+      "loss": 0.4815710783004761,
+      "pre_clip_norm": 1.1342695951461792,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.1342695951461792,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 35,
+      "loss": 0.5311281681060791,
+      "pre_clip_norm": 0.9655195474624634,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9655195474624634,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 36,
+      "loss": 0.4243147075176239,
+      "pre_clip_norm": 0.6402871012687683,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.6402871012687683,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 37,
+      "loss": 0.4701150059700012,
+      "pre_clip_norm": 0.8227663040161133,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.8227663040161133,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 38,
+      "loss": 0.5675615072250366,
+      "pre_clip_norm": 0.7129614353179932,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.7129614353179932,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 39,
+      "loss": 0.48869815468788147,
+      "pre_clip_norm": 0.9223907589912415,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 0.9223907589912415,
+      "lr": 0.05,
+      "injected_spike": false
+    },
+    {
+      "step": 40,
+      "loss": 0.558863639831543,
+      "pre_clip_norm": 1.0373979806900024,
+      "clip_threshold": 5.0,
+      "scale": 1.0,
+      "post_clip_norm": 1.0373979806900024,
+      "lr": 0.05,
+      "injected_spike": false
+    }
+  ],
+  "spike_step": 25,
+  "spike_factor": 50.0,
+  "clip_threshold": 5.0,
+  "baseline_pre_clip_norm": 0.8874765634536743,
+  "detection_rule": "first step whose pre-clip norm is \u2265 5.0\u00d7 the median pre-spike norm, while the loss is still within 25% of the previous step; then compare the loss move on the following step",
+  "first_qualifying_step": 25,
+  "next_loss_jump": {
+    "step": 26,
+    "loss": 0.5289014577865601,
+    "delta_vs_qualifying": 0.0825657844543457,
+    "delta_at_qualifying": 0.012209683656692505,
+    "loss_moved_more_after": true
+  },
+  "norm_changed_before_loss_in_this_run": true,
+  "caveat": "This ordering is a property of this controlled injection, not a universal training law. Clipping, adaptive optimisers, and data noise can hide or reverse it.",
+  "passed": true
+}

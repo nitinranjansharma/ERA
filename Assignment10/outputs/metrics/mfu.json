@@ -1,0 +1,241 @@
+{
+  "assignment_example": {
+    "source": "assignment-provided illustrative figures, not a local benchmark",
+    "parameter_count": 9000000000,
+    "tokens_per_second": 12000,
+    "estimated_tflops_per_second": 648.0,
+    "hardware_peak_tflops_per_second": 7912.0,
+    "approximate_mfu_percent": 8.2,
+    "computed_flops_per_second": 648000000000000.0,
+    "computed_tflops_per_second": 648.0,
+    "computed_mfu_percent": 8.190091001011123,
+    "matches_stated_648_tflops": true,
+    "matches_stated_8p2_percent": true
+  },
+  "hardware": {
+    "hardware": "Apple M2 (4 performance + 4 efficiency cores), 8 GB unified memory",
+    "precision": "fp32",
+    "accelerator_count": 1,
+    "theoretical_neon_fp32": {
+      "kind": "theoretical_neon_fp32_peak",
+      "n_performance_cores": 4,
+      "p_core_ghz": 3.49,
+      "n_efficiency_cores": 4,
+      "e_core_ghz": 2.42,
+      "neon_fp32_lanes": 4,
+      "fma_flops_per_lane": 2,
+      "p_core_flops": 111680000000.0,
+      "e_core_flops": 77440000000.0,
+      "peak_flops_per_second": 189120000000.0,
+      "peak_tflops_per_second": 0.18912,
+      "notes": "FMA counts as two FLOPs. This ignores AMX, the GPU, and the Neural Engine. A tiny PyTorch loop will not approach this number."
+    },
+    "literature_amx_gemm_tflops": {
+      "tflops_per_second": 1.09,
+      "flops_per_second": 1090000000000.0001,
+      "source": "arXiv:2502.05317 (measured vDSP/Accelerate SGEMM on M2 CPU)",
+      "kind": "literature_measured_effective_peak",
+      "notes": "Not reproduced in this assignment; used only as a published effective-peak reference."
+    },
+    "gpu": {
+      "available_in_this_process": true,
+      "notes": "No CUDA. MPS may or may not be visible to this PyTorch build; GPU MFU is not reported unless a device actually runs."
+    }
+  },
+  "software": {
+    "torch": "2.14.1",
+    "device": "cpu"
+  },
+  "configs": [
+    {
+      "config_name": "small",
+      "measurement": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 4,
+        "seq_len": 16,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.040618250000989065,
+        "tokens_processed": 1280,
+        "tokens_per_second": 31512.928301165895,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "small"
+      },
+      "vs_theoretical_neon": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 4,
+        "seq_len": 16,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.040618250000989065,
+        "tokens_processed": 1280,
+        "tokens_per_second": 31512.928301165895,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "small",
+        "formula": "6 * N * tokens_per_second",
+        "estimated_training_flops_per_second": 5735857157.665011,
+        "estimated_training_tflops_per_second": 0.005735857157665012,
+        "peak_flops_per_second": 189120000000.0,
+        "peak_tflops_per_second": 0.18912,
+        "peak_kind": "theoretical_neon_fp32_peak",
+        "mfu": 0.030329193938584027,
+        "mfu_percent": 3.032919393858403,
+        "gap_to_40_percent_points": 36.9670806061416
+      },
+      "vs_literature_amx": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 4,
+        "seq_len": 16,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.040618250000989065,
+        "tokens_processed": 1280,
+        "tokens_per_second": 31512.928301165895,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "small",
+        "formula": "6 * N * tokens_per_second",
+        "estimated_training_flops_per_second": 5735857157.665011,
+        "estimated_training_tflops_per_second": 0.005735857157665012,
+        "peak_flops_per_second": 1090000000000.0001,
+        "peak_tflops_per_second": 1.09,
+        "peak_kind": "literature_measured_amx_gemm",
+        "mfu": 0.005262254273087166,
+        "mfu_percent": 0.5262254273087166,
+        "gap_to_40_percent_points": 39.47377457269128
+      }
+    },
+    {
+      "config_name": "large",
+      "measurement": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 16,
+        "seq_len": 32,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.08654270799888764,
+        "tokens_processed": 10240,
+        "tokens_per_second": 118323.08275044523,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "large"
+      },
+      "vs_theoretical_neon": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 16,
+        "seq_len": 32,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.08654270799888764,
+        "tokens_processed": 10240,
+        "tokens_per_second": 118323.08275044523,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "large",
+        "formula": "6 * N * tokens_per_second",
+        "estimated_training_flops_per_second": 21536694229.90504,
+        "estimated_training_tflops_per_second": 0.02153669422990504,
+        "peak_flops_per_second": 189120000000.0,
+        "peak_tflops_per_second": 0.18912,
+        "peak_kind": "theoretical_neon_fp32_peak",
+        "mfu": 0.11387845933748435,
+        "mfu_percent": 11.387845933748435,
+        "gap_to_40_percent_points": 28.612154066251563
+      },
+      "vs_literature_amx": {
+        "device": "cpu",
+        "precision": "fp32",
+        "batch_size": 16,
+        "seq_len": 32,
+        "warmup_steps": 5,
+        "timed_steps": 20,
+        "elapsed_s": 0.08654270799888764,
+        "tokens_processed": 10240,
+        "tokens_per_second": 118323.08275044523,
+        "parameter_count_trainable": 30336,
+        "parameter_count_total": 30336,
+        "model": {
+          "class": "TinyGPT",
+          "vocab_size": 64,
+          "n_layer": 2,
+          "n_head": 4,
+          "n_embd": 32,
+          "block_size": 32
+        },
+        "timing": "perf_counter around the timed_steps loop; warmup excluded; CUDA synchronize if CUDA",
+        "config_name": "large",
+        "formula": "6 * N * tokens_per_second",
+        "estimated_training_flops_per_second": 21536694229.90504,
+        "estimated_training_tflops_per_second": 0.02153669422990504,
+        "peak_flops_per_second": 1090000000000.0001,
+        "peak_tflops_per_second": 1.09,
+        "peak_kind": "literature_measured_amx_gemm",
+        "mfu": 0.019758435073307375,
+        "mfu_percent": 1.9758435073307374,
+        "gap_to_40_percent_points": 38.02415649266926
+      }
+    }
+  ],
+  "gap_discussion": [
+    "The 6ND formula itself is an LLM-training approximation; TinyGPT's embeddings and tiny width make the true FLOP mix different.",
+    "Workloads are tiny: kernel-launch and Python/autograd overhead dominate arithmetic.",
+    "CPU PyTorch eager mode has no fused transformer kernel; each Linear/softmax is a separate launch.",
+    "No GPU tensor cores are used; the assignment's 40% class of utilisation is a large-accelerator, large-batch regime.",
+    "Memory traffic for small GEMMs is not hidden; the working set is cache-resident but launch-bound.",
+    "No distributed communication or activation checkpointing is present here \u2014 those would *lower* MFU further on a multi-GPU run, they are not the cause of this particular gap."
+  ],
+  "gpu_mfu_reported": false,
+  "gpu_mfu_reason": "CUDA unavailable; MPS not used. GPU MFU is not invented."
+}

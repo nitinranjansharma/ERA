@@ -1,0 +1,372 @@
+THE TRAINING LOOP, TELLING THE TRUTH ABOUT ITSELF
+========================================================================
+run: /Users/nitinranjansharma/Documents/codes/ERA/Assignment10/outputs/runs/20261025T151820Z
+python 3.11.8  torch 2.14.1  device cpu
+seed 42  cuda=False  mps=True
+
+Statuses: shapes=PASS, gradients=PASS, accumulation=PASS, monitoring=PASS, mfu=PASS, precision=PASS, overfit=PASS
+
+1. Every tensor in one training step
+------------------------------------------------------------------------
+  input_ids                        (2, 8)                batch × sequence
+    B independent sequences, each of T token ids in [0, vocab).
+  tok_emb                          (2, 8, 32)            batch × sequence × feature
+    Each token id is replaced by a d_model-dimensional embedding vector.
+  pos_emb                          (8, 32)               sequence × feature
+    Learned absolute position vectors broadcast over the batch.
+  residual_stream                  (2, 8, 32)            batch × sequence × feature
+    Token + position embeddings entering the transformer stack.
+  layer0.attn.x                    (2, 8, 32)            batch × sequence × feature
+    Residual stream entering attention.
+  layer0.attn.qkv                  (2, 8, 96)            batch × sequence × 3*feature
+    Packed Q,K,V projections.
+  layer0.attn.q                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Queries split across H heads; head_dim = n_embd / n_head.
+  layer0.attn.k                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Keys with the same layout as queries.
+  layer0.attn.v                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Values with the same layout as queries.
+  layer0.attn.scores               (2, 4, 8, 8)          batch × head × sequence × sequence
+    Causal attention weights over key positions for each query position.
+  layer0.attn.out                  (2, 8, 32)            batch × sequence × feature
+    Attention output projected back to d_model.
+  layer0.mlp.hidden                (2, 8, 128)           batch × sequence × 4*feature
+    Position-wise FFN hidden layer, typically 4× d_model.
+  layer0.mlp.out                   (2, 8, 32)            batch × sequence × feature
+    FFN output in residual-stream width.
+  layer1.attn.x                    (2, 8, 32)            batch × sequence × feature
+    Residual stream entering attention.
+  layer1.attn.qkv                  (2, 8, 96)            batch × sequence × 3*feature
+    Packed Q,K,V projections.
+  layer1.attn.q                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Queries split across H heads; head_dim = n_embd / n_head.
+  layer1.attn.k                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Keys with the same layout as queries.
+  layer1.attn.v                    (2, 4, 8, 8)          batch × head × sequence × head_dim
+    Values with the same layout as queries.
+  layer1.attn.scores               (2, 4, 8, 8)          batch × head × sequence × sequence
+    Causal attention weights over key positions for each query position.
+  layer1.attn.out                  (2, 8, 32)            batch × sequence × feature
+    Attention output projected back to d_model.
+  layer1.mlp.hidden                (2, 8, 128)           batch × sequence × 4*feature
+    Position-wise FFN hidden layer, typically 4× d_model.
+  layer1.mlp.out                   (2, 8, 32)            batch × sequence × feature
+    FFN output in residual-stream width.
+  final_hidden                     (2, 8, 32)            batch × sequence × feature
+    LayerNorm'd residual stream before the language-model head.
+  logits                           (2, 8, 64)            batch × sequence × vocabulary
+    Unnormalised scores over the vocabulary at every token position.
+  targets                          (2, 8)                batch × sequence
+    Next-token class indices in [0, vocab). Same layout as input_ids.
+  loss                             ()                    scalar
+    Scalar mean loss; a 0-d tensor, not a 1-vector.
+  grad.tok_emb.weight              (64, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. tok_emb.weight; same shape as the parameter.
+  grad.pos_emb.weight              (32, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. pos_emb.weight; same shape as the parameter.
+  grad.blocks.0.ln1.weight         (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.0.ln1.weight; same shape as the parameter.
+  grad.blocks.0.ln1.bias           (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.0.ln1.bias; same shape as the parameter.
+  grad.blocks.0.attn.c_attn.weight (96, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.0.attn.c_attn.weight; same shape as the parameter.
+  grad.blocks.0.attn.c_proj.weight (32, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.0.attn.c_proj.weight; same shape as the parameter.
+  grad.blocks.0.ln2.weight         (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.0.ln2.weight; same shape as the parameter.
+  grad.blocks.0.ln2.bias           (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.0.ln2.bias; same shape as the parameter.
+  grad.blocks.0.mlp.fc.weight      (128, 32)             out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.0.mlp.fc.weight; same shape as the parameter.
+  grad.blocks.0.mlp.fc.bias        (128,)                feature
+    Gradient of the scalar loss w.r.t. blocks.0.mlp.fc.bias; same shape as the parameter.
+  grad.blocks.0.mlp.proj.weight    (32, 128)             out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.0.mlp.proj.weight; same shape as the parameter.
+  grad.blocks.0.mlp.proj.bias      (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.0.mlp.proj.bias; same shape as the parameter.
+  grad.blocks.1.ln1.weight         (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.1.ln1.weight; same shape as the parameter.
+  grad.blocks.1.ln1.bias           (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.1.ln1.bias; same shape as the parameter.
+  grad.blocks.1.attn.c_attn.weight (96, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.1.attn.c_attn.weight; same shape as the parameter.
+  grad.blocks.1.attn.c_proj.weight (32, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.1.attn.c_proj.weight; same shape as the parameter.
+  grad.blocks.1.ln2.weight         (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.1.ln2.weight; same shape as the parameter.
+  grad.blocks.1.ln2.bias           (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.1.ln2.bias; same shape as the parameter.
+  grad.blocks.1.mlp.fc.weight      (128, 32)             out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.1.mlp.fc.weight; same shape as the parameter.
+  grad.blocks.1.mlp.fc.bias        (128,)                feature
+    Gradient of the scalar loss w.r.t. blocks.1.mlp.fc.bias; same shape as the parameter.
+  grad.blocks.1.mlp.proj.weight    (32, 128)             out_feature × in_feature
+    Gradient of the scalar loss w.r.t. blocks.1.mlp.proj.weight; same shape as the parameter.
+  grad.blocks.1.mlp.proj.bias      (32,)                 feature
+    Gradient of the scalar loss w.r.t. blocks.1.mlp.proj.bias; same shape as the parameter.
+  grad.ln_f.weight                 (32,)                 feature
+    Gradient of the scalar loss w.r.t. ln_f.weight; same shape as the parameter.
+  grad.ln_f.bias                   (32,)                 feature
+    Gradient of the scalar loss w.r.t. ln_f.bias; same shape as the parameter.
+  grad.lm_head.weight              (64, 32)              out_feature × in_feature
+    Gradient of the scalar loss w.r.t. lm_head.weight; same shape as the parameter.
+  grad_norm                        ()                    scalar
+    Scalar global L2 norm of all parameter gradients.
+  adam.state[0,0].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,0].exp_avg          (64, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,0].exp_avg_sq       (64, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,1].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,1].exp_avg          (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,1].exp_avg_sq       (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,2].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,2].exp_avg          (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,2].exp_avg_sq       (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,3].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,3].exp_avg          (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,3].exp_avg_sq       (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,4].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,4].exp_avg          (96, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,4].exp_avg_sq       (96, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,5].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,5].exp_avg          (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,5].exp_avg_sq       (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,6].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,6].exp_avg          (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,6].exp_avg_sq       (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,7].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,7].exp_avg          (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,7].exp_avg_sq       (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,8].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,8].exp_avg          (128, 32)             out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,8].exp_avg_sq       (128, 32)             out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,9].step             ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,9].exp_avg          (128,)                feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,9].exp_avg_sq       (128,)                feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,10].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,10].exp_avg         (32, 128)             out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,10].exp_avg_sq      (32, 128)             out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,11].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,11].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,11].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,12].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,12].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,12].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,13].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,13].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,13].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,14].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,14].exp_avg         (96, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,14].exp_avg_sq      (96, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,15].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,15].exp_avg         (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,15].exp_avg_sq      (32, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,16].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,16].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,16].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,17].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,17].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,17].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,18].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,18].exp_avg         (128, 32)             out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,18].exp_avg_sq      (128, 32)             out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,19].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,19].exp_avg         (128,)                feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,19].exp_avg_sq      (128,)                feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,20].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,20].exp_avg         (32, 128)             out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,20].exp_avg_sq      (32, 128)             out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,21].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,21].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,21].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,22].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,22].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,22].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,23].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,23].exp_avg         (32,)                 feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,23].exp_avg_sq      (32,)                 feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  adam.state[0,24].step            ()                    scalar
+    Optimizer state 'step' has the same shape as the corresponding parameter.
+  adam.state[0,24].exp_avg         (64, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg' has the same shape as the corresponding parameter.
+  adam.state[0,24].exp_avg_sq      (64, 32)              out_feature × in_feature
+    Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.
+  param.tok_emb.weight             (64, 32)              vocabulary × feature
+    Trainable parameter tok_emb.weight: 2048 scalars; gradient will match this shape.
+  param.pos_emb.weight             (32, 32)              sequence × feature
+    Trainable parameter pos_emb.weight: 1024 scalars; gradient will match this shape.
+  param.blocks.0.ln1.weight        (32,)                 feature
+    Trainable parameter blocks.0.ln1.weight: 32 scalars; gradient will match this shape.
+  param.blocks.0.ln1.bias          (32,)                 feature
+    Trainable parameter blocks.0.ln1.bias: 32 scalars; gradient will match this shape.
+  param.blocks.0.attn.c_attn.weight (96, 32)              3*feature × feature
+    Trainable parameter blocks.0.attn.c_attn.weight: 3072 scalars; gradient will match this shape.
+  param.blocks.0.attn.c_proj.weight (32, 32)              out_feature × in_feature
+    Trainable parameter blocks.0.attn.c_proj.weight: 1024 scalars; gradient will match this shape.
+  param.blocks.0.ln2.weight        (32,)                 feature
+    Trainable parameter blocks.0.ln2.weight: 32 scalars; gradient will match this shape.
+  param.blocks.0.ln2.bias          (32,)                 feature
+    Trainable parameter blocks.0.ln2.bias: 32 scalars; gradient will match this shape.
+  param.blocks.0.mlp.fc.weight     (128, 32)             out_feature × in_feature
+    Trainable parameter blocks.0.mlp.fc.weight: 4096 scalars; gradient will match this shape.
+  param.blocks.0.mlp.fc.bias       (128,)                feature
+    Trainable parameter blocks.0.mlp.fc.bias: 128 scalars; gradient will match this shape.
+  param.blocks.0.mlp.proj.weight   (32, 128)             out_feature × in_feature
+    Trainable parameter blocks.0.mlp.proj.weight: 4096 scalars; gradient will match this shape.
+  param.blocks.0.mlp.proj.bias     (32,)                 feature
+    Trainable parameter blocks.0.mlp.proj.bias: 32 scalars; gradient will match this shape.
+  param.blocks.1.ln1.weight        (32,)                 feature
+    Trainable parameter blocks.1.ln1.weight: 32 scalars; gradient will match this shape.
+  param.blocks.1.ln1.bias          (32,)                 feature
+    Trainable parameter blocks.1.ln1.bias: 32 scalars; gradient will match this shape.
+  param.blocks.1.attn.c_attn.weight (96, 32)              3*feature × feature
+    Trainable parameter blocks.1.attn.c_attn.weight: 3072 scalars; gradient will match this shape.
+  param.blocks.1.attn.c_proj.weight (32, 32)              out_feature × in_feature
+    Trainable parameter blocks.1.attn.c_proj.weight: 1024 scalars; gradient will match this shape.
+  param.blocks.1.ln2.weight        (32,)                 feature
+    Trainable parameter blocks.1.ln2.weight: 32 scalars; gradient will match this shape.
+  param.blocks.1.ln2.bias          (32,)                 feature
+    Trainable parameter blocks.1.ln2.bias: 32 scalars; gradient will match this shape.
+  param.blocks.1.mlp.fc.weight     (128, 32)             out_feature × in_feature
+    Trainable parameter blocks.1.mlp.fc.weight: 4096 scalars; gradient will match this shape.
+  param.blocks.1.mlp.fc.bias       (128,)                feature
+    Trainable parameter blocks.1.mlp.fc.bias: 128 scalars; gradient will match this shape.
+  param.blocks.1.mlp.proj.weight   (32, 128)             out_feature × in_feature
+    Trainable parameter blocks.1.mlp.proj.weight: 4096 scalars; gradient will match this shape.
+  param.blocks.1.mlp.proj.bias     (32,)                 feature
+    Trainable parameter blocks.1.mlp.proj.bias: 32 scalars; gradient will match this shape.
+  param.ln_f.weight                (32,)                 feature
+    Trainable parameter ln_f.weight: 32 scalars; gradient will match this shape.
+  param.ln_f.bias                  (32,)                 feature
+    Trainable parameter ln_f.bias: 32 scalars; gradient will match this shape.
+  param.lm_head.weight             (64, 32)              vocabulary × feature
+    Trainable parameter lm_head.weight: 2048 scalars; gradient will match this shape.
+  step loss=4.319090  grad_norm=1.635600  finite=True
+
+2. One gradient, three ways (then a real-loop nudge)
+------------------------------------------------------------------------
+  chain rule   ∂L/∂w1 = 64.0
+  autograd     ∂L/∂w1 = 64.0
+  finite diff  ∂L/∂w1 = 64.00000000805761  (ε=1e-06, rel err 1.259e-10)
+  they agree to several decimals: True
+  real loop nudge of fc1.weight[0, 0]: autograd=-0.0055320109  ΔL/(2ε)=-0.0055320109  rel err=1.547e-08  agree=True
+
+3. Gradient accumulation broken on purpose
+------------------------------------------------------------------------
+  tokens [4, 4, 2], means [2.0, 2.0, 5.0]
+  correct token-weighted loss = 2.6
+  incorrect mean-of-means     = 3.0
+  relative discrepancy        = 15.3846%
+  grads: correct 2.6 vs incorrect 3.0
+  equal-token control discrepancy = 0.0
+
+4. Grad norm logged every step; one step where it moved first
+------------------------------------------------------------------------
+  first qualifying step from the CSV: 25
+  at that step: loss=0.446336  pre-clip norm=33.4960
+  next step loss jump: step 26  loss=0.5289014577865601  Δ=0.0825657844543457
+  norm changed before the loss in this run: True
+  This ordering is a property of this controlled injection, not a universal training law. Clipping, adaptive optimisers, and data noise can hide or reverse it.
+
+5. MFU — assignment illustration, then this machine
+------------------------------------------------------------------------
+  ILLUSTRATION (not measured here): 9e9 params, 12k tok/s, peak 7912 TFLOP/s
+    estimated 648.0 TFLOP/s, MFU 8.19%
+  LOCAL small: B=4 T=16  31513 tok/s  N=30336  MFU vs NEON peak 3.03%  (gap to 40%: 37.0 pt)
+  LOCAL large: B=16 T=32  118323 tok/s  N=30336  MFU vs NEON peak 11.39%  (gap to 40%: 28.6 pt)
+  What costs the distance to 40% on this CPU toy loop:
+    - The 6ND formula itself is an LLM-training approximation; TinyGPT's embeddings and tiny width make the true FLOP mix different.
+    - Workloads are tiny: kernel-launch and Python/autograd overhead dominate arithmetic.
+    - CPU PyTorch eager mode has no fused transformer kernel; each Linear/softmax is a separate launch.
+    - No GPU tensor cores are used; the assignment's 40% class of utilisation is a large-accelerator, large-batch regime.
+    - Memory traffic for small GEMMs is not hidden; the working set is cache-resident but launch-bound.
+    - No distributed communication or activation checkpointing is present here — those would *lower* MFU further on a multi-GPU run, they are not the cause of this particular gap.
+  GPU MFU reported: False (CUDA unavailable; MPS not used. GPU MFU is not invented.)
+
+6. Decimal 0.1 in FP32, BF16, and OCP FP8 E4M3FN
+------------------------------------------------------------------------
+  0.1_10 = 0.0001100110011..._2 (repeating 0011 after three leading zeros) = 1.1001100110011..._2 × 2^{-4}
+  fp32         bits 0 01111011 10011001100110011001101  hex 0x3dcccccd  value 0.10000000149011612  abs err 1.490116e-09
+  bf16         bits 0 01111011 1001101  hex 0x3dcd  value 0.10009765625  abs err 9.765625e-05
+  fp8_e4m3fn   bits 0 0011 101  hex 0x1d  value 0.1015625  abs err 1.562500e-03
+  train in: fp32
+  why: Apple MPS is visible to this PyTorch build, but the assignment suite is pinned to CPU in configs/default.yaml for a deterministic, GPU-free grade path. Training precision for the measured runs is therefore FP32. MPS FP16/BF16 was not benchmarked and is not recommended on the basis of the 0.1 encoding error alone. CUDA BF16 mixed precision is the usual large-model default, and it is not available here.
+
+7. The loop can learn (overfit is not 'loss went down')
+------------------------------------------------------------------------
+  initial 0.584782 → final 7.994e-15  residual 6.217e-15  learned=True
+  forgotten zero_grad ratio = 2.0  (stale grads, not more learning)
+
+Every serious training bug is silent. The loss curve is not the check.
+Shapes, a nudged weight, a broken reduction, a logged norm, units of MFU, and bits of 0.1 are.

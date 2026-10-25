@@ -1,0 +1,8 @@
+# Keep this list conservative so a Colab runtime can install only what is
+# missing. Do not pin torch: Colab already ships a CUDA-aware build, and
+# upgrading it is a common way to break the notebook.
+torch
+numpy
+pandas
+matplotlib
+pytest

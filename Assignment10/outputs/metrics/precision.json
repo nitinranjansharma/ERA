@@ -1,0 +1,170 @@
+{
+  "exact_rational": "1/10",
+  "normalized_binary_scientific": "0.1_10 = 0.0001100110011..._2 (repeating 0011 after three leading zeros) = 1.1001100110011..._2 \u00d7 2^{-4}",
+  "unbiased_exponent_before_rounding": -4,
+  "leading_fraction_bits": "10011001100110011001100110011001",
+  "sticky_beyond_32": true,
+  "encodings": {
+    "fp32": {
+      "spec_name": "fp32",
+      "decimal": "1/10",
+      "sign_bit": 0,
+      "unbiased_exponent": -4,
+      "encoded_exponent": 123,
+      "fraction_bits": "10011001100110011001101",
+      "grouped_binary": "0 01111011 10011001100110011001101",
+      "hex": "0x3dcccccd",
+      "integer": 1036831949,
+      "represented_value": 0.10000000149011612,
+      "represented_fraction": "1/10",
+      "abs_error_vs_exact": 1.4901161138336505e-09,
+      "rel_error_vs_exact": 1.4901161138336505e-08,
+      "rounded": true,
+      "discarded_bits": "110011001100110011001100",
+      "round_mode": "round-to-nearest-even",
+      "notes": "normal"
+    },
+    "bf16": {
+      "spec_name": "bf16",
+      "decimal": "1/10",
+      "sign_bit": 0,
+      "unbiased_exponent": -4,
+      "encoded_exponent": 123,
+      "fraction_bits": "1001101",
+      "grouped_binary": "0 01111011 1001101",
+      "hex": "0x3dcd",
+      "integer": 15821,
+      "represented_value": 0.10009765625,
+      "represented_fraction": "205/2048",
+      "abs_error_vs_exact": 9.765624999999445e-05,
+      "rel_error_vs_exact": 0.0009765624999999445,
+      "rounded": true,
+      "discarded_bits": "110011001100110011001100",
+      "round_mode": "round-to-nearest-even",
+      "notes": "normal"
+    },
+    "fp8_e4m3fn": {
+      "spec_name": "fp8_e4m3fn",
+      "decimal": "1/10",
+      "sign_bit": 0,
+      "unbiased_exponent": -4,
+      "encoded_exponent": 3,
+      "fraction_bits": "101",
+      "grouped_binary": "0 0011 101",
+      "hex": "0x1d",
+      "integer": 29,
+      "represented_value": 0.1015625,
+      "represented_fraction": "13/128",
+      "abs_error_vs_exact": 0.0015624999999999944,
+      "rel_error_vs_exact": 0.015624999999999944,
+      "rounded": true,
+      "discarded_bits": "110011001100110011001100",
+      "round_mode": "round-to-nearest-even",
+      "notes": "normal"
+    }
+  },
+  "independent_references": {
+    "fp32_struct": 1036831949,
+    "fp32_numpy": 1036831949,
+    "bf16_torch": 15821,
+    "fp8_e4m3fn_torch": 29
+  },
+  "matches": {
+    "fp32_matches_struct": true,
+    "fp32_matches_numpy": true,
+    "bf16_matches_torch": true,
+    "fp8_matches_torch": true
+  },
+  "ocp_e4m3fn_decoder_vectors": [
+    {
+      "bits": 0,
+      "expected": 0.0,
+      "name": "+zero",
+      "decoded": 0.0,
+      "ok": true
+    },
+    {
+      "bits": 56,
+      "expected": 1.0,
+      "name": "+1.0  (0 0111 000)",
+      "decoded": 1.0,
+      "ok": true
+    },
+    {
+      "bits": 120,
+      "expected": 256.0,
+      "name": "+256 (0 1111 000) \u2014 finite, unlike IEEE",
+      "decoded": 256.0,
+      "ok": true
+    },
+    {
+      "bits": 126,
+      "expected": 448.0,
+      "name": "+max finite  (0 1111 110)",
+      "decoded": 448.0,
+      "ok": true
+    },
+    {
+      "bits": 1,
+      "expected": 0.001953125,
+      "name": "+min subnormal",
+      "decoded": 0.001953125,
+      "ok": true
+    },
+    {
+      "bits": 8,
+      "expected": 0.015625,
+      "name": "+min normal",
+      "decoded": 0.015625,
+      "ok": true
+    },
+    {
+      "bits": 127,
+      "expected": NaN,
+      "name": "+NaN (0 1111 111)",
+      "decoded": NaN,
+      "ok": true
+    }
+  ],
+  "decoder_vectors_ok": true,
+  "fields": {
+    "fp32": {
+      "sign": 1,
+      "exponent": 8,
+      "fraction": 23,
+      "bias": 127,
+      "specials": "IEEE inf/NaN on exp=255"
+    },
+    "bf16": {
+      "sign": 1,
+      "exponent": 8,
+      "fraction": 7,
+      "bias": 127,
+      "specials": "IEEE inf/NaN on exp=255; same range as FP32, less precision"
+    },
+    "fp8_e4m3fn": {
+      "sign": 1,
+      "exponent": 4,
+      "fraction": 3,
+      "bias": 7,
+      "specials": "OCP: no inf; NaN only S.1111.111; max finite \u00b1448"
+    }
+  },
+  "why_one_value_is_not_enough": "The representation error of a single constant (0.1) ranks the formats by significand width, which is true but incomplete. Training precision also depends on exponent range (overflow/underflow of activations and grads), accumulation width (master weights typically remain FP32), rounding mode, hardware throughput (tensor-core generation), and whether a scaling scheme (loss scaling, per-tensor FP8 scaling, MX block scaling) is available. BF16, FP8, and block-scaled FP4 are distinct options with different requirements; they are not drop-in replacements.",
+  "recommendation": {
+    "recommended": "fp32",
+    "environment": {
+      "cuda": false,
+      "mps": true,
+      "cpu": true
+    },
+    "rationale": "Apple MPS is visible to this PyTorch build, but the assignment suite is pinned to CPU in configs/default.yaml for a deterministic, GPU-free grade path. Training precision for the measured runs is therefore FP32. MPS FP16/BF16 was not benchmarked and is not recommended on the basis of the 0.1 encoding error alone. CUDA BF16 mixed precision is the usual large-model default, and it is not available here.",
+    "options_considered": {
+      "fp32": "Full exponent range and 23-bit fraction; baseline on CPU; slowest on GPUs that have tensor cores.",
+      "bf16": "Same exponent range as FP32 (bias 127), 7-bit fraction; good default mixed-precision compute dtype on Ampere+ and many TPUs; still uses FP32 accumulation.",
+      "fp8_e4m3fn": "4-bit exponent, max 448, no infinities; needs scaling (Transformer Engine delayed scaling or MXFP8). Not usable as an unscaled global training dtype.",
+      "block_scaled_fp4": "Element type plus a shared block scale (e.g. MXFP4). Distinct from BF16/FP8; requires supporting hardware and a scale-aware stack. Not recommended here."
+    }
+  },
+  "passed": true
+}

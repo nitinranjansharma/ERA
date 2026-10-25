@@ -1,0 +1,68 @@
+seed: 42
+device: cpu
+deterministic: true
+
+model:
+  in_features: 8
+  hidden: 16
+  out_features: 1
+
+sequence_model:
+  vocab_size: 64
+  n_layer: 2
+  n_head: 4
+  n_embd: 32
+  block_size: 32
+  dropout: 0.0
+
+training:
+  steps: 200
+  lr: 0.08
+  batch_size: 16
+  log_every: 1
+  overfit_steps: 400
+  overfit_loss_threshold: 1.0e-4
+  clip_grad_norm: 1.0
+
+accumulation:
+  microbatch_token_counts: [4, 4, 2]
+  microbatch_average_losses: [2.0, 2.0, 5.0]
+  equal_token_count: 4
+
+gradient_verification:
+  x: 2.0
+  w1: 3.0
+  w2: 4.0
+  target: 20.0
+  epsilons: [1.0e-2, 1.0e-4, 1.0e-6, 1.0e-8, 1.0e-10, 1.0e-12]
+  abs_tol_autograd: 1.0e-12
+  rel_tol_numerical: 1.0e-6
+  preferred_epsilon: 1.0e-6
+
+monitoring:
+  steps: 40
+  spike_step: 25
+  spike_factor: 50.0
+  clip_threshold: 5.0
+  detection_norm_ratio: 5.0
+
+mfu:
+  warmup_steps: 5
+  timed_steps: 20
+  assignment_example:
+    parameter_count: 9000000000
+    tokens_per_second: 12000
+    estimated_tflops_per_second: 648
+    hardware_peak_tflops_per_second: 7912
+    approximate_mfu_percent: 8.2
+  configs:
+    - name: small
+      batch_size: 4
+      seq_len: 16
+    - name: large
+      batch_size: 16
+      seq_len: 32
+
+precision:
+  value: 0.1
+  fp8_convention: ocp_e4m3fn

@@ -1,0 +1,2077 @@
+{
+  "loss": 4.319089889526367,
+  "grad_norm": 1.6356004476547241,
+  "lr": 0.001,
+  "elapsed_s": 0.004706333005742636,
+  "throughput_samples_per_s": 424.9593043160383,
+  "tokens_per_s": 3399.6744345283064,
+  "records": [
+    {
+      "name": "input_ids",
+      "shape": [
+        2,
+        8
+      ],
+      "dtype": "int64",
+      "dims": [
+        "batch",
+        "sequence"
+      ],
+      "explanation": "B independent sequences, each of T token ids in [0, vocab).",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "tok_emb",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Each token id is replaced by a d_model-dimensional embedding vector.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "pos_emb",
+      "shape": [
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Learned absolute position vectors broadcast over the batch.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "residual_stream",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Token + position embeddings entering the transformer stack.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.x",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Residual stream entering attention.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.qkv",
+      "shape": [
+        2,
+        8,
+        96
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "3*feature"
+      ],
+      "explanation": "Packed Q,K,V projections.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.q",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Queries split across H heads; head_dim = n_embd / n_head.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.k",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Keys with the same layout as queries.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.v",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Values with the same layout as queries.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.scores",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "sequence"
+      ],
+      "explanation": "Causal attention weights over key positions for each query position.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.attn.out",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Attention output projected back to d_model.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.mlp.hidden",
+      "shape": [
+        2,
+        8,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "4*feature"
+      ],
+      "explanation": "Position-wise FFN hidden layer, typically 4\u00d7 d_model.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer0.mlp.out",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "FFN output in residual-stream width.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.x",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Residual stream entering attention.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.qkv",
+      "shape": [
+        2,
+        8,
+        96
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "3*feature"
+      ],
+      "explanation": "Packed Q,K,V projections.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.q",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Queries split across H heads; head_dim = n_embd / n_head.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.k",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Keys with the same layout as queries.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.v",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "head_dim"
+      ],
+      "explanation": "Values with the same layout as queries.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.scores",
+      "shape": [
+        2,
+        4,
+        8,
+        8
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "head",
+        "sequence",
+        "sequence"
+      ],
+      "explanation": "Causal attention weights over key positions for each query position.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.attn.out",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Attention output projected back to d_model.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.mlp.hidden",
+      "shape": [
+        2,
+        8,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "4*feature"
+      ],
+      "explanation": "Position-wise FFN hidden layer, typically 4\u00d7 d_model.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "layer1.mlp.out",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "FFN output in residual-stream width.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "final_hidden",
+      "shape": [
+        2,
+        8,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "feature"
+      ],
+      "explanation": "LayerNorm'd residual stream before the language-model head.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "logits",
+      "shape": [
+        2,
+        8,
+        64
+      ],
+      "dtype": "float32",
+      "dims": [
+        "batch",
+        "sequence",
+        "vocabulary"
+      ],
+      "explanation": "Unnormalised scores over the vocabulary at every token position.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "targets",
+      "shape": [
+        2,
+        8
+      ],
+      "dtype": "int64",
+      "dims": [
+        "batch",
+        "sequence"
+      ],
+      "explanation": "Next-token class indices in [0, vocab). Same layout as input_ids.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "loss",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Scalar mean loss; a 0-d tensor, not a 1-vector.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.tok_emb.weight",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. tok_emb.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.pos_emb.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. pos_emb.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.ln1.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.ln1.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.ln1.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.ln1.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.attn.c_attn.weight",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.attn.c_attn.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.attn.c_proj.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.attn.c_proj.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.ln2.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.ln2.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.ln2.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.ln2.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.mlp.fc.weight",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.mlp.fc.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.mlp.fc.bias",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.mlp.fc.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.mlp.proj.weight",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.mlp.proj.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.0.mlp.proj.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.0.mlp.proj.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.ln1.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.ln1.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.ln1.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.ln1.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.attn.c_attn.weight",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.attn.c_attn.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.attn.c_proj.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.attn.c_proj.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.ln2.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.ln2.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.ln2.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.ln2.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.mlp.fc.weight",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.mlp.fc.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.mlp.fc.bias",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.mlp.fc.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.mlp.proj.weight",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.mlp.proj.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.blocks.1.mlp.proj.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. blocks.1.mlp.proj.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.ln_f.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. ln_f.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.ln_f.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. ln_f.bias; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad.lm_head.weight",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Gradient of the scalar loss w.r.t. lm_head.weight; same shape as the parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "grad_norm",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Scalar global L2 norm of all parameter gradients.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,0].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,0].exp_avg",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,0].exp_avg_sq",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,1].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,1].exp_avg",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,1].exp_avg_sq",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,2].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,2].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,2].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,3].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,3].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,3].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,4].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,4].exp_avg",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,4].exp_avg_sq",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,5].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,5].exp_avg",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,5].exp_avg_sq",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,6].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,6].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,6].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,7].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,7].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,7].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,8].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,8].exp_avg",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,8].exp_avg_sq",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,9].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,9].exp_avg",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,9].exp_avg_sq",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,10].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,10].exp_avg",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,10].exp_avg_sq",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,11].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,11].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,11].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,12].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,12].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,12].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,13].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,13].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,13].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,14].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,14].exp_avg",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,14].exp_avg_sq",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,15].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,15].exp_avg",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,15].exp_avg_sq",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,16].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,16].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,16].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,17].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,17].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,17].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,18].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,18].exp_avg",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,18].exp_avg_sq",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,19].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,19].exp_avg",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,19].exp_avg_sq",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,20].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,20].exp_avg",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,20].exp_avg_sq",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,21].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,21].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,21].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,22].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,22].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,22].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,23].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,23].exp_avg",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,23].exp_avg_sq",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,24].step",
+      "shape": [],
+      "dtype": "float32",
+      "dims": [],
+      "explanation": "Optimizer state 'step' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,24].exp_avg",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "adam.state[0,24].exp_avg_sq",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Optimizer state 'exp_avg_sq' has the same shape as the corresponding parameter.",
+      "requires_grad": false,
+      "device": "cpu"
+    },
+    {
+      "name": "param.tok_emb.weight",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "vocabulary",
+        "feature"
+      ],
+      "explanation": "Trainable parameter tok_emb.weight: 2048 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.pos_emb.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "sequence",
+        "feature"
+      ],
+      "explanation": "Trainable parameter pos_emb.weight: 1024 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.ln1.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.ln1.weight: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.ln1.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.ln1.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.attn.c_attn.weight",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "3*feature",
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.attn.c_attn.weight: 3072 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.attn.c_proj.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.attn.c_proj.weight: 1024 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.ln2.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.ln2.weight: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.ln2.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.ln2.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.mlp.fc.weight",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.mlp.fc.weight: 4096 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.mlp.fc.bias",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.mlp.fc.bias: 128 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.mlp.proj.weight",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.mlp.proj.weight: 4096 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.0.mlp.proj.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.0.mlp.proj.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.ln1.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.ln1.weight: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.ln1.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.ln1.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.attn.c_attn.weight",
+      "shape": [
+        96,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "3*feature",
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.attn.c_attn.weight: 3072 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.attn.c_proj.weight",
+      "shape": [
+        32,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.attn.c_proj.weight: 1024 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.ln2.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.ln2.weight: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.ln2.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.ln2.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.mlp.fc.weight",
+      "shape": [
+        128,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.mlp.fc.weight: 4096 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.mlp.fc.bias",
+      "shape": [
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.mlp.fc.bias: 128 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.mlp.proj.weight",
+      "shape": [
+        32,
+        128
+      ],
+      "dtype": "float32",
+      "dims": [
+        "out_feature",
+        "in_feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.mlp.proj.weight: 4096 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.blocks.1.mlp.proj.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter blocks.1.mlp.proj.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.ln_f.weight",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter ln_f.weight: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.ln_f.bias",
+      "shape": [
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "feature"
+      ],
+      "explanation": "Trainable parameter ln_f.bias: 32 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    },
+    {
+      "name": "param.lm_head.weight",
+      "shape": [
+        64,
+        32
+      ],
+      "dtype": "float32",
+      "dims": [
+        "vocabulary",
+        "feature"
+      ],
+      "explanation": "Trainable parameter lm_head.weight: 2048 scalars; gradient will match this shape.",
+      "requires_grad": true,
+      "device": "cpu"
+    }
+  ],
+  "passed": true
+}

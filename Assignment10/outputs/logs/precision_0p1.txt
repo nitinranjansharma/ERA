@@ -1,0 +1,42 @@
+Decimal 0.1 in FP32, BF16, and OCP FP8 E4M3FN
+========================================================================
+0.1_10 = 0.0001100110011..._2 (repeating 0011 after three leading zeros) = 1.1001100110011..._2 × 2^{-4}
+Unbiased exponent (before rounding): -4
+Leading fraction bits: 10011001100110011001100110011001...
+
+--- fp32 ---
+  grouped bits : 0 01111011 10011001100110011001101
+  hex          : 0x3dcccccd
+  encoded exp  : 123  (unbiased -4)
+  fraction     : 10011001100110011001101
+  represented  : 0.10000000149011612
+  abs error    : 1.4901161138336505e-09
+  rel error    : 1.4901161138336505e-08
+  discarded    : 110011001100110011001100…
+  notes        : normal
+
+--- bf16 ---
+  grouped bits : 0 01111011 1001101
+  hex          : 0x3dcd
+  encoded exp  : 123  (unbiased -4)
+  fraction     : 1001101
+  represented  : 0.10009765625
+  abs error    : 9.765624999999445e-05
+  rel error    : 0.0009765624999999445
+  discarded    : 110011001100110011001100…
+  notes        : normal
+
+--- fp8_e4m3fn ---
+  grouped bits : 0 0011 101
+  hex          : 0x1d
+  encoded exp  : 3  (unbiased -4)
+  fraction     : 101
+  represented  : 0.1015625
+  abs error    : 0.0015624999999999944
+  rel error    : 0.015624999999999944
+  discarded    : 110011001100110011001100…
+  notes        : normal
+
+Independent matches: {'fp32_matches_struct': True, 'fp32_matches_numpy': True, 'bf16_matches_torch': True, 'fp8_matches_torch': True}
+Recommendation: fp32
+Apple MPS is visible to this PyTorch build, but the assignment suite is pinned to CPU in configs/default.yaml for a deterministic, GPU-free grade path. Training precision for the measured runs is therefore FP32. MPS FP16/BF16 was not benchmarked and is not recommended on the basis of the 0.1 encoding error alone. CUDA BF16 mixed precision is the usual large-model default, and it is not available here.

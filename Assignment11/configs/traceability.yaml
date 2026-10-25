@@ -1,0 +1,69 @@
+requirements:
+  R1_manual_adam:
+    description: Scalar Adam by hand with all intermediates, compared to float64 torch.optim.Adam.
+    implementation: src/adam_manual.py
+    tests: tests/test_required_cases.py::test_01, test_02, test_03
+    experiment: Task A
+    artifacts:
+      - artifacts/logs/adam_steps.csv
+      - artifacts/results.json
+    report_section: "2. Task A"
+
+  R2_bias_correction:
+    description: Compare corrected vs uncorrected Adam over 20 steps and search for persistent tolerance crossing.
+    implementation: src/adam_manual.py, src/metrics.py, src/experiments.py
+    tests: tests/test_required_cases.py::test_05
+    experiment: Task B
+    artifacts:
+      - artifacts/plots/bias_correction.png
+      - artifacts/logs/bias_correction.csv
+    report_section: "3. Task B"
+
+  R3_warmup_ratios:
+    description: Log actual update-to-weight ratios under warmup vs no-warmup.
+    implementation: src/metrics.py, src/experiments.py
+    tests: tests/test_required_cases.py::test_07, test_08
+    experiment: Task C
+    artifacts:
+      - artifacts/plots/update_to_weight_warmup.png
+      - artifacts/logs/update_to_weight.csv
+    report_section: "4. Task C"
+
+  R4_schedules:
+    description: Matched cosine vs WSD training, evaluated at step 200 of a 300-step run.
+    implementation: src/schedules.py, src/experiments.py
+    tests: tests/test_required_cases.py::test_06
+    experiment: Task D
+    artifacts:
+      - artifacts/plots/cosine_vs_wsd.png
+      - artifacts/logs/schedules.csv
+    report_section: "5. Task D"
+
+  R5_width_lr:
+    description: Standard-parameterization LR sweep at widths 256/512/1024 and extrapolation to 4096.
+    implementation: src/model.py, src/experiments.py
+    tests: tests/test_experiments.py
+    experiment: Task E
+    artifacts:
+      - artifacts/plots/lr_sweep_widths.png
+      - artifacts/logs/width_lr_sweep.csv
+    report_section: "6. Task E"
+
+  R6_reproducibility:
+    description: Fixed seed, recorded device/dtype, rerunnable CLI.
+    implementation: src/utils.py, src/run_experiments.py
+    tests: tests/test_required_cases.py::test_09
+    experiment: CLI
+    artifacts:
+      - artifacts/results.json
+    report_section: "1. Setup"
+
+  R7_artifact_integrity:
+    description: Finite values, required JSON keys, generated plots.
+    implementation: src/run_experiments.py
+    tests: tests/test_required_cases.py::test_10
+    experiment: CLI
+    artifacts:
+      - artifacts/results.json
+      - artifacts/plots/
+    report_section: "8. How to reproduce"
