@@ -30,7 +30,7 @@ Exit codes are non-zero if a mandatory experiment or test fails.
 | MFU (6ND formula) | `src/mfu.py` | `outputs/metrics/mfu.json` |
 | 0.1 in FP32 / BF16 / OCP E4M3FN | `src/precision.py` | `outputs/logs/precision_0p1.txt` |
 
-The written report is `report/final_report.md`. It is filled from the measured JSON, not from invented numbers.
+The written report is `report/final_report.md`.
 
 ## Layout
 
@@ -43,8 +43,8 @@ outputs/          figures, logs, metrics, timestamped runs
 report/           final_report.md
 ```
 
-The ten assignment test cases live in `tests/test_required_cases.py` (`test_01` … `test_10`). GPU tests are marked `@pytest.mark.gpu` and are skipped when CUDA/MPS is absent. Unit tests never require a GPU.
+The ten test cases live in `tests/test_required_cases.py` (`test_01` … `test_10`). GPU tests are marked `@pytest.mark.gpu` and are skipped when CUDA/MPS is absent.
 
 ## Hardware note
 
-Developed and measured on an Apple M2 (4P+4E, 8 GB), PyTorch CPU, seed 42. CUDA is unavailable. MPS may be visible to some PyTorch builds; the default config still pins `device: cpu` so the grade path is deterministic. GPU MFU is not invented.
+Developed and measured on an Apple M2 (4P+4E, 8 GB), PyTorch CPU, seed 42. CUDA is unavailable.
