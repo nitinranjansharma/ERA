@@ -1,0 +1,118 @@
+{
+  "experiment": "B",
+  "variant": "euler",
+  "status": "smoke",
+  "trainable_parameters": 84608,
+  "micro_batch_size": 4,
+  "accumulation_steps": 1,
+  "effective_batch_size": 4,
+  "sequence_length": 32,
+  "training_target_tokens": 512,
+  "token_budget": 2048,
+  "final_train_loss": 5.515518665313721,
+  "final_val_loss": 5.497879437037876,
+  "tokens_per_second": 8365.612288015534,
+  "wall_clock_seconds": 0.06692785999985063,
+  "time_per_optimizer_step": 0.015300732999946831,
+  "peak_allocated_bytes": null,
+  "peak_reserved_bytes": null,
+  "device": "cpu",
+  "precision": "fp32",
+  "gpu_name": null,
+  "gpu_total_memory_bytes": null,
+  "optimizer": "adamw",
+  "learning_rate": 0.0003,
+  "reconstruction_error": 1.50834977183193e-07,
+  "reconstruction_ok": true,
+  "reversible_method": "euler",
+  "notes": "",
+  "extra": {
+    "param_report": {
+      "trainable_parameters": 84608,
+      "expected_parameters": 84608,
+      "target_parameters": 20000000,
+      "variant": "euler",
+      "vocab_size": 256,
+      "n_embd": 64,
+      "n_layer": 2,
+      "n_head": 4,
+      "n_inner": 128,
+      "block_size": 32,
+      "tie_embeddings": true,
+      "bias": false,
+      "within_tolerance": false
+    },
+    "runtime": {
+      "python": "3.13.16",
+      "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+      "torch": "2.11.0+cpu",
+      "device": "cpu",
+      "cuda_available": false,
+      "gpu_name": null,
+      "gpu_count": 0,
+      "gpu_total_memory_bytes": null,
+      "gpu_capability": null,
+      "recommended_precision": "fp32",
+      "colab": true,
+      "cpu_count": 2
+    },
+    "data_source": "synthetic",
+    "tokenizer": {
+      "vocab_size": 256,
+      "special_tokens": [
+        "<pad>",
+        "<unk>",
+        "<bos>",
+        "<eos>"
+      ],
+      "algorithm": "regex_wordpiece_frequency",
+      "source": "synthetic"
+    },
+    "token_accounting": {
+      "input_tokens": 512,
+      "target_tokens": 512,
+      "padding_tokens": 0,
+      "discarded_tokens": 12,
+      "validation_tokens": 448,
+      "training_target_tokens": 512
+    },
+    "optimizer_steps": 4,
+    "history": [
+      {
+        "step": 1.0,
+        "tokens": 128.0,
+        "train_loss": 5.561923503875732,
+        "smooth_loss": 5.561923503875732,
+        "lr": 0.0,
+        "step_seconds": 0.018742704000032973
+      },
+      {
+        "step": 2.0,
+        "tokens": 256.0,
+        "train_loss": 5.579596042633057,
+        "smooth_loss": 5.5628071308135985,
+        "lr": 0.0002999999999999999,
+        "step_seconds": 0.015622479999819916
+      },
+      {
+        "step": 3.0,
+        "tokens": 384.0,
+        "train_loss": 5.561140537261963,
+        "smooth_loss": 5.562723801136016,
+        "lr": 0.0002970499260990637,
+        "step_seconds": 0.01332276399989496
+      }
+    ],
+    "two_h": 1.0,
+    "euler_h": 0.7071067811865475,
+    "perplexity": 244.17359739063465,
+    "tie_embeddings": true,
+    "measured_training_seconds": 0.061202931999787324,
+    "measured_training_tokens": 512,
+    "weight_decay": 0.0,
+    "amp": false,
+    "amp_dtype": "fp32",
+    "smooth_loss": 5.560363544344901,
+    "round_trip_error": 1.50834977183193e-07
+  }
+}
