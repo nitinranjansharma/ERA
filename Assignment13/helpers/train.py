@@ -434,6 +434,10 @@ def train(config: ExperimentConfig, data: PreparedData | None = None) -> dict[st
     report = metrics.to_dict()
     (run_dir / "metrics.json").write_text(json.dumps(report, indent=2, default=str) + "\n")
     _append_history_csv(run_dir / "history.csv", state.history)
+    from helpers.reporting import refresh_output_plots, save_run_loss_plot
+
+    save_run_loss_plot(report, run_dir / "loss.png")
+    refresh_output_plots(out_dir)
     set_amp_enabled(False)
     return report
 

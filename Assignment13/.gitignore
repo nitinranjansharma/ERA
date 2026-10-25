@@ -18,6 +18,10 @@ htmlcov/
 *.log
 outputs/*
 !outputs/.gitkeep
+!outputs/plots/
+!outputs/plots/.gitkeep
+!outputs/images/
+!outputs/images/.gitkeep
 .mplconfig/
 data_cache/
 *.pt

@@ -30,6 +30,10 @@ def test_smoke_baseline_and_midpoint(tmp_path):
         if variant == "midpoint":
             assert report["reconstruction_ok"] is True
             assert report["reversible_method"] == "midpoint"
+        run_dir = tmp_path / variant / f"exp_{experiment}_{variant}_smoke"
+        assert (run_dir / "loss.png").is_file()
+        assert (tmp_path / variant / "plots" / "results.png").is_file()
+        assert (tmp_path / variant / "images" / "results.png").is_file()
 
 
 def test_optimizer_updates_parameters(tmp_path):

@@ -10,6 +10,7 @@ from helpers.benchmark import (
     is_oom,
     measure_training_step,
     read_peak_memory,
+    reset_peak_memory,
     search_max_micro_batch,
 )
 from helpers.config import tiny_config
@@ -42,6 +43,10 @@ def test_warmup_excluded_from_timing_and_cpu_memory_is_none():
     assert alloc is None and reserved is None
     assert result.peak_allocated_bytes is None
     assert result.device == "cpu"
+    # Colab has CUDA, but these tests still pass device="cpu". CUDA stats APIs
+    # must no-op instead of raising ValueError: Expected a cuda device.
+    reset_peak_memory("cpu")
+    reset_peak_memory(torch.device("cpu"))
 
 
 def test_throughput_rejects_zero_time():
@@ -110,3 +115,24 @@ def test_report_export_and_pending_template(tmp_path):
     assert (tmp_path / "results.json").exists()
     assert (tmp_path / "results.csv").exists()
     assert "loss_plot" in artifacts
+    assert (tmp_path / "plots" / "results.png").is_file()
+    assert (tmp_path / "images" / "results.png").is_file()
+    assert (tmp_path / "plots" / "loss_vs_tokens.png").is_file()
+    euler = {
+        **report,
+        "experiment": "B",
+        "variant": "euler",
+        "reversible_method": "euler",
+        "extra": {"history": [{"step": 1, "tokens": 16, "train_loss": 2.8, "smooth_loss": 2.8}]},
+    }
+    midpoint = {
+        **report,
+        "experiment": "B",
+        "variant": "midpoint",
+        "reversible_method": "midpoint",
+        "extra": {"history": [{"step": 1, "tokens": 16, "train_loss": 2.7, "smooth_loss": 2.7}]},
+    }
+    two = export_run_artifacts(tmp_path / "pair", [euler, midpoint])
+    assert (tmp_path / "pair" / "plots" / "euler_vs_midpoint.png").is_file()
+    assert (tmp_path / "pair" / "images" / "euler_vs_midpoint.png").is_file()
+    assert "euler_vs_midpoint" in two

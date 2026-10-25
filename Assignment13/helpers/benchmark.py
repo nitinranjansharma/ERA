@@ -71,18 +71,34 @@ def is_oom(exc: BaseException) -> bool:
     return "out of memory" in message or "cuda malloc" in message
 
 
-def reset_peak_memory(device: torch.device | str | None = None) -> None:
+def _cuda_device_or_none(device: torch.device | str | None = None) -> torch.device | None:
+    """Return a CUDA device only when stats APIs will accept it.
+
+    Colab has CUDA, but Unit 7 / CPU tests pass ``device='cpu'``. Passing that
+    object to ``torch.cuda.reset_peak_memory_stats`` raises
+    ``ValueError: Expected a cuda device, but got: cpu``.
+    """
     if not torch.cuda.is_available():
+        return None
+    if device is None:
+        return torch.device("cuda")
+    resolved = device if isinstance(device, torch.device) else torch.device(device)
+    if resolved.type != "cuda":
+        return None
+    return resolved
+
+
+def reset_peak_memory(device: torch.device | str | None = None) -> None:
+    resolved = _cuda_device_or_none(device)
+    if resolved is None:
         return
-    torch.cuda.reset_peak_memory_stats(device if device is not None else None)
+    torch.cuda.reset_peak_memory_stats(resolved)
     torch.cuda.empty_cache()
 
 
 def read_peak_memory(device: torch.device | str | None = None) -> tuple[int | None, int | None]:
-    if not torch.cuda.is_available():
-        return None, None
-    resolved = torch.device(device) if device is not None else torch.device("cuda")
-    if resolved.type != "cuda":
+    resolved = _cuda_device_or_none(device)
+    if resolved is None:
         return None, None
     return int(torch.cuda.max_memory_allocated(resolved)), int(
         torch.cuda.max_memory_reserved(resolved)
@@ -90,11 +106,10 @@ def read_peak_memory(device: torch.device | str | None = None) -> tuple[int | No
 
 
 def synchronize(device: torch.device | str | None = None) -> None:
-    if not torch.cuda.is_available():
+    resolved = _cuda_device_or_none(device)
+    if resolved is None:
         return
-    resolved = torch.device(device) if device is not None else torch.device("cuda")
-    if resolved.type == "cuda":
-        torch.cuda.synchronize(resolved)
+    torch.cuda.synchronize(resolved)
 
 
 def measure_training_step(

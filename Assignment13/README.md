@@ -280,8 +280,10 @@ Executed on the authoring machine (PyTorch 2.7.0, CPU, no GPU). Model is the uni
 
 Midpoint reconstruction error on the first batch: \(7.5\times 10^{-9}\). Throughput dropped vs baseline at the same micro-batch, which is the expected extra \(F_l\) recomputation. Peak GPU memory is unavailable on CPU.
 
-After a Colab GPU run, replace the pending 50M table from `outputs/results.csv` / `outputs/results.json`. Plots are written to `outputs/plots/`:
+After a Colab GPU run, replace the pending 50M table from `outputs/results.csv` / `outputs/results.json`. Each run also writes `exp_*/loss.png`. Comparison figures (same names as the proven notebook) are written to **both** `outputs/plots/` and `outputs/images/`:
 
+- `results.png` — loss vs tokens, peak memory, throughput
+- `euler_vs_midpoint.png` — zoomed Euler vs midpoint and the gap
 - `loss_vs_tokens.png`
 - `tokens_per_second.png`
 - `peak_memory.png`
